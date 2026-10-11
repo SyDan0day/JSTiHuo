@@ -1,0 +1,1 @@
+<template><header><strong>JSTiHuo · 礼品提货</strong><RouterLink to="/admin">管理端</RouterLink></header><main><p class="eyebrow">基础工程 · A1</p><h1>礼品提货服务</h1><p>工程已建立。商品目录、卡券鉴真及兑换功能将在后续工作包开放。</p><aside>当前版本仅提供工程入口，尚未开放业务操作。</aside></main><footer>JSTiHuo 独立系统</footer></template>

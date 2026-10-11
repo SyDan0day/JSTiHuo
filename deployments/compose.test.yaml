@@ -1,0 +1,4 @@
+# Local integration tests only; binds MySQL to loopback.
+services:
+  mysql:
+    ports: ["127.0.0.1:13306:3306"]

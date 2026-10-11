@@ -1,0 +1,76 @@
+CREATE TABLE `carriers` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `created_at` DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updated_at` DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `version` BIGINT UNSIGNED NOT NULL DEFAULT 1,
+  `code` VARCHAR(40) NOT NULL,
+  `name` VARCHAR(80) NOT NULL,
+  `alias` VARCHAR(80) NOT NULL,
+  `kdniao_code` VARCHAR(40) NULL DEFAULT NULL,
+  `kuaidi100_code` VARCHAR(40) NULL DEFAULT NULL,
+  `wdt_code` VARCHAR(40) NULL DEFAULT NULL,
+  `provider` VARCHAR(24) NOT NULL DEFAULT 'MANUAL',
+  `enabled` BOOLEAN NOT NULL DEFAULT 1,
+  `secret_ref` VARCHAR(120) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `k_carriers_0` (`code`),
+  CHECK (`provider` IN ('MANUAL','MOCK','KDNIAO','KUAIDI100'))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
+
+CREATE TABLE `after_sales` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `created_at` DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updated_at` DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `version` BIGINT UNSIGNED NOT NULL DEFAULT 1,
+  `order_id` BIGINT UNSIGNED NOT NULL,
+  `kind` VARCHAR(24) NOT NULL DEFAULT 'COMPLAINT',
+  `state` VARCHAR(24) NOT NULL DEFAULT 'OPEN',
+  `reason` VARCHAR(500) NOT NULL,
+  `items` JSON NOT NULL,
+  `resolution` VARCHAR(1000) NOT NULL,
+  `handled_by` BIGINT UNSIGNED NULL DEFAULT NULL,
+  `closed_at` DATETIME(6) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `k_after_sales_0` (`order_id`, `state`),
+  KEY `k_after_sales_1` (`handled_by`),
+  CHECK (`kind` IN ('COMPLAINT','REPLACEMENT')),
+  CHECK (`state` IN ('OPEN','APPROVED','REJECTED','CLOSED'))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
+
+CREATE TABLE `shipments` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `created_at` DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updated_at` DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `version` BIGINT UNSIGNED NOT NULL DEFAULT 1,
+  `order_id` BIGINT UNSIGNED NOT NULL,
+  `after_sale_id` BIGINT UNSIGNED NULL DEFAULT NULL,
+  `shipment_key` VARCHAR(100) NOT NULL,
+  `kind` VARCHAR(24) NOT NULL DEFAULT 'PRIMARY',
+  `carrier_id` BIGINT UNSIGNED NOT NULL,
+  `tracking_no` VARCHAR(80) NOT NULL,
+  `status` VARCHAR(24) NOT NULL DEFAULT 'SHIPPED',
+  `shipped_at` DATETIME(6) NOT NULL,
+  `delivered_at` DATETIME(6) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `k_shipments_0` (`shipment_key`),
+  UNIQUE KEY `k_shipments_1` (`carrier_id`, `tracking_no`),
+  KEY `k_shipments_2` (`order_id`),
+  KEY `k_shipments_3` (`after_sale_id`),
+  CHECK (`kind` IN ('PRIMARY','REPLACEMENT')),
+  CHECK (`status` IN ('SHIPPED','IN_TRANSIT','DELIVERED','EXCEPTION'))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
+
+CREATE TABLE `shipment_events` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `created_at` DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  `updated_at` DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `version` BIGINT UNSIGNED NOT NULL DEFAULT 1,
+  `shipment_id` BIGINT UNSIGNED NOT NULL,
+  `provider_event_id` VARCHAR(120) NOT NULL,
+  `event_type` VARCHAR(40) NOT NULL,
+  `description` VARCHAR(300) NOT NULL,
+  `occurred_at` DATETIME(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `k_shipment_events_0` (`shipment_id`, `provider_event_id`),
+  KEY `k_shipment_events_1` (`shipment_id`, `occurred_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;

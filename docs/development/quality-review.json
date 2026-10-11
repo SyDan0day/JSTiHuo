@@ -1,0 +1,15 @@
+{
+  "openapi": "OpenAPI 3.1.1 validated",
+  "operations": 106,
+  "schemas": 108,
+  "examples_validated": 2998,
+  "sql_statements_parsed": 89,
+  "tables": 37,
+  "local_links_checked": 56,
+  "preexisting_files_unchanged": 471,
+  "numbered_documents": 21,
+  "prototype_rows": 52,
+  "sql_runtime_executed": false,
+  "business_tests_executed": false,
+  "errors": []
+}

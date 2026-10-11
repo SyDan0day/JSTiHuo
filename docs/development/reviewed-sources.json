@@ -1,0 +1,2361 @@
+{
+  "date": "2026-10-11",
+  "note": "保守清单；inventoried_reference_only不表示逐张查看或逐请求复核；事实仍引用历史报告范围。",
+  "files": [
+    {
+      "path": "docs/research/01-page-inventory.md",
+      "sha256": "b61b41085cf25f2f01a9cbc878afbc9da70de1c3fd1c4d2edaffecc7d4fc0df2",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/02-page-details.md",
+      "sha256": "5205163f629404efb17984a16d4c712700d9a448aceb0784263fc8a0060f4b95",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/03-ui-components.md",
+      "sha256": "42f691d05135f26cf5f50be5933bb61c2a6c1a08bb77e396f1c7073974ce50a8",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/04-navigation.md",
+      "sha256": "529b1d47ccf12c686d7625a030353520a9a396d507970c54b61b5b287f31dc1b",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/05-api-inventory.md",
+      "sha256": "5bd86a4ff8e7552facfddb04c9fe64197cdf3d4b6b407a6ba010c06962fc496d",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/06-frontend-architecture.md",
+      "sha256": "6c777561cd71e05e8568729d56cc6d31811d73d3242013a117ad908b28b17f5a",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/07-business-workflows.md",
+      "sha256": "432a5168dc778b713ed2cbdfeecc0598499792e34f031bffadf2d31efc06fd42",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/08-evidence-index.md",
+      "sha256": "ed15a4faee570b4cb029f8ea0160850d38807829d51d6c6e9fd489cf39b4b5d5",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/09-unknowns.md",
+      "sha256": "75ef186d1acd20658939c21d2452d4c9bd02958153db0a301d1ef38a639184cc",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/10-implementation-requirements.md",
+      "sha256": "21d77ff07066eb199e4a62b1c76cedf38a4dcdb57a4817c587b467bb0cfc6c8c",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/11-first-stage-audit.md",
+      "sha256": "d19d7d3b846faa6ff10ed824a2e4bf2f0ac1c9fa705b78a9d2b743f56230fca9",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/12-rea-js-analysis.md",
+      "sha256": "d0c5ccd80d42f6190aacb1ae3faa719c95dfe52c32689e5179c94ba289b2f7bd",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/13-api-call-graph.md",
+      "sha256": "9524eed5534784d7a372931ff030bb0f7e973a7c9db984d1a7756b727b9f414a",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/14-network-evidence.md",
+      "sha256": "a0008cc63bbdd7ba5d8c6418f1e4b9cfc8d53ab7a3865256b79a54c9cd894d1b",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/15-voucher-workflow.md",
+      "sha256": "946d251246488108710e3202b34313acb0199d341e73a9f80fcf09a7ffbfa8b2",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/16-order-workflow.md",
+      "sha256": "84135a19f227ddf97808ec4dd2126af14891252238de6c75ddaf3ddf53633c17",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/17-admin-research.md",
+      "sha256": "52bd753a36b0cdb8c5f27a68884fd5240d32d5a1bd558154e3b80aaa05ffcbe1",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/18-business-contract.md",
+      "sha256": "b4593eaea8eb27fb57266dca1a3bac393a585f9758cb21d9501b725bbbe52cb5",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/19-unresolved-business-rules.md",
+      "sha256": "92cc91e112596b80b56a9ed4be04dd5e975333f318f6eb9b735f92ebc599f2bb",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/20-development-readiness.md",
+      "sha256": "cf790b5f33d0466d3ac8c689c0792c6acfa0725a326e6162a716c9508b10bd16",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/21-consolidated-evidence-summary.md",
+      "sha256": "e434cf5a26163c10c977470d5f35fcfcf690add8cb34f8ada747120bd2d2ad26",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/admin-prototype/后台原型（单文件版）.html",
+      "sha256": "cc671a3a6a89c7915c9eb9682e2e29d0a3770a7a0968411339aceae66aeec175",
+      "review_status": "prototype_templates_reviewed"
+    },
+    {
+      "path": "docs/research/evidence/ax/01-home.txt",
+      "sha256": "79950723da34c983e4a3cee1f90a87a6fb6a1bbfdc7dd2a61ee16e990979867b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/02-verify-empty.txt",
+      "sha256": "736198a13b68b14f5329361db5a7b44cfe620656c36c36d2c6985dd43e5592e8",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/02-verify-mobile.txt",
+      "sha256": "7a871b1b194691e5e1bd4d3310e82f9ef687d61eca8e677e677109493d565533",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/02-verify-script-excerpt.txt",
+      "sha256": "06722bd505323a442a29b45d4540b629d47502c8d8b3cb7fa8d983c559ecbf87",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/03-exchange-empty.txt",
+      "sha256": "7829ec2c8d955c8cfee12cb960e70ad1140965b3c576f7c1ee6734d8703304a4",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/04-order-empty.txt",
+      "sha256": "abd8ef8fd4d3eb3b508f794034623cda69d006b2bd5575b37251d0cd13e09d9e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/04-order-mobile.txt",
+      "sha256": "7b9c3982e74ceffeab5e00b07b067976515e3d7e26e91f431c66fa0d8a8dd433",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/05-feedback-empty.txt",
+      "sha256": "e6f79312723fb10a01313bd4c9de28602538bae0722a1e7f326676121ec9cb07",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/05-feedback-invalid-phone.txt",
+      "sha256": "a3a664189d24b76a8b29970d10e73bf6feebc64291807461df4ac3891f56e557",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/06-products.txt",
+      "sha256": "38d049e40e5a72e28f66838e7cc3b86ee4b6bc403339a4389975cb2b78cd8040",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/07-product-order.txt",
+      "sha256": "231bbdcde18116ccbbedab68f66a8b3ecae546c60a6cee41bfac549b7976b84b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/08-about.txt",
+      "sha256": "a8e0a7d9b735afe66c99be0fdf4c2e6b470bda2dfd87af97ebf4adaa210655d5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/09-contact.txt",
+      "sha256": "38083d54b5d14afb4735c8d8f9150893c645a97b531f67a2afce50fa162b753f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/10-detail-57.txt",
+      "sha256": "db7cbf38ea3d20995b597d4f27f9879d9239b6d53fe99e3108262d05be3f2917",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/11-detail-17.txt",
+      "sha256": "4f9ebafcd19e3cfbc62e057efc7959e7835a53c7248195971f987ebdcd6aa31b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/12-detail-84.txt",
+      "sha256": "f6364fd4c53937a4dc4345427db9db3a2bb28c256298ed41c2f270c320bd0200",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/13-detail-88.txt",
+      "sha256": "71870936563bff4ee1ed83321cd9752c58059c6373548ce3b6dbc2728ee8e918",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/14-detail-13.txt",
+      "sha256": "4691f8c2efd3b531f2428e78585f76021f75c314bacfb5f0adb5aed8143fd808",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/15-detail-86.txt",
+      "sha256": "38cfcec099bd70db9be02944c2fcab36e2dcdb0555f7a8e0269d465b1970b312",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/16-detail-78.txt",
+      "sha256": "432c2368fcc37e6e464eec2a4105d04efe7f01dcbcc03ce3977c4f62be82843e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/17-detail-92.txt",
+      "sha256": "e2ac42d29c58a781bde3342047d44ce4cf35f972e6419b5aa40d4602f21869c0",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/18-detail-93.txt",
+      "sha256": "3947eab143421f018a647e5e4fa41579356a421ed2794150dd2be6a8f15ce65f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/19-detail-94.txt",
+      "sha256": "a10a2ac9f5e8713014e369be69175a3aba101fcdcbdf3c308d879953a0855eb9",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/20-notice-modal.txt",
+      "sha256": "c293c6b71715ece08e3e0f13410e10a3a73b5c089f8f4bbe458b1ee82d7a9e23",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/20-notice.txt",
+      "sha256": "dd414ab874d9b7d93493d26e235e1848ff19b2c27acc07a19ea9db5a74f16e16",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/21-about-html.txt",
+      "sha256": "d7bb10d03d167d7ea48f63aec8b4a1cbcd185b70d9f3029ac3dfe4019cab9088",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/22-contact-html.txt",
+      "sha256": "e18be809da5c75891060baeb451af9937dc44dff527feaf87e330135694c47ea",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/23-exchange-noext.txt",
+      "sha256": "65e3d8b659cfd7833172e440c1d435f3da790965bc68977492f043887c4905b3",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/24-order-noext.txt",
+      "sha256": "2db14ffa41b68edd698fa95178edf1931ca4ce62e45bfe82f614a8df1a822b1e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/25-feedback-noext.txt",
+      "sha256": "3657f58f163a14fa608691e9728b330a2fbfd21c4e1bf639e4627f6b09aeecd9",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/ax/26-home-index.txt",
+      "sha256": "96822de6a1e3f29e484b64790cedec3aef429e1e5d0fa88153a9953136230ad8",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/manifest.json",
+      "sha256": "2ae3e4c7882a69231ed2c835aeb6069e7228d9408ab2d74f405b0b9cbf8a421d",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/network/N01-notice-headers-whitelist.txt",
+      "sha256": "dc845fb0fb02bafed27a663496de8f2ef306fd05699386ea19fcc399e1c2ab36",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/network/N01-notice-initiator.txt",
+      "sha256": "2fd60f73a3d745a3e831fe2bc7cb943f7a5726aa3b65480397e92f89fa32a7e0",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/network/N01-notice-response.html",
+      "sha256": "0863749614504f0c596472bc09a2201b9c97d366fda807e662346c23281856d0",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/network/public-http-metadata.json",
+      "sha256": "bfde81d51369680dc15d6c64240d7dee402ced06fe34585248976de24e0086bf",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/page-observations.json",
+      "sha256": "4a61400e23cf133ec736d87fee7e39b49f2f46559ba02c32615086719336b037",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/admin-http-metadata.json",
+      "sha256": "4d22bf9dd5ce81ad97940d139788d661a36ebb63bdab81d0b1fa7ef4b6804a15",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/admin-login-inline.js",
+      "sha256": "316bf0a91b562b1eb515aff8a6cdcbc2472f8df34de92e8b3d9e2773ddc748bb",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/admin-login.sanitized.html",
+      "sha256": "e37555d4e825483432cbadbdf7f70c80e7a3e604ede7c64da34fbc2e0e89e447",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/admin-navigation-scenario.json",
+      "sha256": "352af360d2c36bec18f37698e5515c9f51377e3fdc8af49df4eff71bea3d57dc",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/admin-scripts/files/isolated/source-1-90a4eeb16addb5839b88e56063bc2ee988aa01711b621058606f0b3068def8a7.js",
+      "sha256": "316bf0a91b562b1eb515aff8a6cdcbc2472f8df34de92e8b3d9e2773ddc748bb",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/admin-scripts/files/origins/1ffde4995065560db19b34f9b455e5f850efa2f323eb2ffb1229e9c157dacbad/static/admin/js/jquery.js",
+      "sha256": "de4b3c3d1dc2506b6693f0f98884e1dc074cda9d66cab39b7b48a115fdfc4c0f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/admin-scripts/files/origins/1ffde4995065560db19b34f9b455e5f850efa2f323eb2ffb1229e9c157dacbad/static/admin/js/keyboard/keyboard.js",
+      "sha256": "1a4bb5bd433ad2e0f3ad853388abbf735aa32ea86af02bdbe2f8cde5e677ab35",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/admin-scripts/files/origins/1ffde4995065560db19b34f9b455e5f850efa2f323eb2ffb1229e9c157dacbad/static/layuiadmin/layui/layui.js",
+      "sha256": "cb569d5b6d68fea790b65f3ac328ac8cc1f6a4383e3854794875abe31dd6da2c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/admin-scripts/manifest.json",
+      "sha256": "0ebeb2898429edd043155f5cc9ad763854b7926139de188d4f01b1303cc2a4eb",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/audit-check.json",
+      "sha256": "ab16517ea94f0981a4dd2eb369f57f4b16280740ca30f244960a484fdace9356",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/capture-reload.mjs",
+      "sha256": "b33b19278d47da646fd9e372850aa230581fd1900a3b6fb3254d549d49efa2c5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/cdp-navigate.mjs",
+      "sha256": "2225cb1cab3102a8efd429ba652a43453f99cf12cb72cd5685cccb49d1f6ba5e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/delivery-check.json",
+      "sha256": "bfa8beb7e7b5390b9b80a61e4858b26a36c2616aeb7531b59e094df100b603c1",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/evidence-index.json",
+      "sha256": "2413c03cc97bb6ab0372408cf7ee870031473faf3ce21c453309c8e9b09453f0",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/exchange-scripts/files/isolated/source-2-9927d3c515472ccf6886827a294e52a7df80046718f7a18347ec97622d9b29bd.js",
+      "sha256": "face0a17408985efb06eebd7fa87b456dec72f706130e9a7f82da55b17bb8528",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/exchange-scripts/files/isolated/source-4-7addd84b3be28cc706ebbf921edf30973d349630121b56934988259d141bbc1f.js",
+      "sha256": "8606b8fa8a34914c42071564f49321e15d03c80dacb0991c6e8f4aa7c69515e6",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/exchange-scripts/files/isolated/source-6-ee345af0a941fe77e5dcb9a500fbf4fd8de148a024eb5674e894784681741275.js",
+      "sha256": "debe12bd9f76cb276dcb6cbd9cbf7c90807ebec1daa250587f2e2d881a74fb68",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/exchange-scripts/files/origins/1ffde4995065560db19b34f9b455e5f850efa2f323eb2ffb1229e9c157dacbad/static/bootstrap/js/bootstrap.min.js",
+      "sha256": "53964478a7c634e8dad34ecc303dd8048d00dce4993906de1bacf67f663486ef",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/exchange-scripts/files/origins/1ffde4995065560db19b34f9b455e5f850efa2f323eb2ffb1229e9c157dacbad/static/home/weiui/jquery.min.js",
+      "sha256": "b294e973896f8f874e90a8eb1a8908ac790980d034c4c4bdf0fc3d37b8abf682",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/exchange-scripts/files/origins/1ffde4995065560db19b34f9b455e5f850efa2f323eb2ffb1229e9c157dacbad/static/layer/layer.js",
+      "sha256": "40f715b8ae02691b58c372092e24680d682b6922ef37e04e3d8e16e7bcc5ee2e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/exchange-scripts/manifest.json",
+      "sha256": "f9b037303ee11d1683058580f65ae85fa251813ada84a9b95d5ac32c5dfa506f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/focused-provenance.json",
+      "sha256": "c13fc42f145ce30926fc9215de4240714c378f71d10c9c93deaf303c93cc6be0",
+      "review_status": "source_checked"
+    },
+    {
+      "path": "docs/research/evidence/phase2/focused-sources/exchange-1.js",
+      "sha256": "face0a17408985efb06eebd7fa87b456dec72f706130e9a7f82da55b17bb8528",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/focused-sources/exchange-5.js",
+      "sha256": "debe12bd9f76cb276dcb6cbd9cbf7c90807ebec1daa250587f2e2d881a74fb68",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/focused-sources/order-1.js",
+      "sha256": "debe12bd9f76cb276dcb6cbd9cbf7c90807ebec1daa250587f2e2d881a74fb68",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/focused-sources/order-2.js",
+      "sha256": "9a86a2c31e05732b8ec620d87fd8b5ca8f76747b171dbfc691fcedc10680cec7",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/focused-sources/validate.js",
+      "sha256": "8606b8fa8a34914c42071564f49321e15d03c80dacb0991c6e8f4aa7c69515e6",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/focused-sources/verify-1.js",
+      "sha256": "8c65cd7c5bd72651b858f1dbb3e9911969342bbc496b835f7567d4e25ce81724",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/focused-sources/verify-3.js",
+      "sha256": "debe12bd9f76cb276dcb6cbd9cbf7c90807ebec1daa250587f2e2d881a74fb68",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/manifest.json",
+      "sha256": "99aea1d992b053eb8f3fd118d1af96ef470ab4d3024b2b1b3e5b7ad724e8f7e3",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/network-requests.json",
+      "sha256": "4b1d498ae4488fc1dda0f24867c45dae9ac98578e217085a2cc37c9b00c714e0",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/order-scripts/files/isolated/source-2-7ee945a893fd0f9ae2ce67cc2507194cdb20250c5cff1cab13a510c20a8f61db.js",
+      "sha256": "debe12bd9f76cb276dcb6cbd9cbf7c90807ebec1daa250587f2e2d881a74fb68",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/order-scripts/files/isolated/source-3-db4d82038ed4145fe60e1e6cff40ead1c7b0a03f8fd36400ac5e1eef18194768.js",
+      "sha256": "9a86a2c31e05732b8ec620d87fd8b5ca8f76747b171dbfc691fcedc10680cec7",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/order-scripts/files/isolated/source-5-7addd84b3be28cc706ebbf921edf30973d349630121b56934988259d141bbc1f.js",
+      "sha256": "8606b8fa8a34914c42071564f49321e15d03c80dacb0991c6e8f4aa7c69515e6",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/order-scripts/files/origins/1ffde4995065560db19b34f9b455e5f850efa2f323eb2ffb1229e9c157dacbad/static/bootstrap/js/bootstrap.min.js",
+      "sha256": "53964478a7c634e8dad34ecc303dd8048d00dce4993906de1bacf67f663486ef",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/order-scripts/files/origins/1ffde4995065560db19b34f9b455e5f850efa2f323eb2ffb1229e9c157dacbad/static/home/weiui/jquery.min.js",
+      "sha256": "b294e973896f8f874e90a8eb1a8908ac790980d034c4c4bdf0fc3d37b8abf682",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/order-scripts/files/origins/1ffde4995065560db19b34f9b455e5f850efa2f323eb2ffb1229e9c157dacbad/static/layer/layer.js",
+      "sha256": "40f715b8ae02691b58c372092e24680d682b6922ef37e04e3d8e16e7bcc5ee2e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/order-scripts/manifest.json",
+      "sha256": "7a164c6256a6a935827f61c0164768da0fb425c7ee806d8eace48800e8d99b8f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/public-navigation-scenario.json",
+      "sha256": "5fe15b15104402ef82620f6296ee65eba569afb962f9bbbda46f85cedb5c1310",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/admin-capture.json",
+      "sha256": "0fb309f6cc0e154d4e6325e778e7ca9f72ad1bf7d751419ff6cac183d1fd0604",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/admin-export.json",
+      "sha256": "e8a4720a6c4ed2f7870b1ab42c362a8d44c8b16d2f6b1e36f95d2548e897e431",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/admin-navigation-capture.json",
+      "sha256": "435a111cb06ee6dc1c64236c7e9a1404eca49b1c841a85e754d04b4fa849b5a0",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/admin-network-observed.json",
+      "sha256": "435a111cb06ee6dc1c64236c7e9a1404eca49b1c841a85e754d04b4fa849b5a0",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/admin-reload-network.json",
+      "sha256": "f18109b86eaf030f77523b3442fe29acec2dfad16c093819690954c64f68631e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/admin-scenario-result.json",
+      "sha256": "b6db064950cbfff377d276273bead04a335215abb732d25c3e4753f35884bec5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/check-feature-trace.json",
+      "sha256": "9084a8afd4ba5924a062930a8bee148d961b25e0c1970e1213e139d98e650f69",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/doctor.json",
+      "sha256": "cd2eb5771d93fb8f29b37980b6ca9378e00b9c2ec9a96e82fa23964256d11356",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/exchange-bundle.json",
+      "sha256": "60db447247e3e489acc291c8d3b5278a1ede39249b877afe77846ea51142d12e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/exchange-capture.json",
+      "sha256": "cfd5256f0d1b759825eaf19b081c34743d80554be30c8af40043c20bb2c72a48",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/exchange-export.json",
+      "sha256": "7cfe31f7900c9c1681211182015b1e906e9c9ff65c57884ebce9c05f30b57dbe",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/exchange-navigation-capture.json",
+      "sha256": "e00ce5040becebd30abf9f7c715f0c0accd9b52cc41ad9ff5170f6470d07c8b9",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/focused-application.json",
+      "sha256": "a4f8adc4d85b3b788527ac472687f579e6f2886a07433dc40f0a3f9f4186779a",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/focused-summary.json",
+      "sha256": "66b09bf20001f97a613121cd34e6c6ff0f61f88838208108c6c24c39e57154c6",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/home-capture.json",
+      "sha256": "bf1ae8cbf067732519e14b95458b4051a7696b66d408623d99986e63d203b34e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/order-capture.json",
+      "sha256": "fc1ce0eafafaa0134312df4a87c11d5fefc37bbccbbc989cbd67056585b8343f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/order-export.json",
+      "sha256": "0230bf710a7e4219620b19cbde3a9af5703c5b5c9238ab569badfcd331360c8b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/order-navigation.json",
+      "sha256": "9396f61c2c4c80eec9766d4a6f7b44b88e9fe2b03fdebc66a4d67fb55c60cb1a",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/public-navigation-scenario-result.json",
+      "sha256": "38e6ea2929cc55cc5312551e9fb6cadb0d461f33eb4a39fe1095f63c47e5f486",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/targets-filtered.json",
+      "sha256": "9d45d9d121f25a2df2470334f138d90c605bd3cd70a3a854739bd2fc3688dadb",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/targets.json",
+      "sha256": "4da6d2b0063833f685e0895348ae9c26b292d0a351f5295c70e46350497a0d86",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/verify-application-complete.json",
+      "sha256": "c4494d4327472ddbf849bb3dd16c3cde07149c668c819982b1a537db0ffeb6fc",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/verify-application-summary.json",
+      "sha256": "5ee81a7587caf791d528fac81abecf5aec748984cc9423d5925eaae5e7674667",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/verify-application.json",
+      "sha256": "e88cdcd457be4c8e78c1ce3a4409e3a76fb3b26c52dc43d0666f8284da071dce",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/verify-capture.json",
+      "sha256": "8dc53adca02a01e62ebbe70221646a8dd129e3e3d78fa00b6d688e6d86d62895",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/rea/verify-export.json",
+      "sha256": "baa7af89bb147218e8e873fb057164e7ad8a3de732d7f76eb43d8fc609d5c8d9",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/redaction-ledger.json",
+      "sha256": "18a4f511183738d72e0e570d3e4b1394a9db365021c55d052e554c31b7123709",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/verify-scripts/files/isolated/source-2-d7861d2ab6797d1ee14740b8c9c2961e6103a10e4e6b8430efa387444e673a21.js",
+      "sha256": "8c65cd7c5bd72651b858f1dbb3e9911969342bbc496b835f7567d4e25ce81724",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/verify-scripts/files/isolated/source-4-773ec6603fafeb1852c90a4ba692232fbbc6cba0df6d53aff793dff54dbdc00d.js",
+      "sha256": "debe12bd9f76cb276dcb6cbd9cbf7c90807ebec1daa250587f2e2d881a74fb68",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/verify-scripts/files/isolated/source-5-7addd84b3be28cc706ebbf921edf30973d349630121b56934988259d141bbc1f.js",
+      "sha256": "8606b8fa8a34914c42071564f49321e15d03c80dacb0991c6e8f4aa7c69515e6",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/verify-scripts/files/origins/1ffde4995065560db19b34f9b455e5f850efa2f323eb2ffb1229e9c157dacbad/static/bootstrap/js/bootstrap.min.js",
+      "sha256": "53964478a7c634e8dad34ecc303dd8048d00dce4993906de1bacf67f663486ef",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/verify-scripts/files/origins/1ffde4995065560db19b34f9b455e5f850efa2f323eb2ffb1229e9c157dacbad/static/home/weiui/jquery.min.js",
+      "sha256": "b294e973896f8f874e90a8eb1a8908ac790980d034c4c4bdf0fc3d37b8abf682",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/verify-scripts/files/origins/1ffde4995065560db19b34f9b455e5f850efa2f323eb2ffb1229e9c157dacbad/static/layer/layer.js",
+      "sha256": "40f715b8ae02691b58c372092e24680d682b6922ef37e04e3d8e16e7bcc5ee2e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/phase2/verify-scripts/manifest.json",
+      "sha256": "84e591b6e123d7aad6fd6ecbee9292c454016bd0bd72c654f70cc9ae4a86b211",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/01-home-carousel-next.png",
+      "sha256": "87108a9212c928703b6eb43e0c8033ecd5e423a7db6fc147fa5efeaffec4d0b3",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/01-home-desktop.png",
+      "sha256": "64a6bc2c2cb4e61e5c63da2b203a4255adb132b8854d5da96709aaee2dfc72c5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/01-home-mobile.png",
+      "sha256": "dccc27961ef1464a1af291f217abbbe482753575eb19dda9c9ce531234165623",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/02-mobile-menu.png",
+      "sha256": "85ab30b8ac6936db7611edc7e4d761639645e26c83f82983fdad20d21f5749ba",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/02-verify-desktop.png",
+      "sha256": "8956c50609cc8f9c712ec08ea825e38e74f9b5e7481eb5c12269ad1fcc94ca9e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/02-verify-empty-desktop.png",
+      "sha256": "d0028b7f53c77e13a070f58beb9c425a1052a53fe700ac1370387bc212d7a395",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/02-verify-mobile.png",
+      "sha256": "abff58ed273c023ab0f4473b1f511d6f4772ad7086aabaa5bf5a398d9e091998",
+      "review_status": "screenshot_visually_reviewed"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/03-exchange-desktop.png",
+      "sha256": "8de868b12feece52baaeefd9800dc237fedf42438c3d1b9a4e11e6c9445fdb13",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/03-exchange-empty.png",
+      "sha256": "0e8afbba0a90daa0ddd4d2c26a35b08adf176bcbc9eb06c7ebf8eae3ac65b136",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/03-exchange-mobile.png",
+      "sha256": "a8113066ded2179076ceff12b79655b241c121400d45d8bc7d629b90ca9b7a41",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/04-order-desktop.png",
+      "sha256": "33afecb202c55758edd157a5b5edb716168a9d47b07233c511a903a1ced95eea",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/04-order-empty.png",
+      "sha256": "a5351fa29868a839305f555d1143d8cdf59e9b686f8138027c0d630b8fcd0f02",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/04-order-mobile.png",
+      "sha256": "55c9722d01dfdeed6af789a2160bff278711f9db61e409655c9a14c103b7b33d",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/05-feedback-desktop.png",
+      "sha256": "23150cc9fc9da8ea9e4983b8fc3fc475275c459d3d5997bd132cf9169b1b5b3f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/05-feedback-empty.png",
+      "sha256": "d9f1da0641ef86eafe34ea7eb5e0cb5607096c155c7714f684658fe8a1e9416c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/05-feedback-invalid-phone.png",
+      "sha256": "aed59bd9b40107498f1dd2f9f17aa476083954bbb98b44e784b9949c07e13134",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/05-feedback-mobile.png",
+      "sha256": "b1825204d5130f5fe97af6067fd866396b31a3bb55b9222ead1a7484a7139f0e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/06-products-desktop.png",
+      "sha256": "17d3a4e9437043d8d5848b76b64f69300ff205b256be5cc719ebf5250138163f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/06-products-mobile.png",
+      "sha256": "f91cb59bb14d9bb9e055dc0303f0f0a98a20626b08c35eeeba7aa71f1ad6104b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/07-product-order-desktop.png",
+      "sha256": "1996acfb56f662a67f3dda56c95b07b3f1b9342957d5aff7ae5bb2b911d193bc",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/07-product-order-mobile.png",
+      "sha256": "e07122933839912d602430c4f5c1ee86cc2c224faa1dfed10895f0fa53d22385",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/08-about-desktop.png",
+      "sha256": "77a3d6a17c993aa69b69d858b49adabe4599555e2eddeefd89e325c8cb27310c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/08-about-mobile.png",
+      "sha256": "821c5bf8df3b861b7649797950ed48d98e005756182edf6abca99978484d09b3",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/09-contact-desktop.png",
+      "sha256": "cd31741068f8850aae37ea1bda532c7bf392ebf97ac51a22c5c1b784c66b333f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/09-contact-mobile.png",
+      "sha256": "085dab7450a3657857d5d6d5cc537a6dd74abd41a7c749c17bc9ac79754cba7e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/10-detail-57-desktop.png",
+      "sha256": "2ebdcf3128714db62374ea35f00d739c75e18c4cad25d9917fad36294ffacc43",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/10-detail-57-mobile.png",
+      "sha256": "640d52429ffa78cb07bb54c6cc6da12ee01be80c37c2d965af4ab8038d0762ee",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/11-detail-17-desktop.png",
+      "sha256": "596648e971897d54737d24775b646ac4b53d167e4531c4758fbdeab0ee49a26d",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/11-detail-17-mobile.png",
+      "sha256": "df5684679fadfd3e37c2303cc43f329eb66476b646172f004d70c45b8a2ad84f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/12-detail-84-desktop.png",
+      "sha256": "48f0bdfd58efbb75327fe0036b69417ab0ca698e740fbf7802bfe03b1a7b7bca",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/12-detail-84-mobile.png",
+      "sha256": "e93e7fe65a4a4ad2873376048cfcb8bdd4f3c100d5059393e49e9a866751f650",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/13-detail-88-desktop.png",
+      "sha256": "bafdf96302e924a140d107dd41ef3d08dd25f12fa7088efe20677dd1386186d4",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/13-detail-88-mobile.png",
+      "sha256": "820a6b8d335f44fe1518d37ebc615cc2f83fb07168dd649c1731748bd6face18",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/14-detail-13-desktop.png",
+      "sha256": "e859cd55c9b27e36640fb121480f69f924f4688de88b8ec1664e5e7a42590c09",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/14-detail-13-mobile.png",
+      "sha256": "955b3788785946c98753efcc939765f314d895d0ada8c3a4cd3a441ea13d9b6f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/15-detail-86-desktop.png",
+      "sha256": "9b2219ae48a3122c89dcf9268f426eec1a2c086884ca4f0d0957f49129f38e6a",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/15-detail-86-mobile.png",
+      "sha256": "d484a6b576db541714864bf1e86ad29cc925288418be9f1614d47df8909be042",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/16-detail-78-desktop.png",
+      "sha256": "1347506658be25ce96ceeef4d64af3cd9e25a1fe27c3749a37a418da2b24de85",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/16-detail-78-mobile.png",
+      "sha256": "ee8db2bd3e57dc65c1997a80e8896769392c7d0c78ef722cdc403dcd4a86c345",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/17-detail-92-desktop.png",
+      "sha256": "6f98cc7a83118482fdf0d40cfaa2a065eba8e463c82d605c58038adda7be6414",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/17-detail-92-mobile.png",
+      "sha256": "7d04594df308de795ba5234f5b9cb7cb6a033ae18f65e92927a71171affa9db2",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/18-detail-93-bottom.png",
+      "sha256": "b06ba178880d6814e154a047f215516dd61a030ba81365a51bf65d5476fda2e2",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/18-detail-93-desktop.png",
+      "sha256": "92985f96ff1046ffbf2fde289355aa22066be2013d633a42be501d71c6ac414f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/18-detail-93-mobile.png",
+      "sha256": "3c5deac17f748ce69af6550f54cd66da1120ae7b6f5a3ea66df9ad6deefc982f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/19-detail-94-desktop.png",
+      "sha256": "c9c9890d5744a157ef0c28c043f46c02ffde49c7384126802a8fb771c921fb05",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/19-detail-94-mobile.png",
+      "sha256": "b37bebf5dfb6b621f78be0369185b63a61a45041e23fa4101cf6ff0fa7d3b83c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/20-notice-desktop.png",
+      "sha256": "4a8056578cd00312d55f4dca94d1010333fc7461c032f81fad247eaf2c4fcfa7",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/20-notice-mobile.png",
+      "sha256": "c15818f3e182d04da2165db4e6475e3ff25420075a4d27595645632f2efc1d2f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/20-notice-modal-desktop.png",
+      "sha256": "4253861031c9fc979a7351dbe2fe8dbc775e7de585cd7dc075a9327d23dbd71c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/20-notice-modal-mobile.png",
+      "sha256": "3f4fac96df8d3dc5a1371b390ee20834db3682d235c3c7e3cf1b4e7b0546fbe1",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/21-about-html-desktop.png",
+      "sha256": "0983e7b978b7278542e66d951b17d6455705141b0adbd9e2ab2de4124e55277e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/21-about-html-mobile.png",
+      "sha256": "0784b20c27aa3c659129763600c922970ceccc0d8459f5cf2277cefe18e22eac",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/22-contact-html-desktop.png",
+      "sha256": "8220a1da3a8cd8171c7cb035b9253bfc4763babecb721debd1028619400a1cf5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/22-contact-html-mobile.png",
+      "sha256": "085dab7450a3657857d5d6d5cc537a6dd74abd41a7c749c17bc9ac79754cba7e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/23-exchange-noext-desktop.png",
+      "sha256": "1a709e5312511dd7de63486c77c0c8dc8320398ef4fb2bf755cedb6b5b94bec9",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/23-exchange-noext-mobile.png",
+      "sha256": "a8113066ded2179076ceff12b79655b241c121400d45d8bc7d629b90ca9b7a41",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/24-order-noext-desktop.png",
+      "sha256": "d435e79905e1a9e299d031a90852b75bf6ddcd96a2c9cbe057625cb78ab14099",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/24-order-noext-mobile.png",
+      "sha256": "e02320b527b7aea64bf8efb18aac2b73acba79b05dbedaf553e8b8eb3fe4e2d7",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/25-feedback-noext-desktop.png",
+      "sha256": "c5c028ab70f07f50f0f267d7954e199aa5c62b7631b4d0861021e62130df3835",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/25-feedback-noext-mobile.png",
+      "sha256": "15181726c05a9a16326956ef6a437ee42607f21ad6c4fa1d0cdf2e669bd72a0a",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/26-home-index-desktop.png",
+      "sha256": "22ebb4b2917535f519ceed094e866d5bbd997b323f6f4f66c46067179fc4882f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/26-home-index-mobile.png",
+      "sha256": "6607a167b26aee4e00d7a60fd307d3a2d3b4e915e5e760a889f093e8be037fb0",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/screenshots/N01-notice-initiator.png",
+      "sha256": "d6cf49010d55495f53dd8adc601011f730f73a7fdd934eea58d45f220e4adb79",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/about.sanitized.html",
+      "sha256": "dc44164fa0bf4d4babe4f9cf5fba7c81786340f93420ac9c4d0b255a297dc755",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/contact.sanitized.html",
+      "sha256": "036ce95a812c41baf237d5f1d433c8a7aeab795e18d958c96dca08e00bf720c3",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/detail-13.sanitized.html",
+      "sha256": "61bdce47fa9ada91a027fba4da24a3c6bf02efc504b3624dc413b2908085c2ee",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/detail-17.sanitized.html",
+      "sha256": "54bd5cf55b18af1ec876b77d997e8437feb1a414d464ce08802f08d83ab3d22e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/detail-57.sanitized.html",
+      "sha256": "beaa9ee2e6ea0cd0a1a22a68605ae2af1eb685601f228802b3599c45069528ed",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/detail-78.sanitized.html",
+      "sha256": "1fc41f0a6a9bb49237eb77b06addf23bc77ff968503ad2e6d2ac3de85945d18e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/detail-84.sanitized.html",
+      "sha256": "db8172a83fc1aaa1f515b1f166273faaa96ce0e21b5bd28fb22432d78f3e9c19",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/detail-86.sanitized.html",
+      "sha256": "c803fff77e938d618e4afb64388fb7c6ef0f4ba377c06c868abd0e50b6c1caea",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/detail-88.sanitized.html",
+      "sha256": "7a6126bcf326c4d77ca431450ea06e90800f3756a09e65d12c845932f82e792a",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/detail-92.sanitized.html",
+      "sha256": "ee2b40f5fd2b5626b4d3a0e07cf8802fcb42e44483429da404515c9da83269ea",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/detail-93.sanitized.html",
+      "sha256": "fdbf91c14ea3046db7d4b439dd09ef179e2a102664fa9e63d577f66dcb7ba4f3",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/detail-94.sanitized.html",
+      "sha256": "f4f2d7e4e38df14cfcfbcf250f35333177f0365bd5b8d1b0abf4fff151f0757a",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/exchange.sanitized.html",
+      "sha256": "edddbff745683296775e88426f6a6956866da7ae9d6c0b0c769eb5c9b732994c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/feedback.sanitized.html",
+      "sha256": "2205d5a337f6f30f4ee1c14094e3bdb2f06682ee701926824e502f071b10b24f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/home.sanitized.html",
+      "sha256": "788c382fba4ce5fdd9352fb0e2a2507182d7bd0ef02812c3ebde653122d38290",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/notice.sanitized.html",
+      "sha256": "a48bed03c97efb98f1f1c68718f4a38c75569b394a1797ac1b2805a83008b500",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/order.sanitized.html",
+      "sha256": "09af57451eccc46e54e170f02d2f94c627bb99cc94bea1c4745938e7d38ee287",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/product-order.sanitized.html",
+      "sha256": "751df0eb8a37f21ba36e8dde1fab4ad48aa487763b0504a3dae3e86ac0cb934c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/products.sanitized.html",
+      "sha256": "751df0eb8a37f21ba36e8dde1fab4ad48aa487763b0504a3dae3e86ac0cb934c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/v1.css",
+      "sha256": "72498bc5e3338ccc77109349de41e5574fb1ed6b3a388d75bdc622d33e140784",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/static/verify.sanitized.html",
+      "sha256": "c5c542c66a417c8cb1bab907d509784d48176f269b1ea252f37ee02a6f92267e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/evidence/tools/collect_public_sources.py",
+      "sha256": "332e803a51eff83fc0044fe8fce4e4f1a7f4e34f2fb155036ed3ab411a676694",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/01-access-and-permissions.md",
+      "sha256": "28299182fcab536d92a75230a879707652acc2f25e39b9b15e9a739280b3e67b",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/02-live-page-inventory.md",
+      "sha256": "a4fc860830f2c2c7ab80fb0a599e5f76139e2513a815931d5b35a61780fef7e4",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/03-prototype-vs-live.md",
+      "sha256": "37854cbaee39c37a3260529103b7c27f9ce06ec704df7ceddb2578b0fe48d09b",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/04-product-workflow.md",
+      "sha256": "e5cd6bd4c2c8720cc8e3aa61c8f2f23adaf4a8a1848759e9f98b73130c3a3d5b",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/05-voucher-workflow.md",
+      "sha256": "aff4c1f5c73b08ae0841388a369da004f7a47756ddbd38bad284761a8ec11ff6",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/06-order-workflow.md",
+      "sha256": "e1891fafc34b2d2837e48e3fa21066b0138ffa1ddebb1bc0ab65a3c679460d24",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/07-inventory-and-shipping.md",
+      "sha256": "36d5d3026dced9017686e0622cce8732063bdbd29f71dfd3d556de8e92e530b1",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/08-live-api-inventory.md",
+      "sha256": "1ad54f9b73945af77f2cb62555f460ab7f45e60b0f10ec7eda1732dd7c5db4d8",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/09-js-callgraph.md",
+      "sha256": "c9834a8ebcdde700ccbc44e79153692e3e2d7c75d9841fa38d5be4d6ba94f9ef",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/10-domain-model.md",
+      "sha256": "94bd3e78f6c10d2aeeee8940b334699543308c9a0b711628eaf15011b333625e",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/11-frontend-backend-workflows.md",
+      "sha256": "35e9b9ab828f98050969c4433b12df03fc58173f1d666a09b50edd6158be95c9",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/12-business-rules-and-unknowns.md",
+      "sha256": "7de4e69db39391c4de153caa1a538dbb5461e0a7596585fe4713008d35d04119",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/13-development-plan.md",
+      "sha256": "c859451382744916687cc47a7d52308d2324271f28eb4fbee6bc73bd6c2e9e8d",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/14-evidence-index.md",
+      "sha256": "a1b8115577e69dd8c0631575eed3be2a0dd782dab91efd300bd803ba67dc47b1",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/admins-dom.json",
+      "sha256": "409c68a545545931dba087c0e2a5446801f635b61e41913794c71f23b21eba32",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/admins-masked.png",
+      "sha256": "9b47138bc4cb1c1ef861c6c23dc34d12ed1e0a8771dc141f92037944c1debc81",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/admins-network.json",
+      "sha256": "033eb508e9a34fbf147b1fa1a32900b1454983bce30a52b1dcca6c418be30d1e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/admins-source-excerpts.json",
+      "sha256": "4d9accffea2a7bbd9ac4d2ecc67eff2d66010365b60c3cac892face78a503255",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/coverage-summary.json",
+      "sha256": "1261e8b8c60741d0845984150bdc87c42ce670b06734db21da53f13b2723299f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/delivery-check.json",
+      "sha256": "4686cb1d9f694b85902ac9eecee2cdc5ae9a9e599b156752fdec5cff06db2ed9",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/feedback-dom.json",
+      "sha256": "0f416fc936c30647256e05000414c5dec61939cef98f8eb9b965b1c7b65b4322",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/feedback-masked.png",
+      "sha256": "3a036b0f190e4f86053761bed752ba959762ea6f2cea26475831dc0162edbd47",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/feedback-network.json",
+      "sha256": "40d022e2636fc399e9acba96d861fb9ba8e549f74dbcdd4d1d50d0dd1666288e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/feedback-source-excerpts.json",
+      "sha256": "923a8e6b2ed28c28bb8ff7b74ee2b5f3358d194705537ec80c950d82d22196ef",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/inbound-add-dom.json",
+      "sha256": "347fc1d92bf9a281bd1df7d6c15789a30fd80400dede3017538d0102c32cc1e7",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/inbound-add-masked.png",
+      "sha256": "9a6c38860fb50087d47f455e75e9b655d284e7a0f27877ce636b32c98ab3e97c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/inbound-add-network.json",
+      "sha256": "11fbbe91892cd11f57d6abb84ca2b1403f88e580b1e2e93f2f4ad1b3eaf15334",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/inbound-add-source-excerpts.json",
+      "sha256": "d08e8331ab0ec81ff772a4607df36cf57051295a850a6d321e33fadee4bc54d8",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/inbound-list-dom.json",
+      "sha256": "1bf9941e427cf655ef4123840fc10f9ccf821ae52f9e50f58202cb6f1104e217",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/inbound-list-masked.png",
+      "sha256": "bc5041624b45ab38a9d5175b17aea4233eb009e7dd3a8f0433f308a0dcb01fb2",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/inbound-list-network.json",
+      "sha256": "11ec84c0f1185b79727c7acc2e80860341c79e9124d83b4ee0537938201adabb",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/inbound-list-source-excerpts.json",
+      "sha256": "fc9fefeab335fbcc0a207937ea7182bf2744bcf6337f36e1e80e78e9e0c8c5e5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/initial-dom.json",
+      "sha256": "77617abf55c62a079acdd4548290163dcd29a253602f7a44787488bd2ead4149",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/initial-network.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/inspect-live.mjs",
+      "sha256": "3eb276c3b66728b8697951e90ddec77716b1a0fd4d1949e5b73796e392e5d519",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/inventory-dom.json",
+      "sha256": "9927e174964cb80a8ddf1060c417c1f9ddc9cea35281c9347f306e03676cc5af",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/inventory-masked.png",
+      "sha256": "426d9b4ae085955e5bd66ab40201e23b26f61b174fb1266c8ac8fcbe6b337733",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/inventory-network.json",
+      "sha256": "f3a2ec7f69c7034f03cd70996ff6f93aa8837d3acca946fa0d0403c9be27210c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/inventory-source-excerpts.json",
+      "sha256": "9d04efdf6d074047bbf7a84fdc35f2d05a97e64d072536aae2199594dd7e1a22",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/manifest.json",
+      "sha256": "f9888e36127d15b09b4e9a851ca646c18ff7d0126c5b95ede66ae3678163bce7",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/mask-screenshot.py",
+      "sha256": "f0f80e505500155616b0446f77f192e137bdab0fc9e7643010e1f82cebf0e096",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/network-index.json",
+      "sha256": "26a4a581b4a41399737fe38f116b33a2b4bb387d15aa716397bc643a22decee8",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-aftercare-dom.json",
+      "sha256": "6f9d114abcf0085705a5c2667476167c5eba9dc998d7409b5544a434ecea2cac",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-aftercare-masked.png",
+      "sha256": "325eb5b0cb41066ca813736ffc389fd01f078e5f61edacc2e99164f14791c7a1",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-aftercare-network.json",
+      "sha256": "98c1fa2ab1eb296447324fd507d9e285d994e4943749c8f99777ed790b642b3b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-aftercare-source-excerpts.json",
+      "sha256": "e73184a0565612583623f7d759d197347d7c23002d30d555d1903f1012409226",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-complete-dom.json",
+      "sha256": "902e9cb128ae9b3ad893947ec9b036b0c987b6d342cef08c1af05fa4f2665aa5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-complete-masked.png",
+      "sha256": "754acebdfdf16f63ec1768af3f570f3e55277681f8a08e96ca36c8068efa3de0",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-complete-network.json",
+      "sha256": "988a6ed9ebf4d55a963d5bba05f9b80157e7e5413c0a563efd6cdb6be27ace7c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-complete-source-excerpts.json",
+      "sha256": "9318a34f571818db113e7669d97b50951df15151f25c3d344baf3e4fdd3b4b3f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-detail-dom.json",
+      "sha256": "c50dcfb7e6e417b0c06e11b99f91dff18aff57933365c691028d53dde49eae47",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-detail-entry-final-dom.json",
+      "sha256": "c867eb18da0e6df66fbebb7387e6dd8625f3880251c74b86a525474ef9f9f5d9",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-detail-entry-final-masked.png",
+      "sha256": "450f4a0d52d4268f88232db1cda0a27d7cbfe7da27769f2a8aaa063bc8deaeb5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-detail-entry-final-network.json",
+      "sha256": "56707bbb8187b22edfaabb562b43060a1b75a6f432b1dc446c7b68bd71db9418",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-detail-entry-final-source-excerpts.json",
+      "sha256": "f68982bc54c79e96c0ddc7356cb71129768f07db604bc07993e1aa18b60a98b4",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-detail-fields-dom.json",
+      "sha256": "e471f5db34ef033a2a159308707f9176345e4b86d641f429cbd38609521e0db9",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-detail-fields-masked.png",
+      "sha256": "a1c8b2cb4323bf556c38f4952c3c7840bb5020c8e99465494ecbb8ed0ece4992",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-detail-fields-network.json",
+      "sha256": "d947c8998ae6dfcaa9fced8a2ca8d6fc6c85d8b73bed24719099df546bbe8660",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-detail-fields-source-excerpts.json",
+      "sha256": "1875b971dcab36bcb56cda391102bb89e4de4c4354f29f00ba5624c2769ccdcf",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-detail-masked.png",
+      "sha256": "a1c8b2cb4323bf556c38f4952c3c7840bb5020c8e99465494ecbb8ed0ece4992",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-detail-network.json",
+      "sha256": "acc4627d02eee8ee992df9cafdc48a9e8afed5495f61537ab073cda9e26d5f38",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-detail-source-excerpts.json",
+      "sha256": "1875b971dcab36bcb56cda391102bb89e4de4c4354f29f00ba5624c2769ccdcf",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-edit-dom.json",
+      "sha256": "2d311b67ca2abdf4b48bad2c4e48226c81b6b0794bb7e2515cc256ee874470e4",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-edit-entry-dom.json",
+      "sha256": "e2e40517a695aa695d0b93fa0430e3f00ec4e2267a95cc5a048cbd5d51a7cbec",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-edit-entry-masked.png",
+      "sha256": "450f4a0d52d4268f88232db1cda0a27d7cbfe7da27769f2a8aaa063bc8deaeb5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-edit-entry-network.json",
+      "sha256": "bdc2d02a2e57c178b2ec1ba0523531254ea28533ce7c41bd1ec12a5554aa48e0",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-edit-entry-source-excerpts.json",
+      "sha256": "f68982bc54c79e96c0ddc7356cb71129768f07db604bc07993e1aa18b60a98b4",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-edit-masked.png",
+      "sha256": "770d47a0018c957bb398a7ce1adc933e994034bebfb7b663a1e165dedc922f4a",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-edit-network.json",
+      "sha256": "ab23a2b070ca3781b31ceb84684e47e22853a709587be4b82b2ab1562e0f7e7d",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-edit-source-excerpts.json",
+      "sha256": "bc4a27fc3580748c87fe4db8e68653a74dbdd5b2183e4b2530b7f44afeeca361",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-list-dom.json",
+      "sha256": "56d6bd9f57e3075769fb66040e135fdb0ef37b655df5797bfd60bda077be61d2",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-list-masked.png",
+      "sha256": "1c113a438fabd59ce139588b83dd4f59060382343ee3c4d811d4b09eb98e64e3",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-list-network.json",
+      "sha256": "4fc2f20d8cacfd0259221081d78317094e4a8bc6e1cba48244211c27caefcc75",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-list-source-excerpts.json",
+      "sha256": "a714410dc612b70b3d33fb576c3b096ca10e619e294c40cd38f43d5dc98a40bc",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-log-dom.json",
+      "sha256": "a6cd69038cf8e7e70b320e83a0f318849850e9d6dff13847d6c33f95dfc1c5b7",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-log-masked.png",
+      "sha256": "9b47138bc4cb1c1ef861c6c23dc34d12ed1e0a8771dc141f92037944c1debc81",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-log-network.json",
+      "sha256": "6c16817fbe394e00cfce8b4d0f1d49d2f589674dbb8b5cce6e2f0137c2c8016e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-log-source-excerpts.json",
+      "sha256": "3bebe22dcd3ea4cb8aa8946eab8afab5effcf9054a9e635715721b84ad00173e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-pending-deep-dom.json",
+      "sha256": "bbba67c8f9c9a88709811c7b30359d2fa8e17384c6349a371ed40fffa61a86d6",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-pending-deep-masked.png",
+      "sha256": "450f4a0d52d4268f88232db1cda0a27d7cbfe7da27769f2a8aaa063bc8deaeb5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-pending-deep-network.json",
+      "sha256": "dc166627bfbcdcc902402b0437c97a5a853dbf7f9b62ef0d555f79dd5b699ebe",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-pending-deep-source-excerpts.json",
+      "sha256": "f68982bc54c79e96c0ddc7356cb71129768f07db604bc07993e1aa18b60a98b4",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-pending-dom.json",
+      "sha256": "b2bb1f0d7b663eb1c0801c711a9b7965a8a258fb51fb7e38ba341202223a453c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-pending-masked.png",
+      "sha256": "450f4a0d52d4268f88232db1cda0a27d7cbfe7da27769f2a8aaa063bc8deaeb5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-pending-network.json",
+      "sha256": "3a926ce3eaa200ac63fd43bf77e0951d7d24c74e545bc5b4b369c65735d67376",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-pending-source-excerpts.json",
+      "sha256": "8d8599e6b9088463aad923caac288b0ca0e9d9f27544a0a6d2b7978c577cd6c8",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-pickup-dom.json",
+      "sha256": "2b8650dae1f9f98387103787811b6ea60f3d62b0aadc90e5ef40d4818e0a2dc2",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-pickup-masked.png",
+      "sha256": "6748b9d60430b561cd580498322a2534506e9de083e0711b00a60308652fc500",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-pickup-network.json",
+      "sha256": "6c26cd3eb0965dbc14b561b13f771d9dcea4ed18926befe7969892a7a7945eab",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-pickup-source-excerpts.json",
+      "sha256": "6ba8e0e6bffd016a033da37d19eff7b9c659d68f98ab12b6acef0caa6f196180",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-read-entry-dom.json",
+      "sha256": "e2e40517a695aa695d0b93fa0430e3f00ec4e2267a95cc5a048cbd5d51a7cbec",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-read-entry-masked.png",
+      "sha256": "450f4a0d52d4268f88232db1cda0a27d7cbfe7da27769f2a8aaa063bc8deaeb5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-read-entry-network.json",
+      "sha256": "0c1c6454cfc6316ebe6cb8f8b92266581258a7cc596df2100973cf24f29fba0e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-read-entry-source-excerpts.json",
+      "sha256": "f68982bc54c79e96c0ddc7356cb71129768f07db604bc07993e1aa18b60a98b4",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-shipped-dom.json",
+      "sha256": "513e124d6133c8890ad8faedcc549493bf5b6eacdc482034cf8eac74713be62b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-shipped-masked.png",
+      "sha256": "6aa1428447e0583c4fb60a3035d38c5b19c8da340b4f8d6c2201fe4cd010bd34",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-shipped-network.json",
+      "sha256": "cd2ba7f8278b50147f5a6be50d3c6be6a9314c4e8abf6f319c73bb109636afa5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-shipped-source-excerpts.json",
+      "sha256": "a2228968e5b797b1b88291b35261d14942187ac5ba82938126ec2b99aea7550f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-trash-dom.json",
+      "sha256": "e173aab5d52341351d801d0f8c1a9068e830793428a56a8b9c1819e611556bc2",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-trash-masked.png",
+      "sha256": "de3e8f412b4f8de8ce3e0fdd0b5215ac48b4ab11701cd1dbe1bff8b9afc99521",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-trash-network.json",
+      "sha256": "8b3fc65f305d894edbb4267407b3539b7ade43835a377a581538716cb3841ce5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/order-trash-source-excerpts.json",
+      "sha256": "287988a4c1f063f9a1e1a1c24726d82bb87f28ee9c11e87d70f3bf41e0d8486b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/outbound-add-dom.json",
+      "sha256": "d9965c62ffe03a9410a490bc673fc458c32b65bdb5d12886b61b330ec3886755",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/outbound-add-masked.png",
+      "sha256": "5253430b05f37aadd4361f8a6d1b58b94c868e548ce315510cdb1cc7013f3d8b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/outbound-add-network.json",
+      "sha256": "f4018610c264f732d327019fca9e8c494471e1045f28c11c4b0dada706aaa8e0",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/outbound-add-source-excerpts.json",
+      "sha256": "321bbbb2e57696ccb223688ceef3ec15ab4722e7539f9756784e5d174207c870",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/outbound-list-dom.json",
+      "sha256": "70adf61a37c2f13b271d5828b68a55ad71b747a678fc8c4636d235645cd0774b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/outbound-list-masked.png",
+      "sha256": "486e5562f2c9319b5fb51ce0585efc7d965146270ee88a9e5adfcd2b7b3f6fa1",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/outbound-list-network.json",
+      "sha256": "b4a9e26bd42532f0ea8cd27201e58ab3b3ebc0eb2093c93fad326807d656cc7e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/outbound-list-source-excerpts.json",
+      "sha256": "ac0a1c590676ec34d45bdb575d02d7cae87b59d28a2fd81acb2b681ff9338305",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/prior-files.json",
+      "sha256": "d39ccbb4c534ac38f6e406d175a09ce1a335e3115b83f9c145d685ca3f3ca19e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-add-deep-dom.json",
+      "sha256": "aefc2b9e9cdfba6734558840963f86786ec6594dae79998a6441882dcb377d5e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-add-deep-full-inline.json",
+      "sha256": "f6ab21f0a77b4da0a72a79914b0541b76cc76eb9ba58d3c13fc9d62a45cd058d",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-add-deep-masked.png",
+      "sha256": "62d14ef1f72f1c2876a41335ab2cedaf1ab292cbe5ebb36b6ba7fdb3196881f7",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-add-deep-network.json",
+      "sha256": "707ee2d499f667971ea2340b09a26ed13e5bab19f79a6fdbdb0dccf962008ac1",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-add-deep-source-excerpts.json",
+      "sha256": "d85f8728a1c29ecedfde3b081f2c1d6ef2aa8887ee1cc77d08c933ba7dc7d50c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-add-dom.json",
+      "sha256": "51cccccc1cda1db7031f55d6e12d6a8056eb15192680cea63ed27a2b793f4670",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-add-network.json",
+      "sha256": "c3b26a0c0e42cf1279819bc34fad9c6cb2061a35a2dc15b0aa5dcd889b497ca1",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-add-source-excerpts.json",
+      "sha256": "940fac955e25ffaf1b461a0838181cabfbaf8e3dc0204be01311290a59e01f0d",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-edit-dom.json",
+      "sha256": "cd2ef2f89037cc65ac8972a8005bcceaf5566a531b0b61c3052db6af547de7ab",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-edit-entry-dom.json",
+      "sha256": "0e886da45abcdd59bde17aad24854d88d168e18c24300ea0dc5461e64e30fe3b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-edit-entry-masked.png",
+      "sha256": "8184d2b3ac93d7c09ea5b8b7f5a97194915bf2026656b99c80ccaf708ad2e1df",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-edit-entry-network.json",
+      "sha256": "03ec58c4e7c551656af533232eaaddf3b366fbe9e192ef2630f6a6ef5e0091e4",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-edit-entry-source-excerpts.json",
+      "sha256": "a1ed131fac3f142e0083261b5c3472b60539ad0e18a7d0a94479cda1f65c7cd3",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-edit-masked.png",
+      "sha256": "c3240ba582153c72e5c6290d6da2a2822927a5b49c5836e5f81922e44bef0b60",
+      "review_status": "screenshot_visually_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-edit-network.json",
+      "sha256": "ec5ad3ebe396a8189d76f7a7abb841a4696917d064a9af4662a5264d98e00119",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-edit-source-excerpts.json",
+      "sha256": "8c30bedb30237f28400964c5c437a8d17246612c59992bab6e0267d9ca032a3b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-filter-dom.json",
+      "sha256": "997e7ed9d29871d144a60d98532ba33b4bbb1a696ab9249d37173688df2bd301",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-filter-masked.png",
+      "sha256": "64296e75d5e7ae26a12deb4f98b6d5cd966e590baaef7352555994b9fdcb627d",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-filter-network.json",
+      "sha256": "01d89432b33c6fb1a8b23c56d56c51b79a70a68d0305d40d40e3d932896c1374",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-filter-source-excerpts.json",
+      "sha256": "a1ed131fac3f142e0083261b5c3472b60539ad0e18a7d0a94479cda1f65c7cd3",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-list-deep-dom.json",
+      "sha256": "1d14b32587bad96d4033d11b90ba3608c326ebc644add8b92d514f282a96018f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-list-deep-masked.png",
+      "sha256": "8184d2b3ac93d7c09ea5b8b7f5a97194915bf2026656b99c80ccaf708ad2e1df",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-list-deep-network.json",
+      "sha256": "38e11e03f3dd8b8458a5e81c8f9e7e75088f418b009d22ef468c17ea32947a1f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-list-deep-source-excerpts.json",
+      "sha256": "a1ed131fac3f142e0083261b5c3472b60539ad0e18a7d0a94479cda1f65c7cd3",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-list-dom.json",
+      "sha256": "60fc1e7ef98cdfc47ff42b46dc4ba7e192558d2f5e76b9dce97159ea83a0a196",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-list-network.json",
+      "sha256": "d094c42d28fb44cf372d300b03b87b0c3dafdce9dcaf9399d7429c68dbaac166",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-selector-dom.json",
+      "sha256": "399c13ffa3b6b0dfffe116196be4b5728a15c9917bba3db19d08f06eeb84db33",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-selector-full-inline.json",
+      "sha256": "20bdf35bffb32656c9bd824500f65711a5f844f81513884c6f6d4ce9ca84fae8",
+      "review_status": "source_checked"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-selector-masked.png",
+      "sha256": "329151cd0ae4fd9bf3268cb0aee75b47ae58ebc158a7bc51b3408e6246a2bcbe",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-selector-network.json",
+      "sha256": "f01dab692d90d62a2d87265783651905d8850ea749af450aee6f1571afe1853a",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/product-selector-source-excerpts.json",
+      "sha256": "5bde94d369be955c1a7efd8d468450608586589e3f386aeb704c77583866ac86",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/prototype-live-matrix.json",
+      "sha256": "2470b249cf07f974ca1b544d1932d2f294e2e0596a278d33ee9a65b8c505b08e",
+      "review_status": "source_checked"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/prototype-pages.json",
+      "sha256": "a012c5626356682b4423ac7aae220db0c533773ca150207dc49c2256cd539d5c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/role-edit-dom.json",
+      "sha256": "8cb611a18c6ec5ac592fa99608feb442efea67f63404915e674ddbb442d64f37",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/role-edit-masked.png",
+      "sha256": "4a4537724b18e29463669b7b02b217fd1f317a8ce8a68c932126f8769af43482",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/role-edit-network.json",
+      "sha256": "93ad29c01acdb0f1c5184e81944493282393cbff2d3d44e48dc20dc8418c2930",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/role-edit-source-excerpts.json",
+      "sha256": "92f70f607f299b8bb2605752e4aba1f0ba8172ba220a9a888e69e67a89315beb",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/roles-deep-dom.json",
+      "sha256": "c46726bed5994dff504c68af65c6f5df784204e23ed6905fda407e6d83657b92",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/roles-deep-masked.png",
+      "sha256": "e3f4bbbfc0f8e6f165083b6854892b27fd1e1de1bdb34ead84cb48eca71930c1",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/roles-deep-network.json",
+      "sha256": "a10aeea55ffc124a93f7c3d5327f8dd89ab0b3689fcbe8e0203ff07ee96b2cef",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/roles-deep-source-excerpts.json",
+      "sha256": "248731402d94b1d58e7a97208e52981abbe63c7087e936bf315035c4390bd46b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/roles-dom.json",
+      "sha256": "18276cd2b37f3e69e9d25242ee72b294ece3094df7c4b14df0299d7481e96765",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/roles-edit-entry-dom.json",
+      "sha256": "6d51b8d739c7a65aacc815a8103eae9959113cc4a48a6f490d7bb77c445d7373",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/roles-edit-entry-masked.png",
+      "sha256": "e3f4bbbfc0f8e6f165083b6854892b27fd1e1de1bdb34ead84cb48eca71930c1",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/roles-edit-entry-network.json",
+      "sha256": "6b136bcba836a01642c6da4519b6a1199fb1a8f86311c4b509ead383847d2823",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/roles-edit-entry-source-excerpts.json",
+      "sha256": "248731402d94b1d58e7a97208e52981abbe63c7087e936bf315035c4390bd46b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/roles-masked.png",
+      "sha256": "e3f4bbbfc0f8e6f165083b6854892b27fd1e1de1bdb34ead84cb48eca71930c1",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/roles-network.json",
+      "sha256": "61699539bf3e7a7cbde6843cd1f80a8fd3ee41c666b6dbd640d5d4a0a561ac0b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/roles-source-excerpts.json",
+      "sha256": "313d5e730e8a2751141b0d30d1350219b3ed4f37a074efc06a2ef0fec1d5de3e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/settings-dom.json",
+      "sha256": "e0ce4355b7b886408eb484bbf6bc469f8a91fe6ed0733821ecb5e91c9debd112",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/settings-masked.png",
+      "sha256": "fb428e2c78877e4b2ff9d1c40d03c52f10fe7425d76e0391358316767e75e552",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/settings-network.json",
+      "sha256": "5ce5ab726b56508d96f98319fb48c3e77eaf7473e48c928b43f3dc7d4a964fd2",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/settings-source-excerpts.json",
+      "sha256": "0b72a3b8ceae84fcc97681918fb1c07a425ff05a55c7a6fe5f13179c5ddc1b65",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-add-dom.json",
+      "sha256": "0a6445ae2abebf7a471cef83a4830e01be2f37a0419094d3539006a60a96805f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-add-masked.png",
+      "sha256": "392d80d07531686298cdb9e8831d88dc0a8cae031ab88fc32d530e4d6453b31a",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-add-network.json",
+      "sha256": "fa94507e1f78608ad1be4c9b6f5bca522eebc72ee212b128d4ea021fc980b7e4",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-add-source-excerpts.json",
+      "sha256": "eedeb0a5caebbc33118fb335a7deba858dc8c4e66278a5998f015a7129a3a2da",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-form-entry-dom.json",
+      "sha256": "22a27e6c243c17553887d0f91f465c2125501f5a019896c1249269f401d3dbbb",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-form-entry-masked.png",
+      "sha256": "450f4a0d52d4268f88232db1cda0a27d7cbfe7da27769f2a8aaa063bc8deaeb5",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-form-entry-network.json",
+      "sha256": "53b2abdad337b0091d1aea1b23c749b1d48248f4ff9acf7b336f73c2dafe5d44",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-form-entry-source-excerpts.json",
+      "sha256": "f68982bc54c79e96c0ddc7356cb71129768f07db604bc07993e1aa18b60a98b4",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-list-dom.json",
+      "sha256": "e4d5ecfbc164d241068ac8e39649f33b6305d9989d1bd69f9f458552436f5868",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-list-masked.png",
+      "sha256": "face78c4ec043420fdb3d731c92a43dbb68ce7407e11e973b1fb59025c3d63a8",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-list-network.json",
+      "sha256": "cfd8bf9a476ca200baa9b374276b54ab798c8862797a67a502e5b52cafd84401",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-list-source-excerpts.json",
+      "sha256": "ff158dfd7d26e9354317bdf1afd0c69edc5796102df06c9c5d68e639ca629328",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-manual-form-dom.json",
+      "sha256": "85733ca65543efc6f5ab19f4ea018b6ed9a1fd27f817581ed3a38486cb49df80",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-manual-form-masked.png",
+      "sha256": "cbf2f1e2a998dbc6b41441d5e3fb0addd48325f83793e3dbfb6539e108b4bb86",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-manual-form-network.json",
+      "sha256": "d4ade1cd12212da8bdcd50c87b1fc5cdb6be4602d8dc61a9735e90a574818c52",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/shipping-manual-form-source-excerpts.json",
+      "sha256": "0b1afced5c940589c860fecbe405d74bd570ea315b93c8d52d0ab3378d4cd675",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/static-candidates.json",
+      "sha256": "d656931828c49bf809e6586f8c90a75b955187a00c4cc8e03044157500bba5b1",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/system-log-dom.json",
+      "sha256": "ce5c5f3e53d18035e793d840ff21428ea9c485aee2c6becb3d428199a95b8f3c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/system-log-masked.png",
+      "sha256": "9b47138bc4cb1c1ef861c6c23dc34d12ed1e0a8771dc141f92037944c1debc81",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/system-log-network.json",
+      "sha256": "e1a0a4dc49355aea454466318c7371b35216d89b1783f7fd5cc1f5fce9e20a45",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/system-log-source-excerpts.json",
+      "sha256": "709d592c40848eca11feb044b7a682dcec8adc0038e928f64b4ea68d12954814",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-activation-dom.json",
+      "sha256": "b74a1e6661a70fa23536235ec14d1009e3b8e27f9b80231b5d66fccf52207dfa",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-activation-masked.png",
+      "sha256": "91134c0af16bf2a58510d049d80e3e7d2e785ac46af1025712e1a072e6521f99",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-activation-network.json",
+      "sha256": "9e391cc56777accd9ccc4c6868bd733b71663580d7280db7b35f3c0fed0e0c0e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-activation-source-excerpts.json",
+      "sha256": "c405bad2714e767bd4d02dd02902872c145b6fdbbc7761fc14ca7c7288984722",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-batch-deep-dom.json",
+      "sha256": "4e913a064ba1138b32e899be1779a9624d35605376e6a47c203946b7f9b97336",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-batch-deep-full-inline.json",
+      "sha256": "7b9461db6a1ed707d5136ee7de6138c7113308bd1fd0b3110447f1e4227d8098",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-batch-deep-masked.png",
+      "sha256": "5d6381625725e6acdcb142802fb5d99b6ab5f3137acd0c5fbfe2199e95b8b00e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-batch-deep-network.json",
+      "sha256": "5347764108210dab9597bafe14807c21352f853b44e52bf05d1879d0c4778221",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-batch-deep-source-excerpts.json",
+      "sha256": "02e784c87f3776f5880fa2ad24757d05e104ed07ac958aee31f0e0afd7707e32",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-batch-dom.json",
+      "sha256": "9b951975f8c444f8420fef5779bbe153ca44842beb37112ca7553b5e7c6f27d2",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-batch-enums-dom.json",
+      "sha256": "95f3e53540cfd8932c37e55d72461c482ca4f37ea4bffa13d2f6773edf1b6dce",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-batch-enums-masked.png",
+      "sha256": "e891e961b84a9130d2848e9dd7f2a2d77695c49a69649ac4bd87560614ca41a7",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-batch-enums-network.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-batch-enums-source-excerpts.json",
+      "sha256": "dc86305bbc181116cc1057f57d6445b40fe0a874b57f8ec74381f31c699225ea",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-batch-network.json",
+      "sha256": "7e6f64a86ee8a2acfb0ee8beb9ea6f9ca20d8330df41e751873544fa1b2c40be",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-batch-source-excerpts.json",
+      "sha256": "dc86305bbc181116cc1057f57d6445b40fe0a874b57f8ec74381f31c699225ea",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-edit-batch-dom.json",
+      "sha256": "f123ad3a4485917531a8eac4cb01f653ba23bfc92f7ced5e142d63a9cdb1a458",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-edit-batch-masked.png",
+      "sha256": "7e9519f12910a898b7ac23416cfd9957d890553ed3175741c230b4a794d26df1",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-edit-batch-network.json",
+      "sha256": "3a47842cff4f7ff8d109da055a931206f7bec43d4084cb6692eab0a78a976d41",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-edit-batch-source-excerpts.json",
+      "sha256": "5816065b803632b5571d15db468bed9fd64f91b92c8d9a704cce0e3843456c82",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-list-dom.json",
+      "sha256": "24b04d1d04edd62c1bf1f21b399add9d4d44b2344ad039d987052dbbd14561df",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-list-masked.png",
+      "sha256": "8d8e375646da1d8a3b787af20d5e766cdc0a49c5495afb3d623e26a7b5c04512",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-list-network.json",
+      "sha256": "cc609b2b7df4da115cef0f13a72a90920f462139a628422349526c0328bc8703",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-list-source-excerpts.json",
+      "sha256": "936f910a090c5ddad8c299fd425afa7cce49a13f5e30f494cee96c6b2ecc5ac3",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-multi-dom.json",
+      "sha256": "18200004bbbaf6cf651672a0844e726c6ab34ffb793d2ea8030c10365a37cae8",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-multi-masked.png",
+      "sha256": "07a55f8f49ff6d8843d31998506af283801eaae04a9bbf08a47df8a90a0b0b2a",
+      "review_status": "screenshot_visually_reviewed"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-multi-network.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-multi-source-excerpts.json",
+      "sha256": "02e784c87f3776f5880fa2ad24757d05e104ed07ac958aee31f0e0afd7707e32",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-next-observed-dom.json",
+      "sha256": "f77f65590cb3091f04e43d240afcbab8f7f1743500d97daab14eccace6dd01b9",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-next-observed-masked.png",
+      "sha256": "a64b8bee81a47cc0292b051622278e4be1ed3009f40f19ad1e08cf51cc8bbff9",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-next-observed-network.json",
+      "sha256": "3dc92c159cf92213bc96d06cbfbd9295b48040ed5a19591fd5e0525f11302895",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-next-observed-source-excerpts.json",
+      "sha256": "c482d35186f7519af7a1774f364d2852562165a6893fd80ca5b2cc69cfeb4c31",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-page2-dom.json",
+      "sha256": "6303fa14fed33c6eb6fb89d33017578eaad4428a59e0d534142962bc36af56ce",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-page2-masked.png",
+      "sha256": "8d8e375646da1d8a3b787af20d5e766cdc0a49c5495afb3d623e26a7b5c04512",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-page2-network.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-page2-source-excerpts.json",
+      "sha256": "c482d35186f7519af7a1774f364d2852562165a6893fd80ca5b2cc69cfeb4c31",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-pagination-control-dom.json",
+      "sha256": "3d48eb8b7da1a39106448c4f4e2597f83e52561ac1ed217a090bea37d2e3c0ac",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-pagination-control-masked.png",
+      "sha256": "8d8e375646da1d8a3b787af20d5e766cdc0a49c5495afb3d623e26a7b5c04512",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-pagination-control-network.json",
+      "sha256": "36b6baf0f37f04cd33295f168724a20b2d82d12cff2c595962455dcba9c289e6",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-pagination-control-source-excerpts.json",
+      "sha256": "c482d35186f7519af7a1774f364d2852562165a6893fd80ca5b2cc69cfeb4c31",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-pagination-entry-dom.json",
+      "sha256": "6303fa14fed33c6eb6fb89d33017578eaad4428a59e0d534142962bc36af56ce",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-pagination-entry-masked.png",
+      "sha256": "8d8e375646da1d8a3b787af20d5e766cdc0a49c5495afb3d623e26a7b5c04512",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-pagination-entry-network.json",
+      "sha256": "2daa8fa4be0e1d18cfb30c7621d1ed9c637e562a28cb2a2c789de98c23c7bb2b",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/voucher-pagination-entry-source-excerpts.json",
+      "sha256": "c482d35186f7519af7a1774f364d2852562165a6893fd80ca5b2cc69cfeb4c31",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/welcome-deep-dom.json",
+      "sha256": "6255cd2c941ee6b69fec76340f8dc2b2b6a8a05683454d85d863a91406cc07dc",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/welcome-deep-masked.png",
+      "sha256": "08ec1efb806ae187a8bdd5a99cd77f9a23923957c4e1d09fe9407a77007ead55",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/welcome-deep-network.json",
+      "sha256": "76f4292bfc6ea056b9e4a884ec440d44fd20ac0c0af096495130c26c22f4e2cd",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/live-admin/evidence/welcome-deep-source-excerpts.json",
+      "sha256": "d37b32a90a6bf3dbde14db37b4e3685589076476747e34cb0da2066d67a61a3c",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/01-test-plan.md",
+      "sha256": "60efe86e9151cdc76befdc3f30099f6b19d6525b6163d5afb0b36fe9eb0bfbd8",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/02-results.md",
+      "sha256": "27813b19ba6235a6196f5266f170c7f25d893e725c873be558ef9e004199dbc1",
+      "review_status": "markdown_reviewed"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/inspect.mjs",
+      "sha256": "0a40eac101acdfeae514451d3fbd4868f987a7f924686a82412380fecd96f038",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/mask-screenshot.py",
+      "sha256": "f0f80e505500155616b0446f77f192e137bdab0fc9e7643010e1f82cebf0e096",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-absence.json",
+      "sha256": "cd4993014dde588bc1bec9c6454eb705b23ae6b9a5b262a0e978e88ad53093bd",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-before-dom.json",
+      "sha256": "ccb27ceed0ab6702d5549a0053d6c7436afb473ea8997b5f1302ff45ddad629e",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-before-masked.png",
+      "sha256": "56e7729bc1d0f744ef633e315dbfd53d043ac073d3920a8459ab9aafed973d77",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-before-network.json",
+      "sha256": "d413d8875a2b3493456791118422fe6f8358daa9e71bbe81816eb1ccd80afcba",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-before-source-excerpts.json",
+      "sha256": "bc5c8c1d2904595871d4fedb7b086d08c3a82a862aeb9e277071a107b02305ae",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-result-dialog.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-result-messages.json",
+      "sha256": "013d34f39b5829b58a5421242947563d53332b2ca13ceb433664f8119022d604",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-submit-observed-dom.json",
+      "sha256": "b974dce906ba5c4072ad2adcb4b7b69f6f8c5e71cde412640414bc6460c7373f",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-submit-observed-masked.png",
+      "sha256": "f25637cb7d03992b6698fce522b98614c6bc4830ecd7c3e6017a065113d32688",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-submit-observed-network.json",
+      "sha256": "960ce91d21aeaa2b11d1b0a94f6cd514ced45fcf8f5dc712e31b27b29ee917ed",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-submit-observed-source-excerpts.json",
+      "sha256": "872c38a4afae1f815fb5ee94fa084caf8df9b081191b70fbfaa3a5d7edeab7dc",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-verify-dom.json",
+      "sha256": "0f4d77b77efc96cca9be2fdd77da847be2f43edfb7a03f6f6d4a0afc4d305ef0",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-verify-masked.png",
+      "sha256": "c4bd5b833e02797c299ac305a62550c150a346945585c20c855060c41e2a46ed",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-verify-network.json",
+      "sha256": "c46c32cd884aa7ec38e6f3bf5ab66da98d3e87291eee811478fdb365a93959ae",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/product-verify-source-excerpts.json",
+      "sha256": "385efe850fe7f95057f86141c4a36c8cb8bf95251935db4c04f56bc6ed70ef46",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/evidence/test-product.mjs",
+      "sha256": "47891509128f9058c8a3233343a07bbef7d8dc9f5402ce43d2f3f13895473389",
+      "review_status": "inventoried_reference_only"
+    },
+    {
+      "path": "docs/research/write-tests/2026-10-11/manifest.json",
+      "sha256": "05d7898a9718d8c8399b2f4da44e629db4016810509c45a2d262253a98daafbd",
+      "review_status": "inventoried_reference_only"
+    }
+  ]
+}

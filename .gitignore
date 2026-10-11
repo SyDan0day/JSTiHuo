@@ -1,0 +1,9 @@
+deployments/secrets/
+node_modules/
+dist/
+.env
+*.log
+
+# Local research captures and prototype may contain source-site business data.
+docs/research/**/evidence/
+docs/research/admin-prototype/

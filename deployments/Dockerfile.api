@@ -1,0 +1,12 @@
+FROM golang:1.26.1-alpine AS build
+WORKDIR /src
+COPY backend/go.* ./
+RUN go mod download
+COPY backend/ ./
+RUN CGO_ENABLED=0 go build -o /api ./cmd/api && CGO_ENABLED=0 go build -o /migrate ./cmd/migrate && CGO_ENABLED=0 go build -o /admin ./cmd/admin
+FROM alpine:3.23
+RUN apk add --no-cache su-exec && adduser -D -u 10001 app
+COPY --from=build /api /migrate /admin /usr/local/bin/
+COPY deployments/entrypoint.sh /usr/local/bin/start-app
+ENTRYPOINT ["sh", "/usr/local/bin/start-app"]
+CMD ["api"]

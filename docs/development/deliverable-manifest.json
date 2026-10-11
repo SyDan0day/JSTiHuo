@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-11",
+  "files": {
+    "00-README.md": "8286ccd5e207ce966ab2f5dd23ee0c60a39f233163358f52f9c8bea395961cb8",
+    "01-research-baseline.md": "e44d7284563a8f184834281eae855065b28346d2c67713fea2cb2c27e58e77cf",
+    "02-requirements-and-scope.md": "36f64d54c080faaeffbabba407228c696bfa4655615c2741835f08163cc0434b",
+    "03-business-domain.md": "0bdbd946801f6e339b0ea92442f1e9a73afb97f3fdf0f77590ec0239840adb19",
+    "04-business-workflows.md": "d44bcec565c15394652289cb4e79977c03bea4b3153df1dd334d1f2167bbfcf6",
+    "05-business-rules.md": "5e13277e2c335097758f23b75991904019998563d8a5d93017ee580d174f5ec4",
+    "06-system-architecture.md": "742abb2472f567cfc8ab73cd4b1fcafd064dfca86719090186b185dc39d0ec24",
+    "07-backend-design.md": "92f4081a2c8556cdb6d4a2aa20b7d9b0703bfb9e23493a9e06d29f6477347b3b",
+    "08-database-design.md": "30b76107b9cec0cd074c2cb11e7f1b8cd8869531fcb752e2353e740f5018cb42",
+    "09-api-specification.md": "7a11a97888fb96765326536dd0084fc9a854035101d3ce4abc783d90933e43ce",
+    "10-frontend-design.md": "c44924d57458d3c2647eb7a516348d41c7de598c7de34c62c4df35b2546ea748",
+    "11-admin-design.md": "a8562419075c3d53e97dea1185bf2d242ecafc0060bd1d7912afc7c0994915c8",
+    "12-authentication-and-security.md": "fd5c52ae5b05f3744f5389ba1a1bb6e22eac1d7ab5b8ff9ed45e7384580546e0",
+    "13-inventory-and-consistency.md": "16cb4a1d6565fc4e2c298e6478365ca21202b0600d2186abf12c3dafc5a6f08e",
+    "14-shipping-and-integrations.md": "fd7bfa73b97258be67c1f9f82007a1bc83fd7c3e4ae6ae06aca903555b7020ea",
+    "15-testing-and-acceptance.md": "a7c7e6ef7162cd9005f4f959d396eabb1e2070a2b1376ec91bc714b8ece378ad",
+    "16-deployment-and-operations.md": "98ba0497841b37f56be9f93a409301c2411fbb201a9f077544bd4a1648970d20",
+    "17-implementation-work-packages.md": "9260874c897af9237a631b5c7908605207e63131c190c2e5ec82a37af8f545b5",
+    "18-design-decisions.md": "fc7825ca2bf538cbf9241c02be99b9c378bbadf152c8f5c78014d9892b1d7105",
+    "19-requirements-traceability.md": "9fa69d6992d6f268953b2223c1a4a54c64f8b2e8848fb8c487afec9a1b8fc161",
+    "20-development-execution-guide.md": "ef0372c8bb80f043e16efe4b77c94d84e4264be841f6e0cccd985d0876d93d56",
+    "openapi.yaml": "f7688601f14a6bed9c12f3d8ff6d1b2a6cc1830f7a7693af6a2d20bf956357ca",
+    "quality-review.json": "4087f60973ae2a5dbd9afe8125f9b89beb3bd076a35cbabb085e544909135201",
+    "quality-review.md": "96a900f75fc332b38671411e83e4f93af5092f0da9e1463a4c11dcfcf90d4dab",
+    "reviewed-sources.json": "cce30d047665f540b93ce90f96bf090aab199a3365a697512b74fb29a27d1499",
+    "schema.sql": "a383f2b7b2471271edef74fed1aedc768e80538724b03b8a52cdbc1617ef3e78"
+  }
+}

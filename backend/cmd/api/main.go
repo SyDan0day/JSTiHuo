@@ -1,0 +1,80 @@
+package main
+
+import (
+	"context"
+	"encoding/base64"
+	"jstihuo/internal/app/catalog"
+	"jstihuo/internal/app/identity"
+	"jstihuo/internal/app/inventory"
+	"jstihuo/internal/bootstrap"
+	transport "jstihuo/internal/transport/http"
+	"jstihuo/migrations"
+	"log/slog"
+	"net/http"
+	"os"
+	"os/signal"
+	"strings"
+	"syscall"
+	"time"
+)
+
+func main() {
+	log := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	c, e := bootstrap.Load()
+	if e != nil {
+		log.Error("configuration rejected", "reason", e.Error())
+		os.Exit(1)
+	}
+	db, e := bootstrap.OpenDB(c.DSN)
+	if e != nil {
+		log.Error("database configuration rejected")
+		os.Exit(1)
+	}
+	defer db.Close()
+	ready := func(ctx context.Context) error {
+		if e := db.PingContext(ctx); e != nil {
+			return e
+		}
+		return migrations.Check(ctx, db)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	e = ready(ctx)
+	cancel()
+	if e != nil {
+		log.Error("database or migration unavailable")
+		os.Exit(1)
+	}
+	readKey := func(name string) []byte {
+		b, _ := bootstrap.ReadSecret(name)
+		v, _ := base64.StdEncoding.DecodeString(strings.TrimSpace(string(b)))
+		return v
+	}
+	auth, e := identity.New(db, readKey("LOOKUP_HMAC_KEY_FILE"), readKey("CHALLENGE_HMAC_KEY_FILE"), readKey("REQUEST_HMAC_KEY_FILE"))
+	if e != nil {
+		log.Error("identity initialization failed")
+		os.Exit(1)
+	}
+	root := os.Getenv("FILE_ROOT")
+	if root == "" {
+		root = "/var/lib/jst/files"
+	}
+	if e = os.MkdirAll(root, 0700); e != nil {
+		log.Error("file storage unavailable")
+		os.Exit(1)
+	}
+	catalogue := catalog.New(db, root, readKey("REQUEST_HMAC_KEY_FILE"))
+	srv := &http.Server{Addr: c.Address, Handler: transport.Router(ready, log, transport.API(transport.IdentityHandler{Service: auth, Origin: c.Origin, Development: os.Getenv("APP_ENV") == "development"}, catalogue, inventory.New(db, readKey("REQUEST_HMAC_KEY_FILE")))), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 10 * time.Second, WriteTimeout: 10 * time.Second, IdleTimeout: 60 * time.Second}
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
+	go func() {
+		<-stop
+		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		defer cancel()
+		srv.Shutdown(ctx)
+	}()
+	log.Info("api started", "address", c.Address)
+	if e := srv.ListenAndServe(); e != nil && e != http.ErrServerClosed {
+		log.Error("http server failed")
+		os.Exit(1)
+	}
+}

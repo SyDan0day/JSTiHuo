@@ -1,0 +1,25 @@
+name: Foundation and identity checks
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: ci-only-isolated
+          MYSQL_DATABASE: jst_test
+        ports: ["3306:3306"]
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-retries=30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: {go-version: '1.26.1'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm, cache-dependency-path: frontend/package-lock.json}
+      - run: npm ci --prefix frontend
+      - run: make test
+      - run: git diff --exit-code -- frontend/src/api/generated
+      - run: make integration
+        env:
+          TEST_DB_DSN: root:ci-only-isolated@tcp(127.0.0.1:3306)/jst_test

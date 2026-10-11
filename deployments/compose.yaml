@@ -1,0 +1,58 @@
+name: jstihuo
+x-app: &app
+  build:
+    context: ..
+    dockerfile: deployments/Dockerfile.api
+  read_only: true
+  tmpfs: [/tmp]
+  volumes: ["./secrets:/run/bootstrap-secrets:ro", "files:/var/lib/jst/files"]
+  environment: &env
+    APP_ENV: development
+    APP_ORIGIN: http://localhost:8080
+    DB_DSN_FILE: /tmp/jst-secrets/app_dsn
+    PII_KEYRING_FILE: /tmp/jst-secrets/pii.json
+    EXPORT_KEYRING_FILE: /tmp/jst-secrets/export.json
+    LOOKUP_HMAC_KEY_FILE: /tmp/jst-secrets/lookup
+    REQUEST_HMAC_KEY_FILE: /tmp/jst-secrets/request
+    CHALLENGE_HMAC_KEY_FILE: /tmp/jst-secrets/challenge
+    NOTIFICATION_MODE: DISABLED
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: jstihuo
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root
+    volumes: ["mysql_data:/var/lib/mysql", "./secrets:/run/secrets:ro"]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      retries: 30
+  migrate:
+    <<: *app
+    profiles: [tools]
+    command: [migrate]
+    environment:
+      DB_DSN_FILE: /tmp/jst-secrets/migration_dsn
+    depends_on:
+      mysql: {condition: service_healthy}
+  admin:
+    <<: *app
+    profiles: [tools]
+    command: [admin]
+    environment:
+      DB_DSN_FILE: /tmp/jst-secrets/migration_dsn
+    depends_on:
+      mysql: {condition: service_healthy}
+  api:
+    <<: *app
+    depends_on:
+      mysql: {condition: service_healthy}
+  proxy:
+    build:
+      context: ..
+      dockerfile: deployments/Dockerfile.web
+    ports: ["127.0.0.1:8080:80"]
+    depends_on: [api]
+volumes:
+  mysql_data:
+  files:
