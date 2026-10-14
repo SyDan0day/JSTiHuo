@@ -52,10 +52,16 @@ func loadPermissions(ctx context.Context, q queryer, n int64) ([]string, error) 
 	}
 	return p, rows.Err()
 }
+
+// loadActor 用途：按令牌摘要读取主体和作用域。
+// 参数：ctx 请求上下文；db 业务数据库。
+// 参数：hash 会话令牌摘要；kind 会话或资源类型。
+// 返回值：主体或 SQL 错误。
+// 约束：不读取令牌明文，不自行裁决当前业务可执行性。
 func loadActor(ctx context.Context, db *sql.DB, hash []byte, kind string) (Actor, error) {
 	var a Actor
 	var raw []byte
-	e := db.QueryRowContext(ctx, "SELECT id,COALESCE(admin_id,0),subject_version,kind,token_hash,expires_at,last_seen_at,csrf_hash,reauth_at FROM sessions WHERE token_hash=? AND kind=?", hash, kind).Scan(&a.SessionID, &a.AdminID, &a.AuthVersion, &a.Kind, &raw, &a.Expires, &a.Seen, &a.CSRFHash, &a.Reauth)
+	e := db.QueryRowContext(ctx, "SELECT id,COALESCE(admin_id,0),subject_version,kind,token_hash,expires_at,last_seen_at,csrf_hash,reauth_at,COALESCE(voucher_id,0),COALESCE(order_id,0),scope FROM sessions WHERE token_hash=? AND kind=?", hash, kind).Scan(&a.SessionID, &a.AdminID, &a.AuthVersion, &a.Kind, &raw, &a.Expires, &a.Seen, &a.CSRFHash, &a.Reauth, &a.VoucherID, &a.OrderID, &a.Scope)
 	a.Hash = base64.RawStdEncoding.EncodeToString(raw)
 	return a, e
 }

@@ -1,4 +1,4 @@
-name: Foundation and identity checks
+name: Core transaction checks
 on: [push, pull_request]
 jobs:
   verify:

@@ -1,0 +1,9 @@
+{
+  "source": "https://github.com/modood/Administrative-divisions-of-China",
+  "commit": "c49d495b40ac73eb1a66f6eeae5f8fd10696f035",
+  "path": "dist/pca-code.json",
+  "sha256": "83b7536f853ad16beb4d37b92890a3fd7bb9d33d4f37e7c8885fb948749a9bc4",
+  "retrieved": "2026-10-14",
+  "data_vintage": "2023-06-30 (repository README)",
+  "scope": "Mainland statistical province/city/county codes; six-digit normalized"
+}

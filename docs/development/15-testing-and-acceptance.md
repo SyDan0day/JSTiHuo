@@ -6,7 +6,7 @@
 
 领域单元：Go testing表驱动数量/日期/状态；模糊测试卡号规范化、CSV解析与富文本清洗。集成：真实MySQL8.4独立数据库、真实事务与唯一约束，不用SQLite替代锁语义。并发：barrier同时启动goroutine，go test -race，并检查DB不变量。契约：OpenAPI每操作请求/响应Schema、401/403/字段错误；Playwright完整浏览器UI到Go/MySQL，不用静态Toast替代。供应商测试用httptest可控超时/响应。
 
-建议目录backend/internal/domain/*/*_test.go、backend/tests/integration、tests/e2e、tests/contract；工作包A定义make test/unit/integration/e2e/contract及Compose test profile。CI运行单元+契约+MySQL集成+E2E，夜间100并发/恢复测试。代码尚未存在，命令为实施目标。
+领域与集成测试已位于 backend/internal/domain 和 backend/tests/integration，契约检查位于 tests/contract。`make test` 执行单元、OpenAPI/DDL 与构建检查，`make integration` 执行真实 MySQL 回归；`make e2e` 执行 E2 的 HTTP/业务服务 MOCK 主链，需显式 TEST_DB_DSN。CI 已运行前两项，集成回归包含协议主链。Playwright 浏览器主链、夜间恢复测试和 Compose test profile 仍为 H1/H2 实施目标；实际完成状态见各工作包交付记录。
 
 ## 可自动执行场景矩阵
 

@@ -4692,6 +4692,10 @@ export interface operations {
             /** @description 读取卡券权益集合成功；示例为合成数据。 */
             200: {
                 headers: {
+                    /** @description 当前作用域会话的内存 CSRF；页面刷新恢复或提交后轮换，不可写入日志。 */
+                    "X-CSRF-Token"?: string;
+                    /** @description CSRF 对应的会话作用域。 */
+                    "X-CSRF-Scope"?: "voucher" | "order";
                     [name: string]: unknown;
                 };
                 content: {
@@ -4963,6 +4967,12 @@ export interface operations {
             /** @description 原子核销并创建待发订单成功；示例为合成数据。 */
             201: {
                 headers: {
+                    /** @description 订单会话的服务端作用域提示；客户端不能凭此头授予自己权限。 */
+                    "X-Order-Scope"?: "READ" | "WRITE";
+                    /** @description 当前作用域会话的内存 CSRF；页面刷新恢复或提交后轮换，不可写入日志。 */
+                    "X-CSRF-Token"?: string;
+                    /** @description CSRF 对应的会话作用域。 */
+                    "X-CSRF-Scope"?: "voucher" | "order";
                     /** @description 按12文档签发/轮换HttpOnly、Secure、SameSite=Strict的作用域cookie；令牌不入日志。 */
                     "Set-Cookie"?: string;
                     [name: string]: unknown;
@@ -5114,6 +5124,8 @@ export interface operations {
             /** @description 订单号或卡号加手机查询授权成功；示例为合成数据。 */
             200: {
                 headers: {
+                    /** @description 订单会话的服务端作用域提示；客户端不能凭此头授予自己权限。 */
+                    "X-Order-Scope"?: "READ" | "WRITE";
                     /** @description 按12文档签发/轮换HttpOnly、Secure、SameSite=Strict的作用域cookie；令牌不入日志。 */
                     "Set-Cookie"?: string;
                     [name: string]: unknown;
@@ -5248,6 +5260,8 @@ export interface operations {
             /** @description 用卡密升级订单修改授权成功；示例为合成数据。 */
             200: {
                 headers: {
+                    /** @description 订单会话的服务端作用域提示；客户端不能凭此头授予自己权限。 */
+                    "X-Order-Scope"?: "READ" | "WRITE";
                     /** @description 按12文档签发/轮换HttpOnly、Secure、SameSite=Strict的作用域cookie；令牌不入日志。 */
                     "Set-Cookie"?: string;
                     [name: string]: unknown;
@@ -5368,6 +5382,12 @@ export interface operations {
             /** @description 当前授权订单脱敏详情成功；示例为合成数据。 */
             200: {
                 headers: {
+                    /** @description 订单会话的服务端作用域提示；客户端不能凭此头授予自己权限。 */
+                    "X-Order-Scope"?: "READ" | "WRITE";
+                    /** @description 当前作用域会话的内存 CSRF；页面刷新恢复或提交后轮换，不可写入日志。 */
+                    "X-CSRF-Token"?: string;
+                    /** @description CSRF 对应的会话作用域。 */
+                    "X-CSRF-Scope"?: "voucher" | "order";
                     [name: string]: unknown;
                 };
                 content: {

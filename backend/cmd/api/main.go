@@ -6,7 +6,12 @@ import (
 	"jstihuo/internal/app/catalog"
 	"jstihuo/internal/app/identity"
 	"jstihuo/internal/app/inventory"
+	"jstihuo/internal/app/order"
+	"jstihuo/internal/app/redemption"
+	"jstihuo/internal/app/shipping"
+	"jstihuo/internal/app/voucher"
 	"jstihuo/internal/bootstrap"
+	crypt "jstihuo/internal/infra/crypto"
 	transport "jstihuo/internal/transport/http"
 	"jstihuo/migrations"
 	"log/slog"
@@ -18,6 +23,10 @@ import (
 	"time"
 )
 
+// main 用途：加载配置与业务依赖并启动 API。
+// 参数：无。
+// 返回值：无。
+// 约束：启动检查失败退出，信号触发有界关闭，退出释放数据库连接，不自动执行迁移。
 func main() {
 	log := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 	c, e := bootstrap.Load()
@@ -62,8 +71,49 @@ func main() {
 		log.Error("file storage unavailable")
 		os.Exit(1)
 	}
+	exportKey, keyVersion, e := bootstrap.ExportKey()
+	if e != nil {
+		log.Error("export keyring rejected")
+		os.Exit(1)
+	}
+	vouchers := voucher.New(db, root, readKey("REQUEST_HMAC_KEY_FILE"), exportKey, keyVersion)
+	vouchers.ExportKeys, e = bootstrap.ExportKeys()
+	if e != nil {
+		log.Error("export keyring rejected")
+		os.Exit(1)
+	}
 	catalogue := catalog.New(db, root, readKey("REQUEST_HMAC_KEY_FILE"))
-	srv := &http.Server{Addr: c.Address, Handler: transport.Router(ready, log, transport.API(transport.IdentityHandler{Service: auth, Origin: c.Origin, Development: os.Getenv("APP_ENV") == "development"}, catalogue, inventory.New(db, readKey("REQUEST_HMAC_KEY_FILE")))), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 10 * time.Second, WriteTimeout: 10 * time.Second, IdleTimeout: 60 * time.Second}
+	piiRaw, e := bootstrap.ReadSecret("PII_KEYRING_FILE")
+	if e != nil {
+		log.Error("PII keyring unavailable")
+		os.Exit(1)
+	}
+	pii, e := crypt.ParseKeyring(piiRaw)
+	if e != nil {
+		log.Error("PII keyring rejected")
+		os.Exit(1)
+	}
+	redeem, e := redemption.New(db, auth, catalogue, pii, readKey("REQUEST_HMAC_KEY_FILE"), readKey("LOOKUP_HMAC_KEY_FILE"))
+	if e != nil {
+		log.Error("redemption initialization failed")
+		os.Exit(1)
+	}
+	authHandler := transport.IdentityHandler{
+		Service: auth, Origin: c.Origin,
+		Development: os.Getenv("APP_ENV") == "development",
+	}
+	stock := inventory.New(db, readKey("REQUEST_HMAC_KEY_FILE"))
+	api := transport.API(authHandler, catalogue, stock)
+	api = transport.WithVouchers(vouchers, authHandler, api)
+	api = transport.WithRedemption(redeem, authHandler, api)
+	orders := order.New(db, auth, redeem)
+	api = transport.WithOrders(orders, authHandler, api)
+	api = transport.WithShipping(shipping.New(db, readKey("REQUEST_HMAC_KEY_FILE")), orders, authHandler, api)
+	srv := &http.Server{
+		Addr: c.Address, Handler: transport.Router(ready, log, api),
+		ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 10 * time.Second,
+		WriteTimeout: 60 * time.Second, IdleTimeout: 60 * time.Second,
+	}
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
 	go func() {

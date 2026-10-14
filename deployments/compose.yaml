@@ -47,6 +47,11 @@ services:
     <<: *app
     depends_on:
       mysql: {condition: service_healthy}
+  worker:
+    <<: *app
+    command: [worker]
+    depends_on:
+      mysql: {condition: service_healthy}
   proxy:
     build:
       context: ..

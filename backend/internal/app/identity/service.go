@@ -46,6 +46,12 @@ func (s *Service) Bootstrap(ctx context.Context) (LoginResult, error) {
 	e = s.transaction(ctx, func(tx *sql.Tx) error { return insertSession(ctx, tx, t, c, "PREAUTH", 0, 0, exp, s.Now(), false) })
 	return LoginResult{Session{c, exp, []string{}, false}, t}, e
 }
+
+// Authenticate 用途：验证指定类型的 opaque 会话。
+// 参数：ctx 请求上下文；t Cookie opaque 令牌。
+// 参数：kind 会话或资源类型。
+// 返回值：主体或认证、SQL 错误。
+// 约束：检查时效、管理员撤销及顾客凭证版本，消费状态不阻断同键重放。
 func (s *Service) Authenticate(ctx context.Context, t, kind string) (Actor, error) {
 	a, e := loadActor(ctx, s.DB, digest(t), kind)
 	if e != nil {
@@ -57,6 +63,19 @@ func (s *Service) Authenticate(ctx context.Context, t, kind string) (Actor, erro
 	}
 	if kind == "ADMIN" {
 		if e = checkAdmin(ctx, s.DB, &a); e != nil {
+			return Actor{}, fail(401, "AUTH_REQUIRED")
+		}
+	}
+
+	if kind == "VOUCHER" || kind == "ORDER" {
+		var version int64
+		query := "SELECT credential_version FROM vouchers WHERE id=? AND deleted_at IS NULL"
+		subject := a.VoucherID
+		if kind == "ORDER" {
+			query = "SELECT v.credential_version FROM orders o JOIN voucher_redemptions r ON r.id=o.redemption_id JOIN vouchers v ON v.id=r.voucher_id WHERE o.id=?"
+			subject = a.OrderID
+		}
+		if e := s.DB.QueryRowContext(ctx, query, subject).Scan(&version); e != nil || version != a.AuthVersion {
 			return Actor{}, fail(401, "AUTH_REQUIRED")
 		}
 	}
@@ -93,7 +112,23 @@ func (s *Service) Challenge(ctx context.Context, a Actor, purpose, ip string) (C
 	n, e := insertChallenge(ctx, s.DB, a.SessionID, purpose, mac(s.ChallengeKey, answer), exp)
 	return Challenge{fmt.Sprint(n), png, exp}, e
 }
+
+// consumeChallenge 用途：消费管理员登录挑战。
+// 参数：ctx 请求上下文；a 已认证操作主体。
+// 参数：challengeID 挑战标识；answer 用户填写的挑战答案。
+// 返回值：nil 或用途、时效、次数、数据库错误。
+// 约束：委托 LOGIN 专用消费规则。
 func (s *Service) consumeChallenge(ctx context.Context, a Actor, challengeID, answer string) error {
+	return s.consumePurpose(ctx, a, challengeID, answer, "LOGIN")
+}
+
+// consumePurpose 用途：按指定用途消费一次性挑战。
+// 参数：ctx 请求上下文；a 已认证操作主体。
+// 参数：challengeID 挑战标识；answer 用户填写的挑战答案。
+// 参数：purpose 规定挑战用途。
+// 返回值：nil 或挑战、数据库错误。
+// 约束：尝试计数持久化，正确答案标记一次消费。
+func (s *Service) consumePurpose(ctx context.Context, a Actor, challengeID, answer, purpose string) error {
 	n, e := id(challengeID)
 	if e != nil {
 		return e
@@ -104,7 +139,7 @@ func (s *Service) consumeChallenge(ctx context.Context, a Actor, challengeID, an
 		if e != nil {
 			return fail(422, "CHALLENGE_INVALID")
 		}
-		if row.Purpose != "LOGIN" || row.Consumed.Valid || row.Attempts >= 5 || !s.Now().Before(row.Expires) {
+		if row.Purpose != purpose || row.Consumed.Valid || row.Attempts >= 5 || !s.Now().Before(row.Expires) {
 			return fail(422, "CHALLENGE_INVALID")
 		}
 		valid = subtle.ConstantTimeCompare(row.Answer, mac(s.ChallengeKey, strings.ToUpper(answer))) == 1

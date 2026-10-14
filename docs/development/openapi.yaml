@@ -3620,6 +3620,18 @@ paths:
       responses:
         '200':
           description: 读取卡券权益集合成功；示例为合成数据。
+          headers:
+            X-CSRF-Token:
+              description: 当前作用域会话的内存 CSRF；页面刷新恢复或提交后轮换，不可写入日志。
+              schema:
+                type: string
+                minLength: 16
+                maxLength: 128
+            X-CSRF-Scope:
+              description: CSRF 对应的会话作用域。
+              schema:
+                type: string
+                enum: [voucher, order]
           content:
             application/json:
               schema:
@@ -3902,6 +3914,7 @@ paths:
       - D
       security:
       - voucherCookie: []
+      - orderCookie: []
       parameters: []
       responses:
         '200':
@@ -4151,7 +4164,7 @@ paths:
                     request_id: req-example
                     field_errors: []
                     retryable: true
-      x-permission: voucher.scoped
+      x-permission: voucher.scoped 或 order.scoped（仅自身待发订单改期建议）
       x-flow: F04
       x-page: /redeem/address
       x-work-package: D
@@ -4202,6 +4215,27 @@ paths:
       responses:
         '201':
           description: 原子核销并创建待发订单成功；示例为合成数据。
+          headers:
+            X-Order-Scope:
+              description: 订单会话的服务端作用域提示；客户端不能凭此头授予自己权限。
+              schema:
+                type: string
+                enum: [READ, WRITE]
+            X-CSRF-Token:
+              description: 当前作用域会话的内存 CSRF；页面刷新恢复或提交后轮换，不可写入日志。
+              schema:
+                type: string
+                minLength: 16
+                maxLength: 128
+            X-CSRF-Scope:
+              description: CSRF 对应的会话作用域。
+              schema:
+                type: string
+                enum: [voucher, order]
+            Set-Cookie:
+              description: 按12文档签发/轮换HttpOnly、Secure、SameSite=Strict的作用域cookie；令牌不入日志。
+              schema:
+                type: string
           content:
             application/json:
               schema:
@@ -4224,11 +4258,7 @@ paths:
                   region: 测试地区
                 customer_note: 专用测试记录
                 deleted: false
-          headers:
-            Set-Cookie:
-              description: 按12文档签发/轮换HttpOnly、Secure、SameSite=Strict的作用域cookie；令牌不入日志。
-              schema:
-                type: string
+
         '400':
           description: INVALID_ARGUMENT
           content:
@@ -4539,6 +4569,11 @@ paths:
                 permissions: []
                 force_password_change: false
           headers:
+            X-Order-Scope:
+              description: 订单会话的服务端作用域提示；客户端不能凭此头授予自己权限。
+              schema:
+                type: string
+                enum: [READ, WRITE]
             Set-Cookie:
               description: 按12文档签发/轮换HttpOnly、Secure、SameSite=Strict的作用域cookie；令牌不入日志。
               schema:
@@ -4844,6 +4879,11 @@ paths:
                 permissions: []
                 force_password_change: false
           headers:
+            X-Order-Scope:
+              description: 订单会话的服务端作用域提示；客户端不能凭此头授予自己权限。
+              schema:
+                type: string
+                enum: [READ, WRITE]
             Set-Cookie:
               description: 按12文档签发/轮换HttpOnly、Secure、SameSite=Strict的作用域cookie；令牌不入日志。
               schema:
@@ -5130,6 +5170,23 @@ paths:
       responses:
         '200':
           description: 当前授权订单脱敏详情成功；示例为合成数据。
+          headers:
+            X-Order-Scope:
+              description: 订单会话的服务端作用域提示；客户端不能凭此头授予自己权限。
+              schema:
+                type: string
+                enum: [READ, WRITE]
+            X-CSRF-Token:
+              description: 当前作用域会话的内存 CSRF；页面刷新恢复或提交后轮换，不可写入日志。
+              schema:
+                type: string
+                minLength: 16
+                maxLength: 128
+            X-CSRF-Scope:
+              description: CSRF 对应的会话作用域。
+              schema:
+                type: string
+                enum: [voucher, order]
           content:
             application/json:
               schema:

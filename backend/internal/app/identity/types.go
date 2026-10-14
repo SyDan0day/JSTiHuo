@@ -43,6 +43,8 @@ type LoginResult struct {
 type Actor struct {
 	SessionID, AdminID, AuthVersion int64
 	Kind, Hash                      string
+	VoucherID, OrderID              int64
+	Scope                           string
 	Expires, Seen                   time.Time
 	CSRFHash                        []byte
 	Force                           bool

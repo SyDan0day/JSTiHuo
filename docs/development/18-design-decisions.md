@@ -273,3 +273,25 @@
 |前端影响|禁用或不呈现延期入口|
 |验证方法|T20菜单到API权限矩阵|
 |未来配置/修改|V2有独立合同/测试后实现|
+
+## D1/D2 实施补充：顾客 CSRF 恢复与地区标准化
+
+DESIGN_DECISION（2026-10-14）：既定 Order JSON 未携带 CSRF，且无顾客 session GET；首次下单轮换 ORDER Cookie 或页面刷新会失去内存 CSRF。保留既有 JSON 形状，在 redemptionOptions/customerOrder GET 和 redeem 成功响应中增加 X-CSRF-Token 与 X-CSRF-Scope。GET 只轮换同一会话的 CSRF；redeem 成功签发 ORDER WRITE 会话并返回其 CSRF。前端按 ADMIN/PREAUTH/VOUCHER/ORDER 分别保存内存 CSRF，避免管理员与顾客入口互相覆盖。不得持久化 token 到浏览器存储或日志；同键恢复始终先验证持久化会话和凭证版本，再重放订单，当前卡已消费不阻断恢复。
+
+地区使用 [原始开源仓库](https://github.com/modood/Administrative-divisions-of-China) 的 pca-code.json，锁定提交、许可证与 SHA256 于 internal/domain/regions/provenance.json；数据版本为仓库的 2023-06-30 统计数据，不声称是 2026 年最新行政区划。数据随服务版本嵌入，不创建额外数据库表。后续部署更新必须复核父子关系及历史订单；订单把可信地区名称冻结到加密地址内。
+
+原始数据在东莞、中山、儋州、嘉峪关四个不设区城市的第三层为九位镇街统计代码，与 API 的六位区县字段不兼容。实现以规范市级六位代码复用为“全市”第三层，并严格校验所属省、市；镇街填写到详细地址。该适配不伪造县级行政编码，也不丢弃其他省市区数据；禁配仍按省/市/第三层任一级命中拒绝。
+
+## E1 实施补充：订单改期建议与作用域提示
+
+DESIGN_DECISION（2026-10-14）：redemptionCalendar 增加自身 ORDER 会话授权，只允许未回收、截止前的 PENDING 配送订单读取建议。订单修改仍单独要求 WRITE；READ 读取日历不会获得核销或写权限。已有订单继续保留原名额，保持原日编辑不受新配置 blackout/closed 影响；改到新日期必须重新校验完整当前规则、额度和商品预约期限。
+
+订单查询、提权、下单成功和 customerOrder GET 增加 X-Order-Scope 响应头，为界面展示 READ/WRITE 提示，不改变 Order JSON。实际授权仍重查数据库会话及卡凭证版本。Step-up 使用新的 PREAUTH VOUCHER 专用挑战和原 ORDER CSRF，服务端同时验证两个 HttpOnly Cookie，成功撤销旧两种会话。
+
+## E2 实施补充：显式 MOCK 轨迹与人工完成
+
+DESIGN_DECISION（2026-10-14）：MOCK 是显式承运商模式，仅用于自有本地模拟；worker 在发货后三十秒发布模拟运输、六十秒发布模拟签收，固定事件标识保证重试和多 worker 去重。MANUAL 及真实供应商映射目录不运行该模拟。事件正文清楚标注 MOCK，不把模拟状态声称为真实寄送。
+
+人工完成只改变订单终态并审计原因，不把运单改成 DELIVERED 或造签收事件。实际事件独立保留，按发生时间推进当前轨迹，DELIVERED 终态不倒退。顾客轨迹权限来自 ORDER 对象归属，未授权对象返回 404。
+
+`make e2e` 实施为真实 MySQL 的 HTTP/业务服务协议主链，浏览器页面断言仍需 H1。未接入未经授权的轨迹写入口，后续 G2 在可信供应商验签边界之后复用事件服务。

@@ -11,4 +11,4 @@ build:
 integration:
 	cd backend && go test -v ./tests/integration/...
 e2e:
-	@echo 'Business E2E becomes available in D2/E2; not implemented in A1'; exit 1
+	cd backend && go test -race -v ./tests/integration -run '^TestMockFulfillment$$' -count=1

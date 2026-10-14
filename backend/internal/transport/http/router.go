@@ -19,6 +19,11 @@ type Error struct {
 	Retryable   bool     `json:"retryable"`
 }
 
+// Router 用途：装配请求标识、安全响应头、探针与 API 超时。
+// 参数：ready 就绪探针回调；log 结构化日志器。
+// 参数：api 业务 HTTP 处理器。
+// 返回值：HTTP Handler。
+// 约束：每次请求独立上下文，兑换五秒、下载六十秒，结束取消；日志不记录凭证或请求体。
 func Router(ready func(context.Context) error, log *slog.Logger, api ...http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		b := make([]byte, 16)
@@ -42,7 +47,14 @@ func Router(ready func(context.Context) error, log *slog.Logger, api ...http.Han
 			}
 		}()
 		if len(api) > 0 && (strings.HasPrefix(r.URL.Path, "/api/v1/") || strings.HasPrefix(r.URL.Path, "/media/")) {
-			ctx, cancel := context.WithTimeout(r.Context(), 10*time.Second)
+			timeout := 10 * time.Second
+			if r.URL.Path == "/api/v1/redemptions" {
+				timeout = 5 * time.Second
+			}
+			if r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/admin/files/") && strings.HasSuffix(r.URL.Path, "/download") {
+				timeout = 60 * time.Second
+			}
+			ctx, cancel := context.WithTimeout(r.Context(), timeout)
 			defer cancel()
 			api[0].ServeHTTP(w, r.WithContext(ctx))
 			return

@@ -1,0 +1,60 @@
+.voucher-page table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  margin: 20px 0;
+}
+.voucher-page th,
+.voucher-page td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e7e5e4;
+  overflow-wrap: anywhere;
+}
+.voucher-page th {
+  background: #f5f3ef;
+}
+.voucher-page label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.voucher-page input[type='checkbox'] {
+  min-height: 20px;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.voucher-page select {
+  font: inherit;
+  min-height: 44px;
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background: #fff;
+}
+.voucher-page select:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+.voucher-page form {
+  margin: 24px 0;
+}
+.voucher-page button {
+  justify-self: start;
+}
+.voucher-page .filters input {
+  min-width: 0;
+  max-width: 100%;
+}
+@media (max-width: 768px) {
+  .voucher-page table {
+    display: block;
+    overflow-x: auto;
+  }
+  .voucher-page th,
+  .voucher-page td {
+    min-width: 110px;
+  }
+}
