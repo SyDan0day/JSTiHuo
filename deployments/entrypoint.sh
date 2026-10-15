@@ -14,6 +14,6 @@ chown -R app:app /tmp/jst-secrets
 if [ "$1" = api ] || [ "$1" = worker ]; then
   mkdir -p /var/lib/jst/files
   chown app:app /var/lib/jst/files
-  chmod 700 /var/lib/jst/files
+  su-exec app chmod 700 /var/lib/jst/files
 fi
 exec su-exec app "$@"

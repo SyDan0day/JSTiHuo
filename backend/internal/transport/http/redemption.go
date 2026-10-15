@@ -142,6 +142,15 @@ func (h RedemptionHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	rid := w.Header().Get("X-Request-ID")
 	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
 	switch {
+	case path == "/api/v1/voucher-session" && r.Method == "GET":
+		session, err := h.Auth.Service.ReadSession(r.Context(), a)
+		if err != nil {
+			fail(err)
+			return
+		}
+		w.Header().Set("X-CSRF-Token", session.CSRF)
+		w.Header().Set("X-CSRF-Scope", "voucher")
+		send(200, session)
 	case path == "/api/v1/voucher-sessions" && r.Method == "POST":
 		var in redemption.Credentials
 		if e = decode(&in, "code", "secret", "challenge_id", "challenge_answer"); e != nil {
@@ -227,7 +236,7 @@ func (h RedemptionHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func WithRedemption(s *redemption.Service, auth IdentityHandler, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
-		case "/api/v1/regions", "/api/v1/voucher-sessions", "/api/v1/redemption/options", "/api/v1/redemption/calendar", "/api/v1/redemptions", "/api/v1/order":
+		case "/api/v1/regions", "/api/v1/voucher-sessions", "/api/v1/voucher-session", "/api/v1/redemption/options", "/api/v1/redemption/calendar", "/api/v1/redemptions", "/api/v1/order":
 			RedemptionHandler{s, auth}.ServeHTTP(w, r)
 		default:
 			next.ServeHTTP(w, r)

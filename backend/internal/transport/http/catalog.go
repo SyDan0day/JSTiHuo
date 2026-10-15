@@ -19,6 +19,9 @@ type CatalogHandler struct {
 	Auth    IdentityHandler
 }
 
+// ServeHTTP 用途：提供受控商品、分类及图片接口，商品写入返回权威快照。
+// 参数：w 响应器；r 当前请求。
+// 返回值：无，权限、字段和业务错误统一输出 JSON。
 func (h CatalogHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	send := func(status int, v any) {
 		w.WriteHeader(status)
@@ -201,7 +204,12 @@ func (h CatalogHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			fail(e)
 			return
 		}
-		send(200, map[string]any{"id": v.ID, "version": v.Version, "state": v.State})
+		product, e := h.Catalog.Get(r.Context(), v.ID, false)
+		if e != nil {
+			fail(e)
+			return
+		}
+		send(200, product)
 	case strings.HasPrefix(path, base+"/") && r.Method == "PATCH" && !public:
 		var in catalog.Input
 		if e := decode(&in, "code", "name", "attributes", "description_html", "media_ids", "excluded_region_codes", "sort_order", "version"); e != nil {
@@ -322,11 +330,18 @@ func catalogFilter(r *http.Request, category, public bool) (catalog.Filter, erro
 	return f, nil
 }
 
-// Dispatch only implemented catalogue routes; all other routes remain with identity.
+// API 用途：装配商品、内容和可选库存路由。
+// 参数：auth 身份处理器；catalogue 目录服务；stock 可选库存服务。
+// 返回值：仅分派已实现 API 的处理器。
 func API(auth IdentityHandler, catalogue *catalog.Service, stock ...*inventory.Service) http.Handler {
 	cat := CatalogHandler{catalogue, auth}
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		p := r.URL.Path
+		if p == "/api/v1/content" || strings.HasPrefix(p, "/api/v1/content/") ||
+			p == "/api/v1/admin/content" || strings.HasPrefix(p, "/api/v1/admin/content/") {
+			ContentHandler{catalogue, auth}.ServeHTTP(w, r)
+			return
+		}
 		if len(stock) > 0 && (p == "/api/v1/admin/inventory" || strings.HasPrefix(p, "/api/v1/admin/inventory/")) {
 			InventoryHandler{stock[0], auth}.ServeHTTP(w, r)
 			return

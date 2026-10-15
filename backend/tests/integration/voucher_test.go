@@ -89,7 +89,7 @@ func TestVoucherGeneration(t *testing.T) {
 	actor := identity.Actor{AdminID: aid, AuthVersion: 1, SessionID: sid}
 	root := t.TempDir()
 	svc := voucher.New(db, root, key, key, 1)
-	h := transport.Router(func(context.Context) error { return nil }, slog.New(slog.NewTextHandler(io.Discard, nil)), transport.WithVouchers(svc, transport.IdentityHandler{Service: auth, Origin: "http://localhost:8080", Development: true}, transport.API(transport.IdentityHandler{Service: auth, Origin: "http://localhost:8080", Development: true}, catalog.New(db, root, key))))
+	h := contractHTTP(t, transport.Router(func(context.Context) error { return nil }, slog.New(slog.NewTextHandler(io.Discard, nil)), transport.WithVouchers(svc, transport.IdentityHandler{Service: auth, Origin: "http://localhost:8080", Development: true}, transport.API(transport.IdentityHandler{Service: auth, Origin: "http://localhost:8080", Development: true}, catalog.New(db, root, key)))))
 	call := func(method, path string, body any, k string, authenticated bool) *httptest.ResponseRecorder {
 		var b bytes.Buffer
 		if body != nil {

@@ -28,7 +28,7 @@ reset-secret旧hash立即替换、version递增、active=false、EXPORTABLE、�
 
 PII姓名手机地址JSON用独立AES-GCM密钥，phone_lookup用独立HMAC密钥，不用可枚举裸hash；HMAC请求摘要再独立key，禁止记录原始请求。密钥版本存数据，密钥以容器只读secret挂载；轮换支持旧解密、新写新版本，后台任务重加密后再退旧钥，先备份验证。
 
-SQL全部占位符；动态sort映射固定常量。上传图片PNG/JPEG实际解码再编码，5MiB/1600万像素上限，禁SVG/HTML，剥EXIF；CSV仅UTF-8、10MiB、1000行上限，拒NUL、超长字段、公式前缀。私有文件由随机storage_key定位，不能拼客户端文件名路径。下载权限检查对象归属，导出报告默认脱敏；订单PII导出另需order.pii且审计。
+SQL全部占位符；动态sort映射固定常量。上传图片PNG/JPEG实际解码再编码，5MiB/1600万像素上限，禁SVG/HTML，剥EXIF；导入 CSV 仅 UTF-8、5MiB、1000 行，拒 NUL 与超长字段；导出最多 10MiB，并保护公式前缀。私有文件由随机 storage_key 定位，不拼客户端文件名。下载检查归属，报告仅脱敏；首版不开放 PII 扩展导出。
 
 CSP默认self，图片self/data受控，禁止内联脚本；前端v-html只用服务端清洗内容。安全响应头nosniff/frame-ancestors/self；反向代理TLS、body限额，服务端不抓取用户提供URL（防SSRF）。日志不存原始供应商响应。审计仅白名单字段变化，保留对象ID、操作者、结果、request_id。
 

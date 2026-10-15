@@ -18,6 +18,6 @@ flowchart LR
 
 模块依赖：transport→application→domain+repository接口；mysql实现接口，boot负责装配。redemption service直接协调voucher/order/inventory/calendar repositories，不让领域互相调用HTTP。shipping不直接调用通知供应商，通过Outbox。没有分布式事务。
 
-性能预算（自主验收目标）：单实例2CPU/4GiB应用+独立MySQL4GiB，普通读P95<300ms（本地100并发），兑换P95<1s不含验证码/外部系统；密码hash在目标机器校准，避免把耗时hash放在持行锁事务。性能预算未实测，H测试给报告。可访问性目标WCAG AA常见表单/键盘对比度，不声称已认证。
+性能预算（自主验收目标）：单实例2CPU/4GiB应用+独立MySQL4GiB，普通读P95<300ms（本地100并发），兑换P95<1s不含验证码/外部系统；密码hash在目标机器校准，避免把耗时hash放在持行锁事务。性能预算已由 H1 实测，硬件、样本与边界见 H1-performance.md。可访问性目标WCAG AA常见表单/键盘对比度，不声称已认证。
 
 API是新系统协议，OpenAPI3.1.1固定版本。[官方OpenAPI规范](https://spec.openapis.org/oas/v3.1.1.html)用于格式依据；事务采用sql.Tx，[Go官方事务说明](https://go.dev/doc/database/execute-transactions)。这些参考是技术依据，不是原站技术栈证明。

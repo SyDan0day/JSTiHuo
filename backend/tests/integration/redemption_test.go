@@ -25,6 +25,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"path/filepath"
 	"strings"
 	"sync"
 	"testing"
@@ -85,6 +86,7 @@ func TestRedemption(t *testing.T) {
 		t.Fatal(e)
 	}
 	aid, _ := r.LastInsertId()
+	imageID := seedRedemptionImage(t, db, svc.Catalog.FileRoot, aid)
 	r, e = db.Exec("INSERT INTO voucher_types(name,selection_mode,selection_count) VALUES('选二','N_OF',2)")
 	if e != nil {
 		t.Fatal(e)
@@ -97,6 +99,9 @@ func TestRedemption(t *testing.T) {
 			t.Fatal(e)
 		}
 		id, _ := r.LastInsertId()
+		if _, e = db.Exec("INSERT INTO product_media(product_id,file_id,position) VALUES(?,?,0)", id, imageID); e != nil {
+			t.Fatal(e)
+		}
 		products = append(products, fmt.Sprint(id))
 		if _, e = db.Exec("INSERT INTO inventory_transactions(product_id,on_hand_delta,event_key,reason) VALUES(?,10,?,'fixture')", id, fmt.Sprintf("fixture:%d", id)); e != nil {
 			t.Fatal(e)
@@ -131,7 +136,7 @@ func TestRedemption(t *testing.T) {
 		}
 	}
 	authHandler := transport.IdentityHandler{Service: auth, Origin: "http://localhost:8080", Development: true}
-	h := transport.Router(func(context.Context) error { return nil }, slog.New(slog.NewTextHandler(io.Discard, nil)), transport.WithOrders(order.New(db, auth, svc), authHandler, transport.WithRedemption(svc, authHandler, transport.API(authHandler, svc.Catalog))))
+	h := contractHTTP(t, transport.Router(func(context.Context) error { return nil }, slog.New(slog.NewTextHandler(io.Discard, nil)), transport.WithOrders(order.New(db, auth, svc), authHandler, transport.WithRedemption(svc, authHandler, transport.API(authHandler, svc.Catalog)))))
 	call := func(method, path string, body any, token, csrf, kind, key string) *httptest.ResponseRecorder {
 		var b bytes.Buffer
 		if body != nil {
@@ -539,4 +544,29 @@ func TestRedemption(t *testing.T) {
 	}
 	exerciseOrderManagement(t, db, order.New(db, auth, svc), adminActor, func(clock time.Time) { now = clock })
 	_ = cardIDs
+}
+
+// seedRedemptionImage 用途：补齐隔离兑换夹具的真实自有主图与文件元数据。
+// 参数：t 测试上下文；db 隔离库；root 临时文件根；admin 图片所有者。
+// 返回值：READY 图片 ID；失败终止测试，不放宽公开商品契约。
+func seedRedemptionImage(t *testing.T, db *sql.DB, root string, admin int64) int64 {
+	t.Helper()
+	raw, err := os.ReadFile("../../../tests/fixtures/own-gift.png")
+	if err != nil {
+		t.Fatal(err)
+	}
+	name := "0123456789abcdef0123456789abcdef.png"
+	if err = os.WriteFile(filepath.Join(root, name), raw, 0600); err != nil {
+		t.Fatal(err)
+	}
+	sum := sha256.Sum256(raw)
+	result, err := db.Exec("INSERT INTO files(storage_key,kind,mime_type,size_bytes,sha256,state,owner_admin_id) VALUES(?,'IMAGE','image/png',?,?,'READY',?)", name, len(raw), sum[:], admin)
+	if err != nil {
+		t.Fatal(err)
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		t.Fatal(err)
+	}
+	return id
 }

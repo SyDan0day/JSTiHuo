@@ -213,6 +213,10 @@ func (s *Service) Login(ctx context.Context, a Actor, c Credentials, ip, request
 	}
 	return LoginResult{Session{csrf, exp, permissions, u.Force}, t}, e
 }
+
+// ReadSession 用途：刷新当前会话 CSRF 并读取有效权限摘要。
+// 参数：ctx 请求上下文；a 已认证主体。
+// 返回值：会话摘要或随机源、数据库错误；顾客权限始终返回空数组。
 func (s *Service) ReadSession(ctx context.Context, a Actor) (Session, error) {
 	csrf, e := token()
 	if e != nil {
@@ -220,7 +224,7 @@ func (s *Service) ReadSession(ctx context.Context, a Actor) (Session, error) {
 	}
 	e = refreshCSRF(ctx, s.DB, a.SessionID, digest(csrf), s.Now())
 	p := a.Permissions
-	if a.Force {
+	if a.Force || p == nil {
 		p = []string{}
 	}
 	return Session{csrf, a.Expires, p, a.Force}, e

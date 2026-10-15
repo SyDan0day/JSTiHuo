@@ -26,6 +26,9 @@ import (
 	"time"
 )
 
+// TestInventory 用途：验证真实库存单据、审核、流水及并发一致性。
+// 参数：t 测试上下文，需显式隔离 MySQL。
+// 返回值：无，协议或业务不变量不符时测试失败。
 func TestInventory(t *testing.T) {
 	dsn := os.Getenv("TEST_DB_DSN")
 	if dsn == "" {
@@ -76,7 +79,7 @@ func TestInventory(t *testing.T) {
 		t.Fatal(e)
 	}
 	svc := inventory.New(db, key)
-	h := transport.Router(func(context.Context) error { return nil }, slog.New(slog.NewTextHandler(io.Discard, nil)), transport.API(transport.IdentityHandler{Service: auth, Origin: "http://localhost:8080", Development: true}, catalog.New(db, t.TempDir(), key), svc))
+	h := contractHTTP(t, transport.Router(func(context.Context) error { return nil }, slog.New(slog.NewTextHandler(io.Discard, nil)), transport.API(transport.IdentityHandler{Service: auth, Origin: "http://localhost:8080", Development: true}, catalog.New(db, t.TempDir(), key), svc)))
 	call := func(method, path string, payload any, key string, authorized bool) *httptest.ResponseRecorder {
 		var b bytes.Buffer
 		if payload != nil {

@@ -25,7 +25,7 @@ func Default() Config {
 // 参数：无。
 // 返回值：所有字段合法且日期不重复时为 true。
 func (c Config) Valid() bool {
-	if c.MinLead < 1 || c.MinLead > 30 || c.Cutoff < 0 || c.Cutoff > 23 || c.Horizon < 1 || c.Horizon > 30 || c.Capacity < 0 || c.Capacity > 100000 || len(c.Blackouts) > 366 {
+	if c.MinLead < 0 || c.MinLead > 30 || c.Cutoff < 0 || c.Cutoff > 23 || c.Horizon < 1 || c.Horizon > 30 || c.Capacity < 0 || c.Capacity > 100000 || len(c.Blackouts) > 366 {
 		return false
 	}
 	seen := map[string]bool{}

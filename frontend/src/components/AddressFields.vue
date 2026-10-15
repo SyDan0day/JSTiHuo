@@ -1,15 +1,24 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
+import { addressRegionLabel } from './address-region';
 import { request } from '../api/client';
 import type { components } from '../api/generated/schema';
 type Address = components['schemas']['Address'];
 type Region = components['schemas']['Region'];
 const props = defineProps<{ modelValue: Address; disabled?: boolean }>(),
-  emit = defineEmits<{ (e: 'update:modelValue', value: Address): void }>(),
+  emit = defineEmits<{
+    (e: 'update:modelValue', value: Address): void;
+    (e: 'region-label', value: string): void;
+  }>(),
   provinces = ref<Region[]>([]),
   cities = ref<Region[]>([]),
   districts = ref<Region[]>([]),
   error = ref('');
+watchEffect(() => {
+  emit('region-label', addressRegionLabel(props.modelValue, [
+    provinces.value, cities.value, districts.value,
+  ]));
+});
 /**
  * update 用途：发送完整地址字段变化。
  * 参数：key 为地址字段，value 为新文本。
@@ -38,9 +47,30 @@ async function regions(parent = '') {
     )
   ).items;
 }
-regions()
-  .then((v) => (provinces.value = v))
-  .catch(() => (error.value = '省份读取失败，请刷新'));
+/**
+ * reload 用途：按当前选择恢复地区选项，失败时保留输入并提供重试。
+ * 参数：无。
+ * 返回值：加载 Promise，不修改用户选择或地址。
+ */
+async function reload() {
+  error.value = '';
+  try {
+    provinces.value = await regions();
+    const province = props.modelValue.province_code;
+    const city = props.modelValue.city_code;
+    if (province) {
+      const result = await regions(province);
+      if (province === props.modelValue.province_code) cities.value = result;
+    }
+    if (city) {
+      const result = await regions(city);
+      if (city === props.modelValue.city_code) districts.value = result;
+    }
+  } catch {
+    error.value = '地区读取失败，请重试。';
+  }
+}
+reload();
 watch(
   () => props.modelValue.province_code,
   async (parent, _, cleanup) => {
@@ -78,6 +108,9 @@ watch(
 <template>
   <fieldset :disabled="disabled">
     <legend>完整替换收货地址</legend>
+    <p v-if="error" role="alert">
+      {{ error }} <button type="button" @click="reload">重新读取地区</button>
+    </p>
     <label for="address-name">姓名</label
     ><input
       id="address-name"
@@ -139,7 +172,6 @@ watch(
       maxlength="200"
       autocomplete="shipping street-address"
     />
-    <p v-if="error" role="alert">{{ error }}</p>
   </fieldset>
 </template>
 <style scoped>

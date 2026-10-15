@@ -6,6 +6,7 @@ import (
 	"jstihuo/internal/app/catalog"
 	"jstihuo/internal/app/identity"
 	"jstihuo/internal/app/inventory"
+	"jstihuo/internal/app/operations"
 	"jstihuo/internal/app/order"
 	"jstihuo/internal/app/redemption"
 	"jstihuo/internal/app/shipping"
@@ -109,6 +110,24 @@ func main() {
 	orders := order.New(db, auth, redeem)
 	api = transport.WithOrders(orders, authHandler, api)
 	api = transport.WithShipping(shipping.New(db, readKey("REQUEST_HMAC_KEY_FILE")), orders, authHandler, api)
+	operating := operations.New(db, auth, pii, readKey("REQUEST_HMAC_KEY_FILE"))
+	operating.Test = os.Getenv("APP_ENV") == "test"
+	operating.FileRoot = root
+	operating.FileKeys = crypt.Keyring{Active: keyVersion, Keys: vouchers.ExportKeys}
+	operating.Orders, operating.Vouchers = orders, vouchers
+	if os.Getenv("TRACKING_WEBHOOK_KEYS_FILE") != "" {
+		raw, err := bootstrap.ReadSecret("TRACKING_WEBHOOK_KEYS_FILE")
+		if err == nil {
+			operating.WebhookKeys, err = operations.ParseWebhookKeys(raw)
+		}
+		clear(raw)
+		if err != nil {
+			log.Error("tracking webhook keys rejected")
+			os.Exit(1)
+		}
+	}
+	api = transport.WithOperations(operating, authHandler, api)
+	api = transport.WithTrustedProxy(c.ProxyNetworks, api)
 	srv := &http.Server{
 		Addr: c.Address, Handler: transport.Router(ready, log, api),
 		ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 10 * time.Second,

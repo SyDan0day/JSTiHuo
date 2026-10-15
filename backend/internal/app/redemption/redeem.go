@@ -230,7 +230,7 @@ func (s *Service) redeemTx(ctx context.Context, a identity.Actor, in Input, key,
 		return "", e
 	}
 	var batchState string
-	if e = tx.QueryRowContext(ctx, "SELECT state FROM voucher_batches WHERE id=? FOR UPDATE", batchID).Scan(&batchState); e != nil {
+	if e = tx.QueryRowContext(ctx, "SELECT state FROM voucher_batches WHERE id=? FOR SHARE", batchID).Scan(&batchState); e != nil {
 		return "", e
 	}
 	c, e := s.card(ctx, tx, fmt.Sprint(a.VoucherID), "", true)
@@ -289,6 +289,13 @@ func (s *Service) redeemTx(ctx context.Context, a identity.Actor, in Input, key,
 	var closed bool
 	if e = tx.QueryRowContext(ctx, "SELECT id,capacity,used_slots,closed FROM shipping_calendars WHERE ship_date=? FOR UPDATE", in.Date).Scan(&calendarID, &capacity, &used, &closed); e != nil {
 		return "", e
+	}
+	current, e := ReadConfiguration(ctx, tx)
+	if e != nil {
+		return "", e
+	}
+	if !current.Allowed(s.Now(), in.Date) {
+		return "", fault(422, "DATE_UNAVAILABLE")
 	}
 	if closed {
 		return "", fault(422, "DATE_UNAVAILABLE")

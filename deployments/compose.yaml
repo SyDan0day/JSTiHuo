@@ -5,10 +5,11 @@ x-app: &app
     dockerfile: deployments/Dockerfile.api
   read_only: true
   tmpfs: [/tmp]
-  volumes: ["./secrets:/run/bootstrap-secrets:ro", "files:/var/lib/jst/files"]
+  volumes: ["${JST_SECRETS_DIR:-./secrets}:/run/bootstrap-secrets:ro", "files:/var/lib/jst/files"]
   environment: &env
     APP_ENV: development
-    APP_ORIGIN: http://localhost:8080
+    APP_ORIGIN: ${APP_ORIGIN:-http://localhost:8080}
+    TRUSTED_PROXY_CIDRS: ${JST_TRUSTED_PROXY_CIDRS:-172.16.0.0/12}
     DB_DSN_FILE: /tmp/jst-secrets/app_dsn
     PII_KEYRING_FILE: /tmp/jst-secrets/pii.json
     EXPORT_KEYRING_FILE: /tmp/jst-secrets/export.json
@@ -16,13 +17,15 @@ x-app: &app
     REQUEST_HMAC_KEY_FILE: /tmp/jst-secrets/request
     CHALLENGE_HMAC_KEY_FILE: /tmp/jst-secrets/challenge
     NOTIFICATION_MODE: DISABLED
+    ORDER_PII_RETENTION_DAYS: ${ORDER_PII_RETENTION_DAYS:-180}
 services:
   mysql:
-    image: mysql:8.4
+    image: mysql:8.4@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70
     environment:
       MYSQL_DATABASE: jstihuo
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root
-    volumes: ["mysql_data:/var/lib/mysql", "./secrets:/run/secrets:ro"]
+    volumes: ["mysql_data:/var/lib/mysql", "${JST_SECRETS_DIR:-./secrets}:/run/secrets:ro"]
+    command: ["--log-bin=mysql-bin", "--binlog-expire-logs-seconds=604800", "--server-id=1"]
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 5s
@@ -56,7 +59,7 @@ services:
     build:
       context: ..
       dockerfile: deployments/Dockerfile.web
-    ports: ["127.0.0.1:8080:80"]
+    ports: ["127.0.0.1:${JST_HTTP_PORT:-8080}:80"]
     depends_on: [api]
 volumes:
   mysql_data:

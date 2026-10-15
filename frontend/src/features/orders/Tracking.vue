@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { flowError } from '../../api/flow-error';
 import { onMounted, ref } from 'vue';
 import { request, RequestError } from '../../api/client';
 import type { components } from '../../api/generated/schema';
@@ -35,7 +36,7 @@ async function load(more = false) {
       eventNext.value[item.id] = pageEvents.next_after_id ?? '';
     }
   } catch (e) {
-    error.value = e instanceof RequestError ? e.detail.code : '物流读取失败，请重试';
+    error.value = e instanceof RequestError ? flowError(e) : '物流读取失败，请重试';
   } finally {
     busy.value = false;
   }
@@ -55,7 +56,7 @@ async function moreEvents(id: string) {
     events.value[id] = [...(events.value[id] ?? []), ...page.items];
     eventNext.value[id] = page.next_after_id ?? '';
   } catch (e) {
-    error.value = e instanceof RequestError ? e.detail.code : '轨迹读取失败，请重试';
+    error.value = e instanceof RequestError ? flowError(e) : '轨迹读取失败，请重试';
   } finally {
     busy.value = false;
   }
@@ -63,7 +64,8 @@ async function moreEvents(id: string) {
 onMounted(() => load());
 </script>
 <template>
-  <section>
+  <section class="flow-page">
+    <h1 v-if="!adminOrderId">订单物流</h1>
     <h2>物流轨迹</h2>
     <p role="alert">{{ error }}</p>
     <button :disabled="busy" @click="load()">刷新物流</button>
@@ -77,11 +79,7 @@ onMounted(() => load());
           {{ event.occurred_at }} · {{ event.event_type }} · {{ event.description }}
         </li>
       </ol>
-      <button
-        v-if="eventNext[shipment.id]"
-        :disabled="busy"
-        @click="moreEvents(shipment.id)"
-      >
+      <button v-if="eventNext[shipment.id]" :disabled="busy" @click="moreEvents(shipment.id)">
         更早轨迹
       </button>
     </article>

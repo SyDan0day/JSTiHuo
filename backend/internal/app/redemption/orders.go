@@ -53,12 +53,48 @@ func OrderAAD(number string) []byte { return []byte("jst:pii:v1:order:" + number
 // 返回值：订单或查询、解密、快照解析错误。
 // 约束：调用方必须先验证对象归属，解密缓冲使用后清零，不返回详细地址。
 func (s *Service) GetOrder(ctx context.Context, id string, admin bool) (Order, error) {
+	o, e := s.readOrderRow(s.DB.QueryRowContext(ctx, "SELECT o.id,o.version,o.order_no,o.status,o.fulfillment_mode,c.ship_date,o.recipient_cipher,o.pii_key_version,o.customer_note,o.admin_note,o.deleted_at IS NOT NULL FROM orders o LEFT JOIN shipping_calendars c ON c.id=o.calendar_id WHERE o.id=?", id), admin)
+	if e != nil {
+		return o, e
+	}
+	rows, e := s.DB.QueryContext(ctx, "SELECT id,product_id,quantity,product_snapshot FROM order_items WHERE order_id=? ORDER BY product_id", id)
+	if e != nil {
+		return o, e
+	}
+	defer rows.Close()
+	o.Items = []OrderItem{}
+	for rows.Next() {
+		var item OrderItem
+		var raw []byte
+		if e = rows.Scan(&item.ID, &item.ProductID, &item.Quantity, &raw); e != nil {
+			return o, e
+		}
+		var p struct {
+			Name string `json:"name"`
+			Code string `json:"code"`
+		}
+		if e = json.Unmarshal(raw, &p); e != nil {
+			return o, e
+		}
+		item.Name = p.Name
+		item.Code = p.Code
+		o.Items = append(o.Items, item)
+	}
+	return o, rows.Err()
+}
+
+type orderScanner interface{ Scan(...any) error }
+
+// readOrderRow 用途：解析订单行并按同一策略解密、脱敏收件摘要。
+// 参数：row 为数据库行；admin 是否包含后台备注。
+// 返回值：脱敏订单或读取、解密错误；解密缓冲在返回前清零。
+func (s *Service) readOrderRow(row orderScanner, admin bool) (Order, error) {
 	var o Order
 	var encrypted []byte
 	var keyVersion int
 	var date sql.NullTime
 	var note string
-	e := s.DB.QueryRowContext(ctx, "SELECT o.id,o.version,o.order_no,o.status,o.fulfillment_mode,c.ship_date,o.recipient_cipher,o.pii_key_version,o.customer_note,o.admin_note,o.deleted_at IS NOT NULL FROM orders o LEFT JOIN shipping_calendars c ON c.id=o.calendar_id WHERE o.id=?", id).Scan(&o.ID, &o.Version, &o.Number, &o.Status, &o.Mode, &date, &encrypted, &keyVersion, &o.Note, &note, &o.Deleted)
+	e := row.Scan(&o.ID, &o.Version, &o.Number, &o.Status, &o.Mode, &date, &encrypted, &keyVersion, &o.Note, &note, &o.Deleted)
 	if e == sql.ErrNoRows {
 		return o, fault(404, "NOT_FOUND")
 	}
@@ -88,30 +124,7 @@ func (s *Service) GetOrder(ctx context.Context, id string, admin bool) (Order, e
 		o.Recipient.Phone = address.Phone[:3] + "****" + address.Phone[7:]
 	}
 	o.Recipient.Region = address.Region
-	rows, e := s.DB.QueryContext(ctx, "SELECT id,product_id,quantity,product_snapshot FROM order_items WHERE order_id=? ORDER BY product_id", id)
-	if e != nil {
-		return o, e
-	}
-	defer rows.Close()
-	o.Items = []OrderItem{}
-	for rows.Next() {
-		var item OrderItem
-		var raw []byte
-		if e = rows.Scan(&item.ID, &item.ProductID, &item.Quantity, &raw); e != nil {
-			return o, e
-		}
-		var p struct {
-			Name string `json:"name"`
-			Code string `json:"code"`
-		}
-		if e = json.Unmarshal(raw, &p); e != nil {
-			return o, e
-		}
-		item.Name = p.Name
-		item.Code = p.Code
-		o.Items = append(o.Items, item)
-	}
-	return o, rows.Err()
+	return o, nil
 }
 
 // Restricted 用途：判断配送地区是否命中商品禁配集合。

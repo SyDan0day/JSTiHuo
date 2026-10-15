@@ -121,7 +121,7 @@ export interface paths {
         };
         /**
          * 公开列表
-         * @description DESIGN_DECISION；页面 /content；流程 F01；事务 T-READ。列表固定id DESC，after_id为排他游标；q按模块字段白名单搜索，status非法值400。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。
+         * @description DESIGN_DECISION；页面 /content；流程 F01；事务 T-READ。列表固定id DESC，after_id为排他游标；q搜索标题或slug；status仅接受PUBLISHED/DRAFT或空，公开列表禁止DRAFT；非法值400。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。
          */
         get: operations["publicContent"];
         put?: never;
@@ -621,7 +621,7 @@ export interface paths {
         };
         /**
          * 后台content列表
-         * @description DESIGN_DECISION；页面 /admin/content；流程 F01；事务 T-READ。列表固定id DESC，after_id为排他游标；q按模块字段白名单搜索，status非法值400。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。
+         * @description DESIGN_DECISION；页面 /admin/content；流程 F01；事务 T-READ。列表固定id DESC，after_id为排他游标；q搜索标题或slug；status仅接受PUBLISHED/DRAFT或空，公开列表禁止DRAFT；非法值400。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。
          */
         get: operations["listContent"];
         put?: never;
@@ -1547,7 +1547,7 @@ export interface paths {
         put?: never;
         /**
          * 预检导入作业
-         * @description DESIGN_DECISION；页面 /admin/imports；流程 F11；事务 T-JOB。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。
+         * @description DESIGN_DECISION；页面 /admin/imports；流程 F11；事务 T-JOB。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。卡券必须提供batch_id且不可带carrier_id；CSV行数须等于草稿批次数量。运单需额外order.ship权限，carrier_id若提供则限定每行承运商，不能携带batch_id。
          */
         post: operations["importJob"];
         delete?: never;
@@ -1567,7 +1567,7 @@ export interface paths {
         put?: never;
         /**
          * 提交已预检通过的导入
-         * @description DESIGN_DECISION；页面 /admin/imports/:id；流程 F11；事务 T-JOB。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。 Only PREVIEW/READY with zero fatal errors; atomically phase=APPLY,state=PENDING, enqueue. Same job key returns existing job. Import vouchers all-or-nothing; shipments row-by-row.
+         * @description DESIGN_DECISION；页面 /admin/imports/:id；流程 F11；事务 T-JOB。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。 Only PREVIEW/READY仅原任务owner可确认，PREVIEW/READY且failed=0；再次确认已进入APPLY的同一任务不重复执行。 with zero fatal errors; atomically phase=APPLY,state=PENDING, enqueue. Same job key returns existing job. Import vouchers all-or-nothing; shipments row-by-row.
          */
         post: operations["commitImport"];
         delete?: never;
@@ -1587,7 +1587,7 @@ export interface paths {
         put?: never;
         /**
          * 非凭证业务导出
-         * @description DESIGN_DECISION；页面 /admin/exports；流程 F11；事务 T-JOB。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。
+         * @description DESIGN_DECISION；页面 /admin/exports；流程 F11；事务 T-JOB。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。仅脱敏白名单。VOUCHER_METADATA的status仅SEALED/EXPORTABLE/空，可按batch_id筛选；ORDERS仅PENDING/SHIPPED/COMPLETED/CANCELLED/空，不接受batch_id。
          */
         post: operations["exportJob"];
         delete?: never;
@@ -1605,7 +1605,7 @@ export interface paths {
         };
         /**
          * 查看作业状态
-         * @description DESIGN_DECISION；页面 /admin/jobs/:id；流程 F11；事务 T-READ。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。 Object ownership or explicit management permission required; no arbitrary job/file access.
+         * @description DESIGN_DECISION；页面 /admin/jobs/:id；流程 F11；事务 T-READ。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。 Object ownership要求file.read、来源种类权限及owner归属，file.export可管理读取；缺失owner拒绝。 or explicit management permission required; no arbitrary job/file access.
          */
         get: operations["getJob"];
         put?: never;
@@ -1876,7 +1876,10 @@ export interface components {
             value: string;
         };
         ProductInput: {
-            /** @example JSTEST-P1 */
+            /**
+             * @description 输入编码忽略大小写，服务端去除首尾空白后统一存储为大写。
+             * @example JSTEST-P1
+             */
             code: string;
             /** @example 隔离测试商品 */
             name: string;
@@ -2884,6 +2887,12 @@ export interface components {
             phase: "PREVIEW" | "APPLY";
             /** @example 1 */
             version: number;
+            /** @example TESTTRACK001 */
+            tracking_no?: string;
+            /** @example 1 */
+            carrier_id?: string;
+            /** @example 1 */
+            order_id?: string;
         };
         Import: {
             /** @example 1 */
@@ -2928,6 +2937,8 @@ export interface components {
             template_key: string;
             /** @example 1 */
             version: number;
+            /** @example RESULT_UNKNOWN */
+            last_error_code?: string;
         };
         Region: {
             /** @example 110101 */
@@ -3683,23 +3694,14 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description 退出登录成功；示例为合成数据。 */
-            200: {
+            /** @description 退出成功，撤销会话并清除 Cookie；无响应正文。 */
+            204: {
                 headers: {
                     /** @description 按12文档签发/轮换HttpOnly、Secure、SameSite=Strict的作用域cookie；令牌不入日志。 */
                     "Set-Cookie"?: string;
                     [name: string]: unknown;
                 };
-                content: {
-                    /**
-                     * @example {
-                     *       "id": "1",
-                     *       "version": 1,
-                     *       "state": "ENABLED"
-                     *     }
-                     */
-                    "application/json": components["schemas"]["Action"];
-                };
+                content?: never;
             };
             /** @description INVALID_ARGUMENT */
             400: {
@@ -4051,7 +4053,7 @@ export interface operations {
                 after_id?: string;
                 limit?: number;
                 q?: string;
-                status?: string;
+                status?: "" | "PUBLISHED";
                 sort?: "id_desc";
             };
             header?: never;
@@ -8435,7 +8437,7 @@ export interface operations {
                 after_id?: string;
                 limit?: number;
                 q?: string;
-                status?: string;
+                status?: "" | "PUBLISHED" | "DRAFT";
                 sort?: "id_desc";
             };
             header?: never;
@@ -13754,7 +13756,7 @@ export interface operations {
                 "X-Signature": string;
             };
             path: {
-                provider: string;
+                provider: "MOCK" | "KDNIAO" | "KUAIDI100";
             };
             cookie?: never;
         };
@@ -13774,21 +13776,12 @@ export interface operations {
             };
         };
         responses: {
-            /** @description 物流回调验签与去重成功；示例为合成数据。 */
-            201: {
+            /** @description 签名与事件处理成功或已幂等处理；无响应正文。 */
+            204: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    /**
-                     * @example {
-                     *       "id": "1",
-                     *       "version": 1,
-                     *       "state": "ENABLED"
-                     *     }
-                     */
-                    "application/json": components["schemas"]["Action"];
-                };
+                content?: never;
             };
             /** @description INVALID_ARGUMENT */
             400: {

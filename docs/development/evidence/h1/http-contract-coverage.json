@@ -1,0 +1,532 @@
+[
+  {
+    "id": "bootstrap",
+    "success": 70,
+    "rejected": 0
+  },
+  {
+    "id": "createChallenge",
+    "success": 69,
+    "rejected": 7
+  },
+  {
+    "id": "adminLogin",
+    "success": 27,
+    "rejected": 7
+  },
+  {
+    "id": "adminSession",
+    "success": 1,
+    "rejected": 6
+  },
+  {
+    "id": "adminLogout",
+    "success": 1,
+    "rejected": 2
+  },
+  {
+    "id": "adminReauth",
+    "success": 23,
+    "rejected": 4
+  },
+  {
+    "id": "publicProducts",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "publicContent",
+    "success": 3,
+    "rejected": 8
+  },
+  {
+    "id": "regions",
+    "success": 1,
+    "rejected": 2
+  },
+  {
+    "id": "publicProduct",
+    "success": 1,
+    "rejected": 2
+  },
+  {
+    "id": "publicContentPage",
+    "success": 2,
+    "rejected": 2
+  },
+  {
+    "id": "verifyVoucher",
+    "success": 36,
+    "rejected": 3
+  },
+  {
+    "id": "redemptionOptions",
+    "success": 2,
+    "rejected": 1
+  },
+  {
+    "id": "redemptionCalendar",
+    "success": 2,
+    "rejected": 1
+  },
+  {
+    "id": "redeem",
+    "success": 17,
+    "rejected": 5
+  },
+  {
+    "id": "queryOrder",
+    "success": 3,
+    "rejected": 3
+  },
+  {
+    "id": "orderStepUp",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "customerOrder",
+    "success": 5,
+    "rejected": 2
+  },
+  {
+    "id": "customerOrderEdit",
+    "success": 2,
+    "rejected": 4
+  },
+  {
+    "id": "customerShipments",
+    "success": 1,
+    "rejected": 2
+  },
+  {
+    "id": "customerTracking",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "customerAfterSale",
+    "success": 4,
+    "rejected": 6
+  },
+  {
+    "id": "customerAfterSales",
+    "success": 1,
+    "rejected": 2
+  },
+  {
+    "id": "createFeedback",
+    "success": 2,
+    "rejected": 5
+  },
+  {
+    "id": "listProduct",
+    "success": 1,
+    "rejected": 2
+  },
+  {
+    "id": "createProduct",
+    "success": 2,
+    "rejected": 6
+  },
+  {
+    "id": "getProduct",
+    "success": 1,
+    "rejected": 1
+  },
+  {
+    "id": "updateProduct",
+    "success": 2,
+    "rejected": 6
+  },
+  {
+    "id": "listCarrier",
+    "success": 1,
+    "rejected": 5
+  },
+  {
+    "id": "createCarrier",
+    "success": 9,
+    "rejected": 4
+  },
+  {
+    "id": "getCarrier",
+    "success": 1,
+    "rejected": 1
+  },
+  {
+    "id": "updateCarrier",
+    "success": 1,
+    "rejected": 5
+  },
+  {
+    "id": "listAdmin",
+    "success": 2,
+    "rejected": 8
+  },
+  {
+    "id": "createAdmin",
+    "success": 3,
+    "rejected": 4
+  },
+  {
+    "id": "getAdmin",
+    "success": 1,
+    "rejected": 1
+  },
+  {
+    "id": "updateAdmin",
+    "success": 1,
+    "rejected": 4
+  },
+  {
+    "id": "listRole",
+    "success": 3,
+    "rejected": 2
+  },
+  {
+    "id": "createRole",
+    "success": 2,
+    "rejected": 5
+  },
+  {
+    "id": "getRole",
+    "success": 1,
+    "rejected": 1
+  },
+  {
+    "id": "updateRole",
+    "success": 1,
+    "rejected": 5
+  },
+  {
+    "id": "listContent",
+    "success": 1,
+    "rejected": 2
+  },
+  {
+    "id": "createContent",
+    "success": 3,
+    "rejected": 8
+  },
+  {
+    "id": "getContent",
+    "success": 2,
+    "rejected": 3
+  },
+  {
+    "id": "updateContent",
+    "success": 3,
+    "rejected": 7
+  },
+  {
+    "id": "productStatus",
+    "success": 3,
+    "rejected": 5
+  },
+  {
+    "id": "categories",
+    "success": 1,
+    "rejected": 2
+  },
+  {
+    "id": "createCategory",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "voucherTypes",
+    "success": 1,
+    "rejected": 2
+  },
+  {
+    "id": "createVoucherType",
+    "success": 1,
+    "rejected": 4
+  },
+  {
+    "id": "batches",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "createBatch",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "getBatch",
+    "success": 1,
+    "rejected": 1
+  },
+  {
+    "id": "generateBatch",
+    "success": 2,
+    "rejected": 4
+  },
+  {
+    "id": "sealBatch",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "vouchers",
+    "success": 2,
+    "rejected": 3
+  },
+  {
+    "id": "getVoucher",
+    "success": 2,
+    "rejected": 1
+  },
+  {
+    "id": "editVoucher",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "bulkVouchers",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "resetSecret",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "sealVoucher",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "orders",
+    "success": 1,
+    "rejected": 4
+  },
+  {
+    "id": "getOrder",
+    "success": 2,
+    "rejected": 1
+  },
+  {
+    "id": "adminOrderEdit",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "privateOrder",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "orderCancel",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "orderComplete",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "orderTrash",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "orderRestore",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "pickup",
+    "success": 2,
+    "rejected": 4
+  },
+  {
+    "id": "inventory",
+    "success": 2,
+    "rejected": 3
+  },
+  {
+    "id": "inventoryLedger",
+    "success": 1,
+    "rejected": 2
+  },
+  {
+    "id": "stockDocuments",
+    "success": 1,
+    "rejected": 2
+  },
+  {
+    "id": "createStockDocument",
+    "success": 9,
+    "rejected": 4
+  },
+  {
+    "id": "approveStockDocument",
+    "success": 12,
+    "rejected": 11
+  },
+  {
+    "id": "rejectStockDocument",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "inventoryReconcile",
+    "success": 3,
+    "rejected": 1
+  },
+  {
+    "id": "shipOrder",
+    "success": 7,
+    "rejected": 7
+  },
+  {
+    "id": "adminOrderShipments",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "autoLabel",
+    "success": 4,
+    "rejected": 4
+  },
+  {
+    "id": "trackingWebhook",
+    "success": 2,
+    "rejected": 5
+  },
+  {
+    "id": "afterSales",
+    "success": 1,
+    "rejected": 2
+  },
+  {
+    "id": "decideAfterSale",
+    "success": 3,
+    "rejected": 5
+  },
+  {
+    "id": "replacementShipment",
+    "success": 1,
+    "rejected": 4
+  },
+  {
+    "id": "feedbackList",
+    "success": 1,
+    "rejected": 8
+  },
+  {
+    "id": "resolveFeedback",
+    "success": 2,
+    "rejected": 6
+  },
+  {
+    "id": "permissions",
+    "success": 1,
+    "rejected": 2
+  },
+  {
+    "id": "auditLogs",
+    "success": 1,
+    "rejected": 6
+  },
+  {
+    "id": "getConfig",
+    "success": 5,
+    "rejected": 2
+  },
+  {
+    "id": "updateConfig",
+    "success": 4,
+    "rejected": 7
+  },
+  {
+    "id": "dashboard",
+    "success": 1,
+    "rejected": 1
+  },
+  {
+    "id": "notifications",
+    "success": 2,
+    "rejected": 2
+  },
+  {
+    "id": "retryNotification",
+    "success": 1,
+    "rejected": 4
+  },
+  {
+    "id": "files",
+    "success": 1,
+    "rejected": 2
+  },
+  {
+    "id": "uploadFile",
+    "success": 8,
+    "rejected": 3
+  },
+  {
+    "id": "downloadFile",
+    "success": 20,
+    "rejected": 26
+  },
+  {
+    "id": "importJob",
+    "success": 4,
+    "rejected": 3
+  },
+  {
+    "id": "commitImport",
+    "success": 1,
+    "rejected": 4
+  },
+  {
+    "id": "exportJob",
+    "success": 3,
+    "rejected": 5
+  },
+  {
+    "id": "getJob",
+    "success": 10,
+    "rejected": 2
+  },
+  {
+    "id": "changePassword",
+    "success": 3,
+    "rejected": 5
+  },
+  {
+    "id": "voucherSession",
+    "success": 1,
+    "rejected": 1
+  },
+  {
+    "id": "resolveJob",
+    "success": 1,
+    "rejected": 5
+  },
+  {
+    "id": "resolveNotification",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "setInventoryWarning",
+    "success": 2,
+    "rejected": 5
+  },
+  {
+    "id": "adminShipmentEvents",
+    "success": 1,
+    "rejected": 3
+  },
+  {
+    "id": "getAfterSale",
+    "success": 1,
+    "rejected": 1
+  }
+]

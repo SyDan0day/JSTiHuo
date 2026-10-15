@@ -1,0 +1,35 @@
+# 显式生产配置，需提供真实 HTTPS origin、证书与独立秘密。
+services:
+  api:
+    environment:
+      APP_ENV: production
+      APP_ORIGIN: ${APP_ORIGIN:?Provide an HTTPS origin}
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: [ALL]
+    cap_add: [CHOWN, SETUID, SETGID, DAC_OVERRIDE]
+    restart: unless-stopped
+  worker:
+    environment:
+      APP_ENV: production
+      APP_ORIGIN: ${APP_ORIGIN:?Provide an HTTPS origin}
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: [ALL]
+    cap_add: [CHOWN, SETUID, SETGID, DAC_OVERRIDE]
+    restart: unless-stopped
+  mysql:
+    restart: unless-stopped
+    mem_limit: 4g
+  proxy:
+    user: "101:101"
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx:uid=101,gid=101,mode=700
+      - /var/run:uid=101,gid=101,mode=700
+      - /tmp:uid=101,gid=101,mode=700
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    ports: !override ["${JST_HTTPS_BIND:-127.0.0.1}:${JST_HTTPS_PORT:-8443}:8443"]
+    volumes:
+      - ./nginx.production.conf:/etc/nginx/conf.d/default.conf:ro
+      - ${JST_TLS_DIR:?Provide a TLS directory}:/etc/nginx/tls:ro
+    restart: unless-stopped

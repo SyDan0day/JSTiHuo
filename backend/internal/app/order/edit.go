@@ -132,6 +132,13 @@ func (s *Service) editTx(
 	if err != nil {
 		return err
 	}
+	current, err := redemption.ReadConfiguration(ctx, tx)
+	if err != nil {
+		return err
+	}
+	if in.Date != oldDate && !current.Allowed(s.Redemption.Now(), in.Date) {
+		return fault(422, "DATE_UNAVAILABLE")
+	}
 	if err = s.validateDestination(ctx, tx, locked, in); err != nil {
 		return err
 	}

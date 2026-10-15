@@ -167,8 +167,7 @@ onMounted(() => load());
         ><input id="carrier-kuaidi" v-model="draft.kuaidi100_code" maxlength="40" />
         <label for="carrier-wdt">旺店通编码</label
         ><input id="carrier-wdt" v-model="draft.wdt_code" maxlength="40" />
-        <label for="carrier-ref">密钥引用名（仅真实供应商）</label
-        ><input id="carrier-ref" v-model="draft.secret_ref" maxlength="120" />
+        <p>V1 尚无已配置的 LIVE 密钥引用，不能在后台录入供应商凭据；仅维护非敏感平台编码。</p>
         <label><input v-model="draft.enabled" type="checkbox" />启用</label
         ><button>保存</button>
       </fieldset>

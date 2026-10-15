@@ -170,6 +170,16 @@ func (s *Service) StepUp(ctx context.Context, a, pre identity.Actor, in redempti
 	return result, tx.Commit()
 }
 
+// AuthorizeCustomerWrite 用途：在跨模块事务中复用本单 WRITE 与凭证版本复查。
+// 参数：ctx 上下文；tx 调用方事务；a ORDER 主体；id 目标订单。
+// 返回值：nil 或类型、归属、作用域、会话及凭证失效错误。
+func (s *Service) AuthorizeCustomerWrite(ctx context.Context, tx *sql.Tx, a identity.Actor, id string) error {
+	if a.Kind != "ORDER" {
+		return fault(403, "SCOPE_REQUIRED")
+	}
+	return s.authorize(ctx, tx, a, "", id)
+}
+
 // authorize 用途：事务内重查订单写权限并防止凭证轮换竞争。
 // 参数：ctx 请求上下文；tx 当前业务事务。
 // 参数：a 已认证操作主体；permission 所需管理员权限。

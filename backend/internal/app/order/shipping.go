@@ -82,6 +82,10 @@ func (s *Service) shipTx(ctx context.Context, tx *sql.Tx, id string, input ShipI
 	if err = checkPending(locked, input.Version); err != nil {
 		return err
 	}
+	labelID, err := checkShippingLabel(ctx, tx, id, input)
+	if err != nil {
+		return err
+	}
 	if calendar.Day(s.Redemption.Now()).Format("2006-01-02") < locked.Date.Format("2006-01-02") {
 		return fault(409, "SHIP_DATE_NOT_REACHED")
 	}
@@ -140,6 +144,11 @@ func (s *Service) shipTx(ctx context.Context, tx *sql.Tx, id string, input ShipI
 	_, err = tx.ExecContext(ctx, "UPDATE orders SET status='SHIPPED',shipped_at=?,version=version+1 WHERE id=?", s.Redemption.Now().UTC(), id)
 	if err != nil {
 		return err
+	}
+	if labelID != "" {
+		if _, err = tx.ExecContext(ctx, "UPDATE integration_jobs SET options=JSON_SET(options,'$.confirmed',JSON_EXTRACT('true','$')),version=version+1 WHERE id=?", labelID); err != nil {
+			return err
+		}
 	}
 	return s.event(ctx, tx, "shipment.created", id, locked.Version+1)
 }

@@ -67,7 +67,7 @@ func fault(status int, code string) error { return &identity.Fault{Status: statu
 
 // validate 用途：规范并校验承运商完整目录快照。
 // 参数：input 可规范化的编码、名称、平台映射及密钥引用。
-// 返回值：nil 或字段错误，不接受密钥明文或可执行引用路径。
+// 返回值：nil、字段错误或未配置集成错误，不接受密钥明文或任意引用。
 func validate(input *CarrierInput) error {
 	input.Code = strings.ToUpper(strings.TrimSpace(input.Code))
 	input.Name = strings.TrimSpace(input.Name)
@@ -88,6 +88,9 @@ func validate(input *CarrierInput) error {
 			return fault(422, "VALIDATION_FAILED")
 		}
 	case "KDNIAO", "KUAIDI100":
+		if input.SecretRef != "" {
+			return fault(503, "INTEGRATION_DISABLED")
+		}
 	default:
 		return fault(422, "VALIDATION_FAILED")
 	}

@@ -29,7 +29,7 @@ x-tests引用每操作基础契约测试，并与15的流程级并发/故障用�
 |createChallenge|POST `/api/v1/challenges`|ChallengeInput → Challenge|preauth.scoped|F03 / T-AUTH|C|
 |adminLogin|POST `/api/v1/admin/session`|Login → Session|preauth.scoped|F00 / T-AUTH|A|
 |adminSession|GET `/api/v1/admin/session`|文件 → Session|admin.scoped|F00 / T-READ|A|
-|adminLogout|DELETE `/api/v1/admin/session`|文件 → Action|admin.scoped|F00 / T-AUTH|A|
+|adminLogout|DELETE `/api/v1/admin/session`|文件 → 无正文|admin.scoped|F00 / T-AUTH|A|
 |adminReauth|POST `/api/v1/admin/session/reauth`|Reauth → Session|admin.scoped|F00 / T-AUTH|A|
 |publicProducts|GET `/api/v1/products`|文件 → ProductPublicList|public|F01 / T-READ|F|
 |publicContent|GET `/api/v1/content`|文件 → ContentList|public|F01 / T-READ|F|
@@ -103,7 +103,7 @@ x-tests引用每操作基础契约测试，并与15的流程级并发/故障用�
 |inventoryReconcile|GET `/api/v1/admin/inventory/reconciliation`|文件 → Reconcile|inventory.read|F06 / T-READ|H|
 |shipOrder|POST `/api/v1/admin/orders/{id}/shipments`|Ship → Shipment|order.ship|F07 / T-SHIP|E|
 |autoLabel|POST `/api/v1/admin/orders/{id}/label-jobs`|VersionReason → Job|order.ship|F07 / T-JOB|G|
-|trackingWebhook|POST `/api/v1/integrations/{provider}/tracking-events`|ProviderEvent → Action|provider.scoped|F07 / T-EVENT|G|
+|trackingWebhook|POST `/api/v1/integrations/{provider}/tracking-events`|ProviderEvent → 无正文|provider.scoped|F07 / T-EVENT|G|
 |afterSales|GET `/api/v1/admin/after-sales`|文件 → AfterSaleList|after_sale.read|F08 / T-READ|G|
 |decideAfterSale|POST `/api/v1/admin/after-sales/{id}/decision`|AfterSaleDecision → AfterSale|after_sale.write|F08 / T-STATE|G|
 |replacementShipment|POST `/api/v1/admin/after-sales/{id}/shipments`|Ship → Shipment|order.ship|F08 / T-REPLACE|G|

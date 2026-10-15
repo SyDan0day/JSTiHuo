@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { flowError } from '../../../api/flow-error';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { request, RequestError } from '../../../api/client';
@@ -13,29 +14,46 @@ const carrierId = ref(''),
   tracking = ref(''),
   error = ref(''),
   busy = ref(false),
-  success = ref(false);
+  success = ref(false),
+  ready = ref(false);
 const pending = ref<{ body: string; key: string }>();
 /**
- * load 用途：加载待发订单，有目录读权限时加载启用承运商。
+ * load 用途：刷新权威订单版本与承运商，加载失败时禁止发货。
  * 参数：无，使用路由订单标识。
  * 返回值：完成操作的 Promise，失败显示错误。
  */
 async function load() {
+  if (busy.value || pending.value) return;
   busy.value = true;
+  ready.value = false;
+  error.value = '';
+  carriers.value = [];
   try {
     order.value = await request(path);
-    if (!session.session?.permissions.includes('carrier.read')) return;
+    if (typeof route.query.label_job === 'string') {
+      const label = await request<components['schemas']['Job']>(
+        '/api/v1/admin/jobs/' + route.query.label_job,
+      );
+      if (label.kind !== 'LABEL' || label.state !== 'READY' || label.order_id !== order.value?.id)
+        throw new Error('invalid label');
+      carrierId.value = label.carrier_id ?? '';
+      tracking.value = label.tracking_no ?? '';
+    }
+    if (!session.session?.permissions.includes('carrier.read')) {
+      ready.value = true;
+      return;
+    }
     let after = '';
     do {
       const page = await request<components['schemas']['CarrierList']>(
-        '/api/v1/admin/carriers?status=ENABLED&limit=100' +
-          (after ? '&after_id=' + after : ''),
+        '/api/v1/admin/carriers?status=ENABLED&limit=100' + (after ? '&after_id=' + after : ''),
       );
       carriers.value.push(...page.items);
       after = page.next_after_id ?? '';
     } while (after);
+    ready.value = true;
   } catch (e) {
-    error.value = e instanceof RequestError ? e.detail.code : '读取失败';
+    error.value = flowError(e);
   } finally {
     busy.value = false;
   }
@@ -46,7 +64,7 @@ async function load() {
  * 返回值：完成操作的 Promise，结果未知时保留原命令供重试。
  */
 async function submit() {
-  if (!order.value) return;
+  if (!order.value || busy.value || !ready.value || success.value) return;
   pending.value ??= {
     key: crypto.randomUUID(),
     body: JSON.stringify({
@@ -67,7 +85,9 @@ async function submit() {
     success.value = true;
   } catch (e) {
     error.value =
-      e instanceof RequestError ? e.detail.code : '网络结果未确认，请重试原请求';
+      e instanceof RequestError && e.detail.code === 'SHIP_DATE_NOT_REACHED'
+        ? '尚未到预约发货日，请到期后刷新订单再发货'
+        : flowError(e);
     if (e instanceof RequestError && e.status < 500) pending.value = undefined;
   } finally {
     busy.value = false;
@@ -81,9 +101,12 @@ onMounted(load);
     <h1>全单人工发货</h1>
     <p role="alert">{{ error }}</p>
     <p v-if="success" role="status">已确认发货，库存预占已转为实际出库。</p>
-    <form v-else-if="order" @submit.prevent="submit">
+    <button v-if="!success" :disabled="busy || !!pending" @click="load">
+      刷新订单与承运商
+    </button>
+    <form v-if="!success && order" @submit.prevent="submit">
       <p>{{ order.order_no }} · {{ order.status }} · 预约 {{ order.ship_date }}</p>
-      <fieldset :disabled="busy || !!pending || order.status !== 'PENDING'">
+      <fieldset :disabled="busy || !ready || !!pending || order.status !== 'PENDING'">
         <label for="ship-carrier">承运商</label>
         <select
           v-if="session.session?.permissions.includes('carrier.read')"
@@ -116,9 +139,7 @@ onMounted(load);
         />
         <button>确认全单发货</button>
       </fieldset>
-      <button v-if="pending" type="button" :disabled="busy" @click="submit">
-        重试原请求
-      </button>
+      <button v-if="pending" type="button" :disabled="busy" @click="submit">重试原请求</button>
     </form>
   </main>
 </template>

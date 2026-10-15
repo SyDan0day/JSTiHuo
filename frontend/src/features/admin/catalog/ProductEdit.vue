@@ -1,27 +1,424 @@
 <script setup lang="ts">
-import {reactive,ref,onMounted,computed} from 'vue'
-import {useRoute,useRouter} from 'vue-router'
-import {request,RequestError} from '../../../api/client'
-import {useSession} from '../../../stores/session'
-import type {components} from '../../../api/generated/schema'
-import {ElInput,ElButton,ElSelect,ElOption} from 'element-plus'
-import 'element-plus/dist/index.css'
-const route=useRoute(),router=useRouter(),store=useSession(),busy=ref(false),error=ref(''),message=ref(''),id=ref(typeof route.params.id==='string'?route.params.id:''),version=ref(0),state=ref('DRAFT'),categories=ref<components['schemas']['Category'][]>([]),categoryName=ref(''),from=ref(''),until=ref(''),regions=ref(''),reason=ref('')
-const canWrite=computed(()=>store.session?.permissions.includes('product.write')),canUpload=computed(()=>canWrite.value&&store.session?.permissions.includes('file.write'))
-const form=reactive<components['schemas']['ProductInput']>({code:'',name:'',attributes:[],description_html:'',media_ids:[],excluded_region_codes:[],sort_order:0})
-let pending:{path:string;method:string;body:string;key:string}|null=null
-let categoryPending:{body:string;key:string}|null=null,uploadPending:{data:FormData;key:string}|null=null
-const categoryRetry=ref(false),uploadRetry=ref(false)
-function localDate(value?:string){if(!value)return '';const d=new Date(value);d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16)}
-async function loadCategories(){let after='';categories.value=[];do{const p=await request<components['schemas']['CategoryList']>('/api/v1/admin/categories?limit=100'+(after?'&after_id='+after:''));categories.value.push(...p.items);after=p.next_after_id??''}while(after)}
-async function load(){busy.value=true;error.value='';try{await loadCategories();if(id.value){const p=await request<components['schemas']['Product']>('/api/v1/admin/products/'+id.value);const {id:_,version:v,status:s,...input}=p;Object.assign(form,{category_id:undefined,external_spec_code:undefined,external_spec_name:undefined,redeem_from:undefined,redeem_until:undefined},input);version.value=v;state.value=s;from.value=localDate(p.redeem_from);until.value=localDate(p.redeem_until);regions.value=p.excluded_region_codes.join(',')}}catch{error.value='读取失败，请重试'}finally{busy.value=false}}
-async function category(){if(!categoryPending){if(!categoryName.value.trim())return;categoryPending={body:JSON.stringify({name:categoryName.value,sort_order:0}),key:crypto.randomUUID()}}busy.value=true;error.value='';try{const c=await request<components['schemas']['Category']>('/api/v1/admin/categories',{method:'POST',body:categoryPending.body},categoryPending.key);categoryPending=null;categoryRetry.value=false;if(!categories.value.some(x=>x.id===c.id))categories.value.unshift(c);form.category_id=c.id;categoryName.value=''}catch(e){if(e instanceof RequestError&&e.status<500){categoryPending=null;categoryRetry.value=false;error.value='分类创建失败，请确认名称唯一或刷新列表'}else{categoryRetry.value=true;error.value='分类结果待确认，请使用原请求重试'}}finally{busy.value=false}}
-async function upload(event?:Event){const input=event?.target as HTMLInputElement|undefined;if(!uploadPending){const file=input?.files?.[0];if(!file)return;if(file.size>5*1024*1024){error.value='图片不得超过 5 MiB';if(input)input.value='';return}const data=new FormData();data.set('kind','IMAGE');data.set('file',file);uploadPending={data,key:crypto.randomUUID()}}busy.value=true;error.value='';try{const result=await request<components['schemas']['File']>('/api/v1/admin/files',{method:'POST',body:uploadPending.data},uploadPending.key);if(result.state!=='READY')throw new Error('Not ready');if(!form.media_ids.includes(result.id))form.media_ids.push(result.id);uploadPending=null;uploadRetry.value=false}catch(e){if(e instanceof RequestError&&e.status<500){uploadPending=null;uploadRetry.value=false;error.value='上传失败，仅支持 PNG/JPEG 图片'}else{uploadRetry.value=true;error.value='上传结果待确认，请使用原请求重试'}}finally{if(input)input.value='';busy.value=false}}
-function payload(){const input={...form,attributes:[...form.attributes],media_ids:[...form.media_ids],excluded_region_codes:regions.value.split(/[，,\s]+/).filter(Boolean)};if(!input.category_id)delete input.category_id;if(from.value)input.redeem_from=new Date(from.value).toISOString();else delete input.redeem_from;if(until.value)input.redeem_until=new Date(until.value).toISOString();else delete input.redeem_until;return id.value?{...input,version:version.value}:input}
-async function run(){if(!pending)return;busy.value=true;error.value='';message.value='';try{const result=await request<components['schemas']['Product']|components['schemas']['Action']>(pending.path,{method:pending.method,body:pending.body},pending.key);pending=null;if('status' in result){id.value=result.id;version.value=result.version;state.value=result.status;Object.assign(form,(({id,version,status,...input})=>input)(result));await router.replace('/admin/products/'+result.id+'/edit');message.value='商品已保存'}else{version.value=result.version;state.value=result.state;message.value=state.value==='ENABLED'?'商品已上架':'商品已下架'}}catch(e){if(e instanceof RequestError&&e.status<500){pending=null;error.value=e.status===409?'版本或编码冲突，请重新读取后核对。':e.status===403?'没有权限或会话已变更，请重新登录。':'字段校验失败，请检查商品、图片及有效期。'}else{error.value='结果待确认，可使用原请求重试。'}}finally{busy.value=false}}
-async function save(){pending={path:'/api/v1/admin/products'+(id.value?'/'+id.value:''),method:id.value?'PATCH':'POST',body:JSON.stringify(payload()),key:crypto.randomUUID()};await run()}
-async function setStatus(status:'ENABLED'|'DISABLED'){pending={path:'/api/v1/admin/products/'+id.value+'/status',method:'POST',body:JSON.stringify({version:version.value,status,reason:reason.value}),key:crypto.randomUUID()};await run()}
-function move(index:number){if(index>0){const ids=form.media_ids;[ids[index-1],ids[index]]=[ids[index]!,ids[index-1]!]}}
-onMounted(load)
+import { reactive, ref, onMounted, computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { request, RequestError } from '../../../api/client';
+import { useSession } from '../../../stores/session';
+import type { components } from '../../../api/generated/schema';
+import { ElInput, ElButton, ElSelect, ElOption } from 'element-plus';
+import 'element-plus/dist/index.css';
+const route = useRoute(),
+  router = useRouter(),
+  store = useSession(),
+  busy = ref(false),
+  error = ref(''),
+  message = ref(''),
+  id = ref(typeof route.params.id === 'string' ? route.params.id : ''),
+  version = ref(0),
+  state = ref('DRAFT'),
+  categories = ref<components['schemas']['Category'][]>([]),
+  categoryName = ref(''),
+  from = ref(''),
+  until = ref(''),
+  regions = ref(''),
+  reason = ref('');
+const canWrite = computed(() => store.session?.permissions.includes('product.write')),
+  canUpload = computed(() => canWrite.value && store.session?.permissions.includes('file.write'));
+const form = reactive<components['schemas']['ProductInput']>({
+  code: '',
+  name: '',
+  attributes: [],
+  description_html: '',
+  media_ids: [],
+  excluded_region_codes: [],
+  sort_order: 0,
+});
+let pending: { path: string; method: string; body: string; key: string } | null = null;
+let categoryPending: { body: string; key: string } | null = null,
+  uploadPending: { data: FormData; key: string } | null = null;
+const categoryRetry = ref(false),
+  uploadRetry = ref(false);
+/**
+ * localDate 用途：把服务端时间转换为本地日期控件值。
+ * 参数：value 为可选 ISO 时间。
+ * 返回值：本地分钟精度字符串，空值返回空串。
+ */
+function localDate(value?: string) {
+  if (!value) return '';
+  const d = new Date(value);
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+  return d.toISOString().slice(0, 16);
+}
+/**
+ * loadCategories 用途：按游标加载授权可用分类。
+ * 参数：无。
+ * 返回值：加载 Promise，查询失败向调用方传播。
+ */
+async function loadCategories() {
+  let after = '';
+  categories.value = [];
+  do {
+    const p = await request<components['schemas']['CategoryList']>(
+      '/api/v1/admin/categories?limit=100' + (after ? '&after_id=' + after : ''),
+    );
+    categories.value.push(...p.items);
+    after = p.next_after_id ?? '';
+  } while (after);
+}
+/**
+ * load 用途：读取商品快照与分类并重置编辑字段。
+ * 参数：无，目标由当前路由确定。
+ * 返回值：加载 Promise，失败提供重试入口。
+ */
+async function load() {
+  busy.value = true;
+  error.value = '';
+  try {
+    await loadCategories();
+    if (id.value) {
+      const p = await request<components['schemas']['Product']>(
+        '/api/v1/admin/products/' + id.value,
+      );
+      const { id: _, version: v, status: s, ...input } = p;
+      Object.assign(
+        form,
+        {
+          category_id: undefined,
+          external_spec_code: undefined,
+          external_spec_name: undefined,
+          redeem_from: undefined,
+          redeem_until: undefined,
+        },
+        input,
+      );
+      version.value = v;
+      state.value = s;
+      from.value = localDate(p.redeem_from);
+      until.value = localDate(p.redeem_until);
+      regions.value = p.excluded_region_codes.join(',');
+    }
+  } catch {
+    error.value = '读取失败，请重试';
+  } finally {
+    busy.value = false;
+  }
+}
+/**
+ * category 用途：用固定幂等键创建分类并选择该分类。
+ * 参数：无，复用当前名称或原待确认请求。
+ * 返回值：提交 Promise，未知结果保留原请求。
+ */
+async function category() {
+  if (!categoryPending) {
+    if (!categoryName.value.trim()) return;
+    categoryPending = {
+      body: JSON.stringify({ name: categoryName.value, sort_order: 0 }),
+      key: crypto.randomUUID(),
+    };
+  }
+  busy.value = true;
+  error.value = '';
+  try {
+    const c = await request<components['schemas']['Category']>(
+      '/api/v1/admin/categories',
+      { method: 'POST', body: categoryPending.body },
+      categoryPending.key,
+    );
+    categoryPending = null;
+    categoryRetry.value = false;
+    if (!categories.value.some((x) => x.id === c.id)) categories.value.unshift(c);
+    form.category_id = c.id;
+    categoryName.value = '';
+  } catch (e) {
+    if (e instanceof RequestError && e.status < 500) {
+      categoryPending = null;
+      categoryRetry.value = false;
+      error.value = '分类创建失败，请确认名称唯一或刷新列表';
+    } else {
+      categoryRetry.value = true;
+      error.value = '分类结果待确认，请使用原请求重试';
+    }
+  } finally {
+    busy.value = false;
+  }
+}
+/**
+ * upload 用途：上传自有图片并保存受控媒体引用。
+ * 参数：event 为可选文件事件，重试时复用原 FormData。
+ * 返回值：上传 Promise，失败提示错误或允许原请求确认。
+ */
+async function upload(event?: Event) {
+  const input = event?.target as HTMLInputElement | undefined;
+  if (!uploadPending) {
+    const file = input?.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      error.value = '图片不得超过 5 MiB';
+      if (input) input.value = '';
+      return;
+    }
+    const data = new FormData();
+    data.set('kind', 'IMAGE');
+    data.set('file', file);
+    uploadPending = { data, key: crypto.randomUUID() };
+  }
+  busy.value = true;
+  error.value = '';
+  try {
+    const result = await request<components['schemas']['File']>(
+      '/api/v1/admin/files',
+      { method: 'POST', body: uploadPending.data },
+      uploadPending.key,
+    );
+    if (result.state !== 'READY') throw new Error('Not ready');
+    if (!form.media_ids.includes(result.id)) form.media_ids.push(result.id);
+    uploadPending = null;
+    uploadRetry.value = false;
+  } catch (e) {
+    if (e instanceof RequestError && e.status < 500) {
+      uploadPending = null;
+      uploadRetry.value = false;
+      error.value = '上传失败，仅支持 PNG/JPEG 图片';
+    } else {
+      uploadRetry.value = true;
+      error.value = '上传结果待确认，请使用原请求重试';
+    }
+  } finally {
+    if (input) input.value = '';
+    busy.value = false;
+  }
+}
+/**
+ * payload 用途：构造完整商品快照，规范可选日期和地区。
+ * 参数：无，读取当前表单与版本。
+ * 返回值：创建或编辑命令，不发送旧快照标识字段。
+ */
+function payload() {
+  const input = {
+    ...form,
+    attributes: [...form.attributes],
+    media_ids: [...form.media_ids],
+    excluded_region_codes: regions.value.split(/[，,\s]+/).filter(Boolean),
+  };
+  if (!input.category_id) delete input.category_id;
+  if (from.value) input.redeem_from = new Date(from.value).toISOString();
+  else delete input.redeem_from;
+  if (until.value) input.redeem_until = new Date(until.value).toISOString();
+  else delete input.redeem_until;
+  return id.value ? { ...input, version: version.value } : input;
+}
+/**
+ * run 用途：执行固定商品写请求并按原动作显示保存或上下架结果。
+ * 参数：无，使用待确认的路径、正文和幂等键。
+ * 返回值：提交 Promise，结果未知时保留原请求，成功读取权威商品。
+ */
+async function run() {
+  if (!pending) return;
+  busy.value = true;
+  error.value = '';
+  message.value = '';
+  try {
+    const publishing = pending.path.endsWith('/status');
+    const result = await request<components['schemas']['Product']>(
+      pending.path,
+      { method: pending.method, body: pending.body },
+      pending.key,
+    );
+    pending = null;
+    id.value = result.id;
+    version.value = result.version;
+    state.value = result.status;
+    if (publishing) {
+      message.value = state.value === 'ENABLED' ? '商品已上架' : '商品已下架';
+    } else {
+      Object.assign(form, (({ id, version, status, ...input }) => input)(result));
+      await router.replace('/admin/products/' + result.id + '/edit');
+      message.value = '商品已保存';
+    }
+  } catch (e) {
+    if (e instanceof RequestError && e.status < 500) {
+      pending = null;
+      error.value =
+        e.status === 409
+          ? '版本或编码冲突，请重新读取后核对。'
+          : e.status === 403
+            ? '没有权限或会话已变更，请重新登录。'
+            : '字段校验失败，请检查商品、图片及有效期。';
+    } else {
+      error.value = '结果待确认，可使用原请求重试。';
+    }
+  } finally {
+    busy.value = false;
+  }
+}
+/**
+ * save 用途：冻结完整编辑快照后保存商品。
+ * 参数：无，读取当前表单。
+ * 返回值：提交 Promise，重试由原请求入口执行。
+ */
+async function save() {
+  pending = {
+    path: '/api/v1/admin/products' + (id.value ? '/' + id.value : ''),
+    method: id.value ? 'PATCH' : 'POST',
+    body: JSON.stringify(payload()),
+    key: crypto.randomUUID(),
+  };
+  await run();
+}
+/**
+ * setStatus 用途：变更已保存商品的上下架状态。
+ * 参数：status 为明确目标状态。
+ * 返回值：提交 Promise，不覆盖尚未保存的表单内容。
+ */
+async function setStatus(status: 'ENABLED' | 'DISABLED') {
+  pending = {
+    path: '/api/v1/admin/products/' + id.value + '/status',
+    method: 'POST',
+    body: JSON.stringify({ version: version.value, status, reason: reason.value }),
+    key: crypto.randomUUID(),
+  };
+  await run();
+}
+/**
+ * move 用途：把指定媒体前移一位以调整主图顺序。
+ * 参数：index 为当前媒体位置。
+ * 返回值：无，首项保持原位。
+ */
+function move(index: number) {
+  if (index > 0) {
+    const ids = form.media_ids;
+    [ids[index - 1], ids[index]] = [ids[index]!, ids[index - 1]!];
+  }
+}
+onMounted(load);
 </script>
-<template><main class="admin-page editor"><div class="page-title"><h1>{{id?'编辑商品':'新增商品'}}</h1><RouterLink to="/admin/products">返回商品列表</RouterLink></div><p v-if="id">状态：{{state}} · 版本 {{version}}</p><p v-if="error" role="alert">{{error}}</p><p v-if="message" role="status">{{message}}</p><ElButton v-if="error.includes('结果待确认')" :disabled="busy" @click="run">使用原请求重试</ElButton><ElButton v-if="categoryRetry" :disabled="busy" @click="category">重试原分类请求</ElButton><ElButton v-if="uploadRetry" :disabled="busy" @click="upload()">重试原图片请求</ElButton><ElButton v-if="id" :disabled="busy" @click="load">重新读取</ElButton><form @submit.prevent="save"><fieldset :disabled="busy||!canWrite||error.includes('结果待确认')"><legend>基本信息</legend><label for="code">商品编码</label><ElInput id="code" v-model="form.code" maxlength="64" required/><label for="name">商品名称</label><ElInput id="name" v-model="form.name" maxlength="120" required/><label for="category">分类</label><ElSelect id="category" v-model="form.category_id" clearable placeholder="可选"><ElOption v-for="c in categories" :key="c.id" :label="c.name" :value="c.id"/></ElSelect><div class="inline"><ElInput v-model="categoryName" placeholder="新增分类名称" aria-label="新增分类名称" maxlength="80"/><ElButton native-type="button" @click="category">新增分类</ElButton></div><label for="spec-code">外部规格编码</label><ElInput id="spec-code" v-model="form.external_spec_code" maxlength="64"/><label for="spec-name">外部规格名称</label><ElInput id="spec-name" v-model="form.external_spec_name" maxlength="120"/><label for="sort">排序值</label><input id="sort" v-model.number="form.sort_order" type="number" min="0" max="100000" required></fieldset><fieldset :disabled="busy||!canWrite||error.includes('结果待确认')"><legend>属性与图片</legend><div v-for="(a,i) in form.attributes" :key="i" class="inline"><ElInput v-model="a.name" :aria-label="'属性名称 '+(i+1)" maxlength="40" required/><ElInput v-model="a.value" :aria-label="'属性值 '+(i+1)" maxlength="120" required/><ElButton @click="form.attributes.splice(i,1)">移除</ElButton></div><ElButton :disabled="form.attributes.length>=20" @click="form.attributes.push({name:'',value:''})">添加属性</ElButton><p>首张图片为主图，最多 9 张。</p><div class="media-list"><div v-for="(file,i) in form.media_ids" :key="file"><img :src="'/media/'+file" :alt="i===0?'主图':'轮播图'"><ElButton :disabled="i===0" @click="move(i)">前移</ElButton><ElButton @click="form.media_ids.splice(i,1)">移除</ElButton></div></div><label v-if="canUpload" for="image">上传 PNG/JPEG（≤5 MiB）</label><input v-if="canUpload" id="image" type="file" accept="image/png,image/jpeg" :disabled="form.media_ids.length>=9||uploadRetry" @change="upload"><label for="description">商品说明</label><textarea id="description" v-model="form.description_html" maxlength="50000" rows="8" placeholder="支持段落、标题、列表、加粗；保存时移除其他标签及属性。"/></fieldset><fieldset :disabled="busy||!canWrite||error.includes('结果待确认')"><legend>有效期与禁配地区</legend><label for="from">兑换开始（可选）</label><input id="from" v-model="from" type="datetime-local"><label for="until">兑换截止（可选）</label><input id="until" v-model="until" type="datetime-local"><label for="excluded">禁配地区代码</label><textarea id="excluded" v-model="regions" rows="3" placeholder="6位地区代码，逗号或空格分隔"/></fieldset><ElButton v-if="canWrite" native-type="submit" type="primary" :disabled="busy||error.includes('结果待确认')">保存商品</ElButton></form><section v-if="id&&canWrite"><p>上下架操作作用于已保存版本；请先保存表单修改。</p><label for="reason">上下架操作说明</label><ElInput id="reason" v-model="reason" maxlength="200"/><ElButton :disabled="busy||error.includes('结果待确认')" @click="setStatus('ENABLED')">上架</ElButton><ElButton :disabled="busy||error.includes('结果待确认')" @click="setStatus('DISABLED')">下架</ElButton></section></main></template>
+<template>
+  <main class="admin-page editor">
+    <div class="page-title">
+      <h1>{{ id ? '编辑商品' : '新增商品' }}</h1>
+      <RouterLink to="/admin/products">返回商品列表</RouterLink>
+    </div>
+    <p v-if="id">状态：{{ state }} · 版本 {{ version }}</p>
+    <p v-if="error" role="alert">{{ error }}</p>
+    <p v-if="message" role="status">{{ message }}</p>
+    <ElButton v-if="error.includes('结果待确认')" :disabled="busy" @click="run"
+      >使用原请求重试</ElButton
+    ><ElButton v-if="categoryRetry" :disabled="busy" @click="category">重试原分类请求</ElButton
+    ><ElButton v-if="uploadRetry" :disabled="busy" @click="upload()">重试原图片请求</ElButton
+    ><ElButton v-if="id" :disabled="busy" @click="load">重新读取</ElButton>
+    <form @submit.prevent="save">
+      <fieldset :disabled="busy || !canWrite || error.includes('结果待确认')">
+        <legend>基本信息</legend>
+        <label for="code">商品编码</label
+        ><ElInput id="code" v-model="form.code" maxlength="64" required /><label for="name"
+          >商品名称</label
+        ><ElInput id="name" v-model="form.name" maxlength="120" required /><label for="category"
+          >分类</label
+        ><ElSelect id="category" v-model="form.category_id" clearable placeholder="可选"
+          ><ElOption v-for="c in categories" :key="c.id" :label="c.name" :value="c.id"
+        /></ElSelect>
+        <div class="inline">
+          <ElInput
+            v-model="categoryName"
+            placeholder="新增分类名称"
+            aria-label="新增分类名称"
+            maxlength="80"
+          /><ElButton native-type="button" @click="category">新增分类</ElButton>
+        </div>
+        <label for="spec-code">外部规格编码</label
+        ><ElInput id="spec-code" v-model="form.external_spec_code" maxlength="64" /><label
+          for="spec-name"
+          >外部规格名称</label
+        ><ElInput id="spec-name" v-model="form.external_spec_name" maxlength="120" /><label
+          for="sort"
+          >排序值</label
+        ><input
+          id="sort"
+          v-model.number="form.sort_order"
+          type="number"
+          min="0"
+          max="100000"
+          required
+        />
+      </fieldset>
+      <fieldset :disabled="busy || !canWrite || error.includes('结果待确认')">
+        <legend>属性与图片</legend>
+        <div v-for="(a, i) in form.attributes" :key="i" class="inline">
+          <ElInput
+            v-model="a.name"
+            :aria-label="'属性名称 ' + (i + 1)"
+            maxlength="40"
+            required
+          /><ElInput
+            v-model="a.value"
+            :aria-label="'属性值 ' + (i + 1)"
+            maxlength="120"
+            required
+          /><ElButton @click="form.attributes.splice(i, 1)">移除</ElButton>
+        </div>
+        <ElButton
+          :disabled="form.attributes.length >= 20"
+          @click="form.attributes.push({ name: '', value: '' })"
+          >添加属性</ElButton
+        >
+        <p>首张图片为主图，最多 9 张。</p>
+        <div class="media-list">
+          <div v-for="(file, i) in form.media_ids" :key="file">
+            <img :src="'/media/' + file" :alt="i === 0 ? '主图' : '轮播图'" /><ElButton
+              :disabled="i === 0"
+              @click="move(i)"
+              >前移</ElButton
+            ><ElButton @click="form.media_ids.splice(i, 1)">移除</ElButton>
+          </div>
+        </div>
+        <label v-if="canUpload" for="image">上传 PNG/JPEG（≤5 MiB）</label
+        ><input
+          v-if="canUpload"
+          id="image"
+          type="file"
+          accept="image/png,image/jpeg"
+          :disabled="form.media_ids.length >= 9 || uploadRetry"
+          @change="upload"
+        /><label for="description">商品说明</label
+        ><textarea
+          id="description"
+          v-model="form.description_html"
+          maxlength="50000"
+          rows="8"
+          placeholder="支持段落、标题、列表、加粗；保存时移除其他标签及属性。"
+        />
+      </fieldset>
+      <fieldset :disabled="busy || !canWrite || error.includes('结果待确认')">
+        <legend>有效期与禁配地区</legend>
+        <label for="from">兑换开始（可选）</label
+        ><input id="from" v-model="from" type="datetime-local" /><label for="until"
+          >兑换截止（可选）</label
+        ><input id="until" v-model="until" type="datetime-local" /><label for="excluded"
+          >禁配地区代码</label
+        ><textarea
+          id="excluded"
+          v-model="regions"
+          rows="3"
+          placeholder="6位地区代码，逗号或空格分隔"
+        />
+      </fieldset>
+      <ElButton
+        v-if="canWrite"
+        native-type="submit"
+        type="primary"
+        :disabled="busy || error.includes('结果待确认')"
+        >保存商品</ElButton
+      >
+    </form>
+    <section v-if="id && canWrite">
+      <p>上下架操作作用于已保存版本；请先保存表单修改。</p>
+      <label for="reason">上下架操作说明</label
+      ><ElInput id="reason" v-model="reason" maxlength="200" /><ElButton
+        :disabled="busy || error.includes('结果待确认')"
+        @click="setStatus('ENABLED')"
+        >上架</ElButton
+      ><ElButton :disabled="busy || error.includes('结果待确认')" @click="setStatus('DISABLED')"
+        >下架</ElButton
+      >
+    </section>
+  </main>
+</template>

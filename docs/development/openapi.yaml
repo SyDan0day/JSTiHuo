@@ -1212,16 +1212,8 @@ paths:
           examples:
           - synthetic-csrfxx
       responses:
-        '200':
-          description: 退出登录成功；示例为合成数据。
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Action'
-              example:
-                id: '1'
-                version: 1
-                state: ENABLED
+        "204":
+          description: 退出成功，撤销会话并清除 Cookie；无响应正文。
           headers:
             Set-Cookie:
               description: 按12文档签发/轮换HttpOnly、Secure、SameSite=Strict的作用域cookie；令牌不入日志。
@@ -1476,7 +1468,7 @@ paths:
       - id: API-adminLogout-OK
         given: 合法专用测试夹具及所需权限
         when: DELETE /admin/session
-        then: 200且匹配响应Schema/业务事务后置条件
+        then: 204且无响应正文；满足业务事务后置条件
       - id: API-adminLogout-DENY
         given: 缺少认证/权限或越权对象
         when: 执行同一请求
@@ -2108,7 +2100,7 @@ paths:
     get:
       operationId: publicContent
       summary: 公开列表
-      description: DESIGN_DECISION；页面 /content；流程 F01；事务 T-READ。列表固定id DESC，after_id为排他游标；q按模块字段白名单搜索，status非法值400。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。
+      description: DESIGN_DECISION；页面 /content；流程 F01；事务 T-READ。列表固定id DESC，after_id为排他游标；q搜索标题或slug；status仅接受PUBLISHED/DRAFT或空，公开列表禁止DRAFT；非法值400。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。
       tags:
       - F
       security: []
@@ -2120,7 +2112,7 @@ paths:
           maxLength: 20
           minLength: 1
           examples:
-          - '1'
+          - "1"
           pattern: ^[1-9][0-9]{0,19}$
       - name: limit
         in: query
@@ -2137,15 +2129,16 @@ paths:
           maxLength: 100
           minLength: 0
           examples:
-          - ''
+          - ""
       - name: status
         in: query
         schema:
           type: string
-          maxLength: 24
-          minLength: 0
+          enum:
+          - ""
+          - PUBLISHED
           examples:
-          - ''
+          - PUBLISHED
       - name: sort
         in: query
         schema:
@@ -12404,7 +12397,7 @@ paths:
     get:
       operationId: listContent
       summary: 后台content列表
-      description: DESIGN_DECISION；页面 /admin/content；流程 F01；事务 T-READ。列表固定id DESC，after_id为排他游标；q按模块字段白名单搜索，status非法值400。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。
+      description: DESIGN_DECISION；页面 /admin/content；流程 F01；事务 T-READ。列表固定id DESC，after_id为排他游标；q搜索标题或slug；status仅接受PUBLISHED/DRAFT或空，公开列表禁止DRAFT；非法值400。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。
       tags:
       - F
       security:
@@ -12417,7 +12410,7 @@ paths:
           maxLength: 20
           minLength: 1
           examples:
-          - '1'
+          - "1"
           pattern: ^[1-9][0-9]{0,19}$
       - name: limit
         in: query
@@ -12434,15 +12427,17 @@ paths:
           maxLength: 100
           minLength: 0
           examples:
-          - ''
+          - ""
       - name: status
         in: query
         schema:
           type: string
-          maxLength: 24
-          minLength: 0
+          enum:
+          - ""
+          - PUBLISHED
+          - DRAFT
           examples:
-          - ''
+          - PUBLISHED
       - name: sort
         in: query
         schema:
@@ -24927,7 +24922,11 @@ paths:
           maxLength: 64
           minLength: 1
           examples:
-          - notice
+          - MOCK
+          enum:
+          - MOCK
+          - KDNIAO
+          - KUAIDI100
       - name: X-Timestamp
         in: header
         required: true
@@ -24936,7 +24935,7 @@ paths:
           maxLength: 20
           minLength: 1
           examples:
-          - '1791766800'
+          - "1791766800"
       - name: X-Signature
         in: header
         required: true
@@ -24947,16 +24946,6 @@ paths:
           examples:
           - synthetic-hmac
       responses:
-        '201':
-          description: 物流回调验签与去重成功；示例为合成数据。
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Action'
-              example:
-                id: '1'
-                version: 1
-                state: ENABLED
         '400':
           description: INVALID_ARGUMENT
           content:
@@ -25196,6 +25185,8 @@ paths:
                     request_id: req-example
                     field_errors: []
                     retryable: true
+        "204":
+          description: 签名与事件处理成功或已幂等处理；无响应正文。
       x-permission: provider.scoped
       x-flow: F07
       x-page: worker
@@ -25206,7 +25197,7 @@ paths:
       - id: API-trackingWebhook-OK
         given: 合法专用测试夹具及所需权限
         when: POST /integrations/{provider}/tracking-events
-        then: 201且匹配响应Schema/业务事务后置条件
+        then: 204且无响应正文；满足业务事务后置条件
       - id: API-trackingWebhook-DENY
         given: 缺少认证/权限或越权对象
         when: 执行同一请求
@@ -29950,7 +29941,7 @@ paths:
     post:
       operationId: importJob
       summary: 预检导入作业
-      description: DESIGN_DECISION；页面 /admin/imports；流程 F11；事务 T-JOB。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。
+      description: DESIGN_DECISION；页面 /admin/imports；流程 F11；事务 T-JOB。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。卡券必须提供batch_id且不可带carrier_id；CSV行数须等于草稿批次数量。运单需额外order.ship权限，carrier_id若提供则限定每行承运商，不能携带batch_id。
       tags:
       - G
       security:
@@ -30261,9 +30252,7 @@ paths:
     post:
       operationId: commitImport
       summary: 提交已预检通过的导入
-      description: DESIGN_DECISION；页面 /admin/imports/:id；流程 F11；事务 T-JOB。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。 Only PREVIEW/READY
-        with zero fatal errors; atomically phase=APPLY,state=PENDING, enqueue. Same job key returns existing job.
-        Import vouchers all-or-nothing; shipments row-by-row.
+      description: DESIGN_DECISION；页面 /admin/imports/:id；流程 F11；事务 T-JOB。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。 Only PREVIEW/READY仅原任务owner可确认，PREVIEW/READY且failed=0；再次确认已进入APPLY的同一任务不重复执行。 with zero fatal errors; atomically phase=APPLY,state=PENDING, enqueue. Same job key returns existing job. Import vouchers all-or-nothing; shipments row-by-row.
       tags:
       - G
       security:
@@ -30584,7 +30573,7 @@ paths:
     post:
       operationId: exportJob
       summary: 非凭证业务导出
-      description: DESIGN_DECISION；页面 /admin/exports；流程 F11；事务 T-JOB。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。
+      description: DESIGN_DECISION；页面 /admin/exports；流程 F11；事务 T-JOB。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。仅脱敏白名单。VOUCHER_METADATA的status仅SEALED/EXPORTABLE/空，可按batch_id筛选；ORDERS仅PENDING/SHIPPED/COMPLETED/CANCELLED/空，不接受batch_id。
       tags:
       - G
       security:
@@ -30894,8 +30883,7 @@ paths:
     get:
       operationId: getJob
       summary: 查看作业状态
-      description: DESIGN_DECISION；页面 /admin/jobs/:id；流程 F11；事务 T-READ。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。 Object ownership
-        or explicit management permission required; no arbitrary job/file access.
+      description: DESIGN_DECISION；页面 /admin/jobs/:id；流程 F11；事务 T-READ。权限服务端执行。请求示例仅用于本地测试，日期须按测试时钟调整。 Object ownership要求file.read、来源种类权限及owner归属，file.export可管理读取；缺失owner拒绝。 or explicit management permission required; no arbitrary job/file access.
       tags:
       - G
       security:
@@ -33348,7 +33336,7 @@ paths:
                     request_id: req-example
                     field_errors: []
                     retryable: true
-      x-permission: aftersale.read
+      x-permission: after_sale.read
       x-flow: F08
       x-page: /admin/after-sales/:id
       x-work-package: G
@@ -33770,7 +33758,8 @@ components:
           minLength: 1
           examples:
           - JSTEST-P1
-          pattern: ^[A-Z0-9_-]+$
+          pattern: ^[A-Za-z0-9_-]+$
+          description: 输入编码忽略大小写，服务端去除首尾空白后统一存储为大写。
         name:
           type: string
           maxLength: 120
@@ -36561,7 +36550,7 @@ components:
         size_bytes:
           type: integer
           minimum: 0
-          maximum: 10000000
+          maximum: 10485760
           examples:
           - 100
         expires_at:
@@ -36638,6 +36627,26 @@ components:
           maximum: 9007199254740991
           examples:
           - 1
+        tracking_no:
+          type: string
+          maxLength: 80
+          minLength: 3
+          examples:
+          - TESTTRACK001
+        carrier_id:
+          type: string
+          maxLength: 20
+          minLength: 1
+          examples:
+          - "1"
+          pattern: ^[1-9][0-9]{0,19}$
+        order_id:
+          type: string
+          maxLength: 20
+          minLength: 1
+          examples:
+          - "1"
+          pattern: ^[1-9][0-9]{0,19}$
       required:
       - id
       - kind
@@ -36756,6 +36765,12 @@ components:
           maximum: 9007199254740991
           examples:
           - 1
+        last_error_code:
+          type: string
+          minLength: 1
+          maxLength: 80
+          examples:
+          - RESULT_UNKNOWN
       required:
       - id
       - channel

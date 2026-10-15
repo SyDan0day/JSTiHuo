@@ -1,0 +1,16 @@
+{
+  "completed_at": "2026-10-15T05:42:02.049044+00:00",
+  "isolated_containers_removed": true,
+  "isolated_volumes_removed": true,
+  "browser_fixture_stopped": true,
+  "vite_stopped": true,
+  "private_test_secrets_and_restore_sql_removed": true,
+  "git_commit_created": false,
+  "git_push_performed": false,
+  "retained": [
+    "repository source",
+    "non-sensitive acceptance reports and screenshots",
+    "local built image IDs in release manifest",
+    "dependency caches"
+  ]
+}

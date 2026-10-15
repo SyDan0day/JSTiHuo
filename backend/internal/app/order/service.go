@@ -79,12 +79,6 @@ func (s *Service) List(ctx context.Context, f Filter) (Page, error) {
 		ids = ids[:f.Limit]
 		out.Next = ids[len(ids)-1]
 	}
-	for _, id := range ids {
-		o, e := s.Redemption.GetOrder(ctx, id, true)
-		if e != nil {
-			return out, e
-		}
-		out.Items = append(out.Items, o)
-	}
-	return out, nil
+	out.Items, e = s.Redemption.GetOrders(ctx, ids, true)
+	return out, e
 }

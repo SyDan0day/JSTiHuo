@@ -29,6 +29,9 @@ import (
 	"time"
 )
 
+// TestCatalog 用途：验证商品图片、完整快照、状态与权限的真实 HTTP 流程。
+// 参数：t 测试上下文，需显式隔离 MySQL。
+// 返回值：无，协议或业务不变量不符时测试失败。
 func TestCatalog(t *testing.T) {
 	dsn := os.Getenv("TEST_DB_DSN")
 	if dsn == "" {
@@ -79,7 +82,7 @@ func TestCatalog(t *testing.T) {
 		t.Fatal(e)
 	}
 	svc := catalog.New(db, t.TempDir(), key)
-	h := transport.Router(func(context.Context) error { return nil }, slog.New(slog.NewTextHandler(io.Discard, nil)), transport.API(transport.IdentityHandler{Service: auth, Origin: "http://localhost:8080", Development: true}, svc))
+	h := contractHTTP(t, transport.Router(func(context.Context) error { return nil }, slog.New(slog.NewTextHandler(io.Discard, nil)), transport.API(transport.IdentityHandler{Service: auth, Origin: "http://localhost:8080", Development: true}, svc)))
 	cookie := &http.Cookie{Name: "jst-admin", Value: token}
 	call := func(method, path string, payload any, key string, authenticated bool) *httptest.ResponseRecorder {
 		var b bytes.Buffer

@@ -352,7 +352,7 @@ func exerciseOrderManagement(
 func exerciseOrderHTTP(t *testing.T, svc *order.Service, target redemption.Order, address redemption.Address) {
 	t.Helper()
 	auth := transport.IdentityHandler{Service: svc.Auth, Origin: "http://localhost:8080", Development: true}
-	handler := transport.Router(func(context.Context) error { return nil }, slog.New(slog.NewTextHandler(io.Discard, nil)), transport.WithOrders(svc, auth, transport.WithRedemption(svc.Redemption, auth, transport.API(auth, svc.Redemption.Catalog))))
+	handler := contractHTTP(t, transport.Router(func(context.Context) error { return nil }, slog.New(slog.NewTextHandler(io.Discard, nil)), transport.WithOrders(svc, auth, transport.WithRedemption(svc.Redemption, auth, transport.API(auth, svc.Redemption.Catalog)))))
 	cookies := map[string]*http.Cookie{}
 	tokens := map[string]string{}
 	call := func(method, path string, input any, scope, key string) *httptest.ResponseRecorder {

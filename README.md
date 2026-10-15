@@ -1,6 +1,6 @@
 # JSTiHuo
 
-根据 [开发规格](docs/development/00-README.md) 实施的独立提货系统。已实现 A1–E2 核心：基础工程、管理员认证、商品与库存、卡券生成发行、鉴真兑换、订单操作，以及人工发货、到店核销和 MANUAL/MOCK 物流。其余工作包及完整浏览器验收仍待实施。
+根据 [开发规格](docs/development/00-README.md) 实施的独立提货系统。已实现 A1–H2 的本地交付：商品库存、卡券发行、兑换订单、履约售后、导入导出、门户内容、反馈、权限配置及可靠异步任务。MANUAL/MOCK 完成闭环；真实供应商和生产发布须另行配置与验收。交付证据见 [开发状态](docs/development/IMPLEMENTATION-STATUS.md)。
 
 ## 本地开发
 
@@ -26,9 +26,9 @@ docker compose -f deployments/compose.yaml up -d --build api worker proxy
 
 `make test` 执行 Go race 单元测试、OpenAPI 规范验证及类型生成、37 表迁移一致性检查、Go/Vue 构建。`TEST_DB_DSN='...' make integration` 在**隔离空库**运行真实 MySQL 迁移、重复执行及 checksum 篡改拒绝测试，该测试会篡改测试库迁移记录，不可使用生产库。CI 提供 MySQL 8.4 服务运行该测试。
 
-MySQL DDL 不能整体回滚。部分失败会停止并保留现场，需运维检查修复，禁止盲目删除数据重跑。现阶段没有生产发布或备份恢复验收；Compose 仅供 localhost 开发，生产 TLS、镜像 digest 锁定与恢复演练属于后续交付门槛。
+MySQL DDL 不能整体回滚。部分失败会停止并保留现场，需运维检查修复，禁止盲目删除数据重跑。已完成隔离环境 HTTPS、镜像 digest 锁定、加密备份、binlog 增量恢复和回滚演练，见 [部署与恢复手册](docs/runbooks/operations.md)；实际生产域名、证书、异机备份及供应商尚未验证。
 
-worker 已接入卡券生成、凭证维护和 MOCK 轨迹。`TEST_DB_DSN='隔离测试库' make e2e` 执行发行到模拟签收的真实 MySQL 协议主链；页面点击和截图仍待 H1。后续工作包为 F1/F2、G1/G2/G3 与 H1/H2，可靠通知和真实供应商集成在 G2 接入。
+worker 已接入生成、文件任务、TTL、轨迹调度、Outbox、库存对账、指标日志与订单隐私保留。`TEST_DB_DSN='隔离测试库' make e2e` 执行协议主链；真实浏览器 14 步、取消和三档路由检查已通过，见 [H1 验收](docs/development/H1-delivery.md)。
 
 ## A2 管理员认证
 
@@ -41,7 +41,7 @@ docker compose -f deployments/compose.yaml --profile tools run --rm admin admin 
 
 CLI 只允许空管理员库，重复执行不会覆盖账号。运行业务库没有预置账号。生产仅允许 HTTPS；本地 HTTP 仅 development 可用。改密撤销所有会话，退出、复核旋转与禁用账号检查均由服务端执行。
 
-Vite 调试时应将 API 的 APP_ORIGIN 设置为实际浏览器 Origin（如 http://localhost:5173）；Compose 固定为 http://localhost:8080。管理员/角色编辑接口及页面于 G3 接入。
+Vite 调试时应将 API 的 APP_ORIGIN 设置为实际浏览器 Origin（如 http://localhost:5173）；Compose 默认 http://localhost:8080，可由 APP_ORIGIN 配置。管理员、角色与权限在 `/admin/admins` 与 `/admin/roles` 维护；服务端阻止提权和移除最后一个完整管理员。
 
 ## B1 商品管理
 
@@ -82,3 +82,23 @@ C2 操作及验证见 [C2 交付记录](docs/development/C2-delivery.md)。全�
 `/admin/carriers` 维护承运商目录。`/admin/orders/:id/ship` 在上海预约日到达后确认全单发货，原预占转实扣；同单只创建一个主运单，同承运商单号不能重复。订单详情可有原因地人工完成，实际轨迹单独展示。`/admin/pickups` 现场核验原卡密和商品 ID 集合，直接完成到店订单，不占配送名额或其他订单预占。
 
 只有显式 MOCK 承运商会由 worker 在发货后三十秒/六十秒生成标注模拟的运输/签收事件；MANUAL 不自动生成轨迹。KDNIAO/KUAIDI100 当前仅保存目录映射，尚未调用真实服务。顾客在 `/orders/tracking` 读取自己订单的物流。权限、事务边界与测试详情见 [E2 交付记录](docs/development/E2-delivery.md)。
+
+## F1 公开内容与响应式页面
+
+首页 `/` 展示真实商品、已发布推荐和公告；`/products` 与详情页使用统一公开布局。`/pages/:slug` 读取已发布内容，未发布或撤下统一提示不可用。移动底栏提供首页、鉴真、提货、进度和联系入口。
+
+管理员从 `/admin/content` 创建、编辑、发布和撤下自有内容，需要 `content.read` / `content.write`。固定信息入口使用 `guide`、`about`、`contact`、`notice` 四个 slug；新安装不预置商家身份或联系方式，须由运营核实发布。正文服务端清洗，编辑要求完整快照及版本；网络结果不确定时表单锁定，使用原请求确认。无需新增迁移。
+
+真实 MySQL、浏览器发布闭环与 390/768/1440 截图见 [F1 交付记录](docs/development/F1-delivery.md)。浏览器夹具通过 `browserfixture` 标签单独启用，不随普通测试启动服务。
+
+## F2–G3 用户与运营功能
+
+顾客可提交真实持久化反馈，在本单写授权下发起投诉或补发。后台支持反馈处理、售后决策、补发履约、CSV 预检与确认、脱敏报表、文件到期管理、通知及面单结果核对。外部调用结果未知时必须先复核，不能直接重发。
+
+后台提供统计、账户角色、预约规则、审计、只读地区与本地公开二维码。使用步骤见 [业务操作指南](docs/runbooks/user-guide.md)；事务与边界见各 F/G 交付记录。
+
+## 部署与恢复
+
+[运维手册](docs/runbooks/operations.md) 包含首次部署、HTTPS、秘密与密钥轮换、备份恢复、故障处理和回滚。`recovery` CLI 支持独立密钥的认证加密归档，仅包含 SQL 与公开图片，排除卡密导出和导入源；恢复后必须安全收敛并检查账本、PII 和外部任务。
+
+本地交付使用自有合成资料，未向真实收件人发送消息。生产运行需真实域名证书、内容确认、异机备份与规模演练，LIVE 供应商默认不可用。没有自动创建 Git 提交或推送。

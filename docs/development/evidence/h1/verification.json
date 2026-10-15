@@ -1,0 +1,129 @@
+{
+  "mysql_version": "8.4",
+  "integration_race_seconds": 277.72,
+  "http_operations_with_success": 106,
+  "missing_success_operations": [],
+  "tests": [
+    {
+      "test": "TestAdministration",
+      "seconds": 13.67
+    },
+    {
+      "test": "TestConfigurationOperations",
+      "seconds": 8.86
+    },
+    {
+      "test": "TestLastAdminRace",
+      "seconds": 6.79
+    },
+    {
+      "test": "TestAfterSales",
+      "seconds": 10.46
+    },
+    {
+      "test": "TestAsyncIntegrations",
+      "seconds": 10.62
+    },
+    {
+      "test": "TestCatalog",
+      "seconds": 3.67
+    },
+    {
+      "test": "TestConfigurationRace",
+      "seconds": 8.85
+    },
+    {
+      "test": "TestInventoryReconciliation",
+      "seconds": 7.79
+    },
+    {
+      "test": "TestContentAuditRollback",
+      "seconds": 6.08
+    },
+    {
+      "test": "TestContentConcurrentReplay",
+      "seconds": 7.01
+    },
+    {
+      "test": "TestContent",
+      "seconds": 7.89
+    },
+    {
+      "test": "TestContractPositiveSupplement",
+      "seconds": 17.78
+    },
+    {
+      "test": "TestContractSecurity",
+      "seconds": 12.57
+    },
+    {
+      "test": "TestFeedback",
+      "seconds": 6.74
+    },
+    {
+      "test": "TestFileJobs",
+      "seconds": 15.66
+    },
+    {
+      "test": "TestPrivateFileBoundaries",
+      "seconds": 6.52
+    },
+    {
+      "test": "TestIdentity",
+      "seconds": 14.88
+    },
+    {
+      "test": "TestInventory",
+      "seconds": 3.79
+    },
+    {
+      "test": "TestMigrations",
+      "seconds": 0.02
+    },
+    {
+      "test": "TestNotificationFailures",
+      "seconds": 9.55
+    },
+    {
+      "test": "TestRecoverySafety",
+      "seconds": 10.68
+    },
+    {
+      "test": "TestRedemption",
+      "seconds": 12.45
+    },
+    {
+      "test": "TestOrderPrivacyRetention",
+      "seconds": 9.3
+    },
+    {
+      "test": "TestMockFulfillment",
+      "seconds": 10.43
+    },
+    {
+      "test": "TestShippingTransactions",
+      "seconds": 22.28
+    },
+    {
+      "test": "TestTrackingSchedule",
+      "seconds": 10.43
+    },
+    {
+      "test": "TestVoucherGeneration",
+      "seconds": 21.62
+    }
+  ],
+  "checks": {
+    "make_test": "PASS",
+    "go_vet_browserfixture": "PASS"
+  },
+  "scope": "real isolated MySQL, HTTP handlers and schema assertions; no production services",
+  "post_full_suite_regression": {
+    "tests": [
+      "TestCalendarWindowReplenishment",
+      "TestOrderPrivacyRetention"
+    ],
+    "race_seconds": 19.122,
+    "result": "PASS"
+  }
+}

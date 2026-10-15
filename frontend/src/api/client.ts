@@ -3,13 +3,14 @@ type ApiError = components['schemas']['Error'];
 export class RequestError extends Error {
   /**
    * constructor 用途：保存统一 API 错误，供界面区别业务失败与网络不确定。
-   * 参数：status 为 HTTP 状态，detail 为服务端结构化错误。
+   * 参数：status 为 HTTP 状态，detail 为服务端错误，retryAfter 为限流等待秒数。
    * 返回值：无。
    * 约束：初始化 Error 信息，不存请求体或秘密。
    */
   constructor(
     readonly status: number,
     readonly detail: ApiError,
+    readonly retryAfter = 0,
   ) {
     super(detail.message);
   }
@@ -81,7 +82,15 @@ export async function request<T>(
     if (idempotencyKey) headers.set('Idempotency-Key', idempotencyKey);
   }
   const response = await fetch(path, { ...options, headers, credentials: 'same-origin' });
-  if (!response.ok) throw new RequestError(response.status, await response.json());
+  if (!response.ok) {
+    const retryAfter = Math.min(
+      3600,
+      Math.max(0, Number(response.headers.get('Retry-After')) || 0),
+    );
+    if (response.status === 429)
+      window.dispatchEvent(new CustomEvent('jst-rate-limit', { detail: retryAfter || 60 }));
+    throw new RequestError(response.status, await response.json(), retryAfter);
+  }
   const orderHint = response.headers.get('X-Order-Scope');
   if (orderHint === 'READ' || orderHint === 'WRITE') orderScope = orderHint;
   const scope = response.headers.get('X-CSRF-Scope'),
@@ -92,15 +101,14 @@ export async function request<T>(
   )
     setCsrf(token, scope);
   const data = response.status === 204 ? undefined : await response.json();
-  if (path === '/api/v1/session/bootstrap' && data?.csrf_token)
-    setCsrf(data.csrf_token, 'preauth');
+  if (path === '/api/v1/session/bootstrap' && data?.csrf_token) setCsrf(data.csrf_token, 'preauth');
   return data as T;
 }
 
 // Credentials remain out of JSON/state: a user-triggered authorized binary download.
 
 /**
- * download 用途：授权下载短期凭证文件。
+ * download 用途：授权下载短期凭证或脱敏报表。
  * 参数：path 为固定格式的文件下载路径。
  * 返回值：完成操作的 Promise，无业务返回值。
  * 约束：权限/复核/过期等响应抛 RequestError，网络错误传播。
@@ -119,7 +127,9 @@ export async function download(path: string) {
     url = URL.createObjectURL(blob),
     link = document.createElement('a');
   link.href = url;
-  link.download = 'credentials.csv';
+  const disposition = response.headers.get('Content-Disposition') ?? '';
+  const filename = /filename="([A-Za-z0-9_.-]+\.csv)"/.exec(disposition)?.[1];
+  link.download = filename ?? 'download.csv';
   document.body.append(link);
   link.click();
   link.remove();

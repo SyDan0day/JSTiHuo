@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-// main 用途：运行生成、凭证维护与显式 MOCK 物流 worker。
+// main 用途：运行卡券、文件任务、凭证维护与显式 MOCK 物流 worker。
 // 参数：无。
 // 返回值：无。
 // 约束：配置或迁移失败退出，信号取消任务，关闭数据库，定期维护租约、TTL、孤儿密文，不发送真实通知。
@@ -64,15 +64,60 @@ func main() {
 		os.Exit(1)
 	}
 	trackingOrders := &order.Service{DB: db, Now: time.Now}
+	operating, e := loadOperations(db, root, requestKey, svc)
+	if e != nil {
+		log.Error("operations initialization rejected")
+		os.Exit(1)
+	}
+	retention, e := retentionDays()
+	if e != nil {
+		log.Error("retention configuration rejected")
+		os.Exit(1)
+	}
 	tracking := mock.Tracking{DB: db, Now: time.Now, Publish: trackingOrders.RecordTracking}
 	nextCleanup := time.Time{}
 	nextMaintenance := time.Time{}
+	nextReconcile := time.Time{}
+	lastCalendarDay := ""
+	metrics := metricWindow{}
 	log.Info("generation worker started")
 	for ctx.Err() == nil {
+		if !time.Now().Before(nextReconcile) {
+			metrics = reportMetrics(ctx, db, root, log, metrics)
+			result, err := operating.Reconcile(ctx)
+			if err != nil && ctx.Err() == nil {
+				log.Error("inventory reconciliation failed")
+			} else if err == nil && !result.Balanced {
+				log.Error("inventory drift detected", "product_ids", result.Products)
+			}
+			nextReconcile = time.Now().Add(15 * time.Minute)
+		}
+		if !time.Now().Before(nextMaintenance) {
+			day, err := maintainCalendar(ctx, operating.Orders.Redemption, lastCalendarDay)
+			if err != nil && ctx.Err() == nil {
+				log.Error("calendar maintenance failed")
+			} else if err == nil {
+				lastCalendarDay = day
+			}
+			if err := operating.ScheduleTracking(ctx); err != nil && ctx.Err() == nil {
+				log.Error("tracking scheduling failed")
+			}
+		}
+		if _, err := operating.RunOutbox(ctx); err != nil && ctx.Err() == nil {
+			log.Error("outbox processing failed")
+		}
+		if _, err := operating.RunOnce(ctx); err != nil && ctx.Err() == nil {
+			log.Error("file job failed")
+		}
 		if _, err := tracking.RunOnce(ctx); err != nil && ctx.Err() == nil {
 			log.Error("mock tracking failed")
 		}
 		if !time.Now().Before(nextCleanup) {
+			if count, err := operating.RetireCompletedPII(ctx, retention, 1000); err != nil && ctx.Err() == nil {
+				log.Error("order privacy retention failed")
+			} else if err == nil && count > 0 {
+				log.Info("order privacy retention completed", "orders", count)
+			}
 			if e := svc.CleanupOrphans(ctx); e != nil && ctx.Err() == nil {
 				log.Error("orphan cleanup failed")
 			}

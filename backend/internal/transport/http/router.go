@@ -26,12 +26,23 @@ type Error struct {
 // 约束：每次请求独立上下文，兑换五秒、下载六十秒，结束取消；日志不记录凭证或请求体。
 func Router(ready func(context.Context) error, log *slog.Logger, api ...http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		started := time.Now()
+		response := &accessResponse{ResponseWriter: w}
+		w = response
 		b := make([]byte, 16)
 		if _, e := rand.Read(b); e != nil {
 			http.Error(w, "unavailable", 503)
 			return
 		}
 		id := hex.EncodeToString(b)
+		defer func() {
+			status := response.status
+			if status == 0 {
+				status = 200
+			}
+			method, route := accessLabels(r)
+			log.Info("http request", "request_id", id, "method", method, "route", route, "status", status, "duration_ms", time.Since(started).Milliseconds(), "response_bytes", response.bytes)
+		}()
 		w.Header().Set("X-Request-ID", id)
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Cache-Control", "no-store")

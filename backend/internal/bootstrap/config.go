@@ -4,12 +4,16 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
+	"net/netip"
 	"net/url"
 	"os"
 	"strings"
 )
 
-type Config struct{ DSN, Address, Origin string }
+type Config struct {
+	DSN, Address, Origin string
+	ProxyNetworks        []netip.Prefix
+}
 
 func ReadSecret(name string) ([]byte, error) {
 	p := os.Getenv(name)
@@ -25,8 +29,21 @@ func ReadSecret(name string) ([]byte, error) {
 	}
 	return b, nil
 }
+
+// Load 用途：验证数据库、独立密钥、站点 origin 与可信代理网络配置。
+// 参数：无，从明确的部署环境变量与秘密文件读取。
+// 返回值：有效配置或不含秘密内容的启动错误。
 func Load() (Config, error) {
 	var c Config
+	if raw := os.Getenv("TRUSTED_PROXY_CIDRS"); raw != "" {
+		for _, value := range strings.Split(raw, ",") {
+			prefix, err := netip.ParsePrefix(strings.TrimSpace(value))
+			if err != nil {
+				return c, errors.New("TRUSTED_PROXY_CIDRS requires explicit CIDR networks")
+			}
+			c.ProxyNetworks = append(c.ProxyNetworks, prefix.Masked())
+		}
+	}
 	b, e := ReadSecret("DB_DSN_FILE")
 	if e != nil {
 		return c, e

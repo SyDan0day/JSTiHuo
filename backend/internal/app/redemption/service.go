@@ -62,7 +62,7 @@ type queryer interface {
 // 参数：id code 为空时使用的卡券标识；code 规范化卡号，非空时优先于 id。
 // 参数：lock 是否在调用方事务中锁读。
 // 返回值：卡券快照或查询、JSON 错误。
-// 约束：lock 只能在调用方事务内使用。
+// 约束：lock 只能在已按批次共享锁、卡券排他锁顺序的事务内使用。
 func (s *Service) card(ctx context.Context, q queryer, id, code string, lock bool) (Card, error) {
 	var c Card
 	var raw []byte
@@ -74,7 +74,7 @@ func (s *Service) card(ctx context.Context, q queryer, id, code string, lock boo
 	}
 	query := "SELECT v.id,v.batch_id,v.secret_hash,v.version,v.credential_version,v.active,v.redeemed_at IS NOT NULL,v.deleted_at IS NOT NULL,v.credential_state,v.valid_from,v.valid_until,b.state,b.policy_snapshot FROM vouchers v JOIN voucher_batches b ON b.id=v.batch_id WHERE " + where
 	if lock {
-		query += " FOR UPDATE"
+		query = "SELECT v.id,v.batch_id,v.secret_hash,v.version,v.credential_version,v.active,v.redeemed_at IS NOT NULL,v.deleted_at IS NOT NULL,v.credential_state,v.valid_from,v.valid_until,(SELECT state FROM voucher_batches WHERE id=v.batch_id),(SELECT policy_snapshot FROM voucher_batches WHERE id=v.batch_id) FROM vouchers v WHERE " + where + " FOR UPDATE"
 	}
 	e := q.QueryRowContext(ctx, query, value).Scan(&c.ID, &c.BatchID, &c.Hash, &c.Version, &c.CredentialVersion, &c.Active, &c.Redeemed, &c.Deleted, &c.State, &c.From, &c.Until, &c.BatchState, &raw)
 	if e == nil {
@@ -164,7 +164,7 @@ func (s *Service) Verify(ctx context.Context, a identity.Actor, in Credentials, 
 	}
 	defer tx.Rollback()
 	var state string
-	if e = tx.QueryRowContext(ctx, "SELECT state FROM voucher_batches WHERE id=? FOR UPDATE", c.BatchID).Scan(&state); e != nil {
+	if e = tx.QueryRowContext(ctx, "SELECT state FROM voucher_batches WHERE id=? FOR SHARE", c.BatchID).Scan(&state); e != nil {
 		return VerifyResult{}, e
 	}
 	current, e := s.card(ctx, tx, c.ID, "", true)
@@ -240,9 +240,19 @@ func (s *Service) Options(ctx context.Context, a identity.Actor) (Options, error
 // 返回值：有效配置或数据库、配置不可用错误。
 // 约束：不覆盖已有配置。
 func (s *Service) Configuration(ctx context.Context) (calendar.Config, error) {
+	return ReadConfiguration(ctx, s.DB)
+}
+
+// ReadConfiguration 用途：从数据库或事务读取当前日历规则，不取得配置行锁。
+// 参数：ctx 上下文；q 支持单行查询的数据源。
+// 返回值：有效配置或读取、配置不可用错误；缺失使用默认值。
+// 并发：业务锁定日历后使用 READ COMMITTED 重读，避免反向取得配置锁。
+func ReadConfiguration(ctx context.Context, q interface {
+	QueryRowContext(context.Context, string, ...any) *sql.Row
+}) (calendar.Config, error) {
 	c := calendar.Default()
 	var raw []byte
-	e := s.DB.QueryRowContext(ctx, "SELECT value FROM system_configs WHERE config_key='shipping_calendar'").Scan(&raw)
+	e := q.QueryRowContext(ctx, "SELECT value FROM system_configs WHERE config_key='shipping_calendar'").Scan(&raw)
 	if e == sql.ErrNoRows {
 		return c, nil
 	}

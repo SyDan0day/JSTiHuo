@@ -4,15 +4,15 @@
 
 ## Outbox worker
 
-订单事务写event_key唯一事件，仅对象ID/版本/模板。worker小事务FOR UPDATE SKIP LOCKED领取最多20条，state=PROCESSING、lease60秒；提交后调用外部；超时10秒（连接3秒），不持DB事务等待外网。成功短事务记DONE/notification SENT；失败attempt+1，1m/5m/30m/2h/12h最多5次后DEAD，人工retry只能FAILED/DEAD且查权限。lease过期可再领，因此至少一次交付，不宣称Exactly Once。
+订单事务写event_key唯一事件，仅对象ID/版本/模板。worker小事务FOR UPDATE SKIP LOCKED领取最多20条，state=PROCESSING、lease60秒；提交后调用外部；超时10秒（连接3秒），不持DB事务等待外网。成功短事务记DONE/notification SENT；每次调用计入 attempts，前四次确定失败分别退避 1m/5m/30m/2h，包含首次在内最多五次，第五次失败进入 DEAD，人工retry只能FAILED/DEAD且查权限。lease过期可再领，因此至少一次交付，不宣称Exactly Once。
 
 支持供应商幂等键时沿用event_key；不支持且调用超时结果未知，记UNKNOWN并Lookup/人工核对，禁止盲目重发短信/面单。内部事件如图片清理可安全重复。通知关闭写SUPPRESSED且Outbox DONE保留审计；MOCK记录模拟结果不发外网，公开界面标“测试轨迹”。管理员通知没有配置收件对象则SUPPRESSED，不发送任意地址。
 
 ## 运单与轨迹
 
-原发全单，禁止部分发货，carrier+tracking唯一且shipment_key=order:{id}:primary。tracking只允许ASCII字母数字连字符3..80；provider规则可更严格但不可静默截断。自动运单job创建和version绑定，运行时订单锁检查PENDING；READY单号仍需人工确认发货，确认必须与该job返回单号一致；取消/改址遇到RUNNING/READY/UNKNOWN job返回409，需供应商确认撤销后才能继续（v1不提供自动撤销，客服用人工流程标记已核对）。未配置供应商不得产生真实运单。
+原发全单，禁止部分发货，carrier+tracking唯一且shipment_key=primary:{id}。tracking只允许ASCII字母数字连字符3..80；provider规则可更严格但不可静默截断。自动运单job创建和version绑定，运行时订单锁检查PENDING；READY单号仍需人工确认发货，确认必须与该job返回单号一致；取消/改址遇到RUNNING/READY/UNKNOWN job返回409，需供应商确认撤销后才能继续（v1不提供自动撤销，客服用人工流程标记已核对）。未配置供应商不得产生真实运单。
 
-跟踪回调HMAC SHA256(timestamp+'.'+rawBody)、独立provider密钥；timestamp允许±5分钟，event ID持久去重，恒时比较；拒绝过大body>256KiB。发生时间只影响时间线，不让旧事件回退DELIVERED；description清洗不存个人详细地址。调度拉取每6小时，签收后停止，30天未签收改为人工异常，不自动完成；管理员可有理由确认完成。
+跟踪回调HMAC SHA256(timestamp+'.'+rawBody)、独立provider密钥；timestamp允许±5分钟，event ID持久去重，恒时比较；拒绝过大body>256KiB。发生时间只影响时间线，不让旧事件回退DELIVERED；description 不保存自由文本，按事件类型映射固定公开文案。调度拉取每6小时，签收后停止，30天未签收改为人工异常，不自动完成；管理员可有理由确认完成。
 
 ## 卡券导入
 

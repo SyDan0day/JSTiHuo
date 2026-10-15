@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useChallenge } from '../../composables/useChallenge';
+import PublicIcon from '../../components/PublicIcon.vue';
+import { flowError } from '../../api/flow-error';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { request, RequestError, setCsrf } from '../../api/client';
@@ -8,29 +11,8 @@ const router = useRouter(),
   store = useRedemption(),
   code = ref(''),
   secret = ref(''),
-  answer = ref(''),
-  challenge = ref<components['schemas']['Challenge']>(),
-  busy = ref(false),
-  error = ref('');
-
-/**
- * refresh 用途：创建预认证并换取 VOUCHER 专用挑战。
- * 参数：无，使用组件状态。
- * 返回值：完成操作的 Promise，无业务返回值。
- * 错误：失败显示可恢复错误，不保留答案。
- */
-async function refresh() {
-  try {
-    await request('/api/v1/session/bootstrap');
-    challenge.value = await request('/api/v1/challenges', {
-      method: 'POST',
-      body: JSON.stringify({ purpose: 'VOUCHER' }),
-    });
-    answer.value = '';
-  } catch {
-    error.value = '验证码加载失败，请重试';
-  }
-}
+  busy = ref(false);
+const { challenge, answer, loading, error, refresh } = useChallenge('VOUCHER');
 
 /**
  * verify 用途：提交凭证鉴真并进入选品或显示状态。
@@ -40,10 +22,10 @@ async function refresh() {
  * 约束：密码提交后及结束时立即清空，不放入store 或 URL。
  */
 async function verify() {
+  if (busy.value || loading.value || !challenge.value) return;
   busy.value = true;
   error.value = '';
   try {
-    if (!challenge.value) return;
     const body = JSON.stringify({
       code: code.value.trim().toUpperCase(),
       secret: secret.value,
@@ -51,10 +33,10 @@ async function verify() {
       challenge_answer: answer.value,
     });
     secret.value = '';
-    const v = await request<components['schemas']['Verification']>(
-      '/api/v1/voucher-sessions',
-      { method: 'POST', body },
-    );
+    const v = await request<components['schemas']['Verification']>('/api/v1/voucher-sessions', {
+      method: 'POST',
+      body,
+    });
     store.clear();
     store.verification = v;
     setCsrf(v.csrf_token, 'voucher');
@@ -72,24 +54,28 @@ async function verify() {
             RATE_LIMITED: '尝试过于频繁，请稍后重试',
             CHALLENGE_INVALID: '验证码无效，请重新输入',
             INVALID_CREDENTIALS: '卡号或密码不正确',
-          }[e.detail.code] ?? e.detail.code)
+          }[e.detail.code] ?? flowError(e))
         : '网络异常，请重试';
-    await refresh();
+    await refresh(true);
   } finally {
     secret.value = '';
     busy.value = false;
   }
 }
-onMounted(refresh);
+onMounted(() => refresh());
 </script>
 <template>
-  <main class="auth">
-    <RouterLink to="/">首页</RouterLink>
+  <section class="flow-page auth">
+    <RouterLink to="/">← 返回首页</RouterLink>
+    <div class="form-heading-icon"><PublicIcon name="shield" /></div>
+    <p class="eyebrow">YOUR GIFT STARTS HERE</p>
     <h1>卡券鉴真与提货</h1>
+    <p>准备好您的礼品卡，验证后即可查看专属礼遇。</p>
     <form @submit.prevent="verify">
       <label for="card-code">卡号</label
       ><input
         id="card-code"
+        placeholder="请输入礼品卡卡号"
         v-model="code"
         autocomplete="off"
         maxlength="32"
@@ -98,20 +84,26 @@ onMounted(refresh);
       /><label for="card-secret">卡密</label
       ><input
         id="card-secret"
+        placeholder="请输入礼品卡卡密"
         v-model="secret"
         type="password"
         autocomplete="off"
         maxlength="32"
         minlength="6"
         required
-      /><label for="captcha">四位图片验证码</label
-      ><img
-        v-if="challenge"
-        :src="challenge.image_data_url"
-        alt="四位数字验证码"
-      /><button type="button" :disabled="busy" @click="refresh">换一张</button
-      ><input
+      /><label for="captcha">四位图片验证码</label>
+      <div class="captcha-row">
+        <img v-if="challenge" :src="challenge.image_data_url" alt="四位数字验证码" /><button
+          type="button"
+          :disabled="busy || loading"
+          @click="refresh()"
+        >
+          {{ loading ? '加载中…' : '换一张' }}
+        </button>
+      </div>
+      <input
         id="captcha"
+        placeholder="请输入图片中的四位数字"
         v-model="answer"
         inputmode="numeric"
         autocomplete="off"
@@ -119,11 +111,18 @@ onMounted(refresh);
         minlength="4"
         required
       />
-      <p role="alert">{{ error }}</p>
-      <button :disabled="busy || !challenge">
+      <p role="alert" aria-live="polite">{{ error }}</p>
+      <button :disabled="busy || loading || !challenge">
         {{ busy ? '验证中…' : '鉴真并继续' }}
       </button>
     </form>
+    <div class="form-help">
+      <p>
+        卡密仅用于核验，请妥善保管。已有订单？<RouterLink to="/orders/query"
+          >查询订单进度 →</RouterLink
+        >
+      </p>
+    </div>
     <section v-if="store.verification">
       <h2>卡券真实</h2>
       <p>
@@ -143,5 +142,5 @@ onMounted(refresh);
       </p>
       <RouterLink to="/orders/query">查询已有订单</RouterLink>
     </section>
-  </main>
+  </section>
 </template>

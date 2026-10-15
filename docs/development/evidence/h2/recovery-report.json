@@ -1,0 +1,39 @@
+{
+  "database": "jst_restore_c24d3e44",
+  "full_bytes": 85030,
+  "binlog": {
+    "file": "mysql-bin.000004",
+    "start": 114471,
+    "stop": 114979
+  },
+  "increment_bytes": 5158,
+  "tamper_and_wrong_key_rejected": true,
+  "tables_compared": 38,
+  "rpo_seconds": 0,
+  "snapshot_to_increment_seconds": 5.506,
+  "images_verified": 1,
+  "verification": {
+    "balanced": true,
+    "product_ids_with_drift": [],
+    "checked_at": "2026-10-15T05:09:42.285348678Z",
+    "pii_records_checked": 1
+  },
+  "rto_seconds": 7.526,
+  "browser_verification_seconds": 3.192,
+  "browser_restored_passed": true,
+  "rollback": {
+    "ready_seconds": 1.836,
+    "with_browser_seconds": 4.062,
+    "source_database_preserved": true
+  },
+  "sample": {
+    "business_tables": 37,
+    "migration_table": 1,
+    "orders": 0,
+    "feedback": 1,
+    "public_images": 1,
+    "generated_vouchers": 1
+  },
+  "scope": "isolated localhost HTTPS; MANUAL/MOCK; no production deployment",
+  "rpo_note": "zero loss only for the declared frozen ROW binlog window; ongoing remote backup scheduling not deployed"
+}

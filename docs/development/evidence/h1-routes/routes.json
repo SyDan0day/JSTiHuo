@@ -1,0 +1,759 @@
+{
+  "entries": [
+    {
+      "template": "/admin/admins",
+      "path": "/admin/admins",
+      "resolved": "/admin/admins",
+      "headings": [
+        "管理员账户"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/roles",
+      "path": "/admin/roles",
+      "resolved": "/admin/roles",
+      "headings": [
+        "角色与操作权限"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/settings",
+      "path": "/admin/settings",
+      "resolved": "/admin/settings",
+      "headings": [
+        "预约与通知设置"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/audit",
+      "path": "/admin/audit",
+      "resolved": "/admin/audit",
+      "headings": [
+        "只读审计日志"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/regions",
+      "path": "/admin/regions",
+      "resolved": "/admin/regions",
+      "headings": [
+        "行政地区只读目录"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/tools/qr",
+      "path": "/admin/tools/qr",
+      "resolved": "/admin/tools/qr",
+      "headings": [
+        "公开入口二维码"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/orders/after-sales",
+      "path": "/orders/after-sales",
+      "resolved": "/orders/after-sales",
+      "headings": [
+        "售后申请与进度"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/after-sales",
+      "path": "/admin/after-sales",
+      "resolved": "/admin/after-sales",
+      "headings": [
+        "售后案件管理"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/notifications",
+      "path": "/admin/notifications",
+      "resolved": "/admin/notifications",
+      "headings": [
+        "通知任务"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/",
+      "path": "/",
+      "resolved": "/",
+      "headings": [
+        "美好心意从这里启程"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/pages/:slug",
+      "path": "/pages/guide",
+      "resolved": "/pages/guide",
+      "headings": [
+        "提货须知"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/home/index/index.html",
+      "path": "/home/index/index.html",
+      "resolved": "/",
+      "headings": [
+        "美好心意从这里启程"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/home/index/product.html",
+      "path": "/home/index/product.html",
+      "resolved": "/products",
+      "headings": [
+        "礼品目录"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/home/index/card_verify.html",
+      "path": "/home/index/card_verify.html",
+      "resolved": "/verify",
+      "headings": [
+        "卡券鉴真与提货"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/home/index/card_exchange.html",
+      "path": "/home/index/card_exchange.html",
+      "resolved": "/verify",
+      "headings": [
+        "卡券鉴真与提货"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/home/index/order_query.html",
+      "path": "/home/index/order_query.html",
+      "resolved": "/orders/query",
+      "headings": [
+        "查询提货订单"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/home/index/about_us.html",
+      "path": "/home/index/about_us.html",
+      "resolved": "/pages/about",
+      "headings": [
+        "关于礼品提货"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/home/index/contact_us.html",
+      "path": "/home/index/contact_us.html",
+      "resolved": "/pages/contact",
+      "headings": [
+        "联系我们"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/home/index/notice.html",
+      "path": "/home/index/notice.html",
+      "resolved": "/pages/notice",
+      "headings": [
+        "预约与提货提醒"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/feedback",
+      "path": "/feedback",
+      "resolved": "/feedback",
+      "headings": [
+        "售后反馈"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/feedback",
+      "path": "/admin/feedback",
+      "resolved": "/admin/feedback",
+      "headings": [
+        "反馈处理"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/home/index/feedback.html",
+      "path": "/home/index/feedback.html",
+      "resolved": "/feedback",
+      "headings": [
+        "售后反馈"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/verify",
+      "path": "/verify",
+      "resolved": "/verify",
+      "headings": [
+        "卡券鉴真与提货"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/redeem",
+      "path": "/redeem",
+      "resolved": "/verify",
+      "headings": [
+        "卡券鉴真与提货"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/redeem/select",
+      "path": "/redeem/select",
+      "resolved": "/redeem/select",
+      "headings": [
+        "选择提货商品"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/redeem/address",
+      "path": "/redeem/address",
+      "resolved": "/redeem/address",
+      "headings": [
+        "收货与预约"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/redeem/confirm",
+      "path": "/redeem/confirm",
+      "resolved": "/redeem/select",
+      "headings": [
+        "选择提货商品"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/orders/query",
+      "path": "/orders/query",
+      "resolved": "/orders/query",
+      "headings": [
+        "查询提货订单"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/orders/edit",
+      "path": "/orders/edit",
+      "resolved": "/orders/edit",
+      "headings": [
+        "修改收货信息"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/orders/result",
+      "path": "/orders/result",
+      "resolved": "/orders/result",
+      "headings": [
+        "提货订单"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/orders/tracking",
+      "path": "/orders/tracking",
+      "resolved": "/orders/tracking",
+      "headings": [
+        "订单物流"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/carriers",
+      "path": "/admin/carriers",
+      "resolved": "/admin/carriers",
+      "headings": [
+        "承运商目录"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/pickups",
+      "path": "/admin/pickups",
+      "resolved": "/admin/pickups",
+      "headings": [
+        "到店核销"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/orders/:id/ship",
+      "path": "/admin/orders/2/ship",
+      "resolved": "/admin/orders/2/ship",
+      "headings": [
+        "全单人工发货"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/products",
+      "path": "/products",
+      "resolved": "/products",
+      "headings": [
+        "礼品目录"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/files",
+      "path": "/admin/files",
+      "resolved": "/admin/files",
+      "headings": [
+        "导入与导出"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/products/:id",
+      "path": "/products/7",
+      "resolved": "/products/7",
+      "headings": [
+        "验收礼品 C mv93okki"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/content",
+      "path": "/admin/content",
+      "resolved": "/admin/content",
+      "headings": [
+        "内容管理"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/content/new",
+      "path": "/admin/content/new",
+      "resolved": "/admin/content/new",
+      "headings": [
+        "新增内容"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/content/:id",
+      "path": "/admin/content/6",
+      "resolved": "/admin/content/6",
+      "headings": [
+        "查看与编辑内容"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/content/:id/edit",
+      "path": "/admin/content/6/edit",
+      "resolved": "/admin/content/6",
+      "headings": [
+        "查看与编辑内容"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/orders/:id/edit",
+      "path": "/admin/orders/2/edit",
+      "resolved": "/admin/orders/2/edit",
+      "headings": [
+        "修改收货信息"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/orders/:id",
+      "path": "/admin/orders/2",
+      "resolved": "/admin/orders/2",
+      "headings": [
+        "订单详情"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/orders",
+      "path": "/admin/orders",
+      "resolved": "/admin/orders",
+      "headings": [
+        "订单管理"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/voucher-types",
+      "path": "/admin/voucher-types",
+      "resolved": "/admin/voucher-types",
+      "headings": [
+        "卡型与批次"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/voucher-batches",
+      "path": "/admin/voucher-batches",
+      "resolved": "/admin/voucher-batches",
+      "headings": [
+        "卡型与批次"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/voucher-batches/new",
+      "path": "/admin/voucher-batches/new",
+      "resolved": "/admin/voucher-batches/new",
+      "headings": [
+        "卡型与批次"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/voucher-batches/:id",
+      "path": "/admin/voucher-batches/1",
+      "resolved": "/admin/voucher-batches/1",
+      "headings": [
+        "批次详情"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/vouchers",
+      "path": "/admin/vouchers",
+      "resolved": "/admin/vouchers",
+      "headings": [
+        "卡券查询与发行"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/inventory",
+      "path": "/admin/inventory",
+      "resolved": "/admin/inventory",
+      "headings": [
+        "库存余额"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/inventory/documents",
+      "path": "/admin/inventory/documents",
+      "resolved": "/admin/inventory/documents",
+      "headings": [
+        "入出库单与审核"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/products",
+      "path": "/admin/products",
+      "resolved": "/admin/products",
+      "headings": [
+        "商品管理"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/products/new",
+      "path": "/admin/products/new",
+      "resolved": "/admin/products/new",
+      "headings": [
+        "新增商品"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/products/:id/edit",
+      "path": "/admin/products/7/edit",
+      "resolved": "/admin/products/7/edit",
+      "headings": [
+        "编辑商品"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/login",
+      "path": "/admin/login",
+      "resolved": "/admin/login",
+      "headings": [
+        "管理员登录"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/change-password",
+      "path": "/admin/change-password",
+      "resolved": "/admin/change-password",
+      "headings": [
+        "修改密码"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin/security",
+      "path": "/admin/security",
+      "resolved": "/admin/security",
+      "headings": [
+        "敏感操作复核"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    {
+      "template": "/admin",
+      "path": "/admin",
+      "resolved": "/admin",
+      "headings": [
+        "管理工作台"
+      ],
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    }
+  ],
+  "note": "任务动态路由由 G1/G2 实际 worker 浏览器用例覆盖；缺少顾客 Cookie 的页面验证真实拒绝与恢复状态。"
+}

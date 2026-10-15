@@ -1,0 +1,1531 @@
+{
+  "generated": "由 OpenAPI 自动生成；禁止手工编辑",
+  "sha256": "8962771126d6740b40c70a924bd7ac5223ed3da6b1647c86ea9e52276b069816",
+  "operations": [
+    {
+      "id": "bootstrap",
+      "method": "GET",
+      "path": "/api/v1/session/bootstrap",
+      "security": [],
+      "permission": "public",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "createChallenge",
+      "method": "POST",
+      "path": "/api/v1/challenges",
+      "security": [
+        {
+          "preauthCookie": []
+        }
+      ],
+      "permission": "preauth.scoped",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "adminLogin",
+      "method": "POST",
+      "path": "/api/v1/admin/session",
+      "security": [
+        {
+          "preauthCookie": []
+        }
+      ],
+      "permission": "preauth.scoped",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "adminSession",
+      "method": "GET",
+      "path": "/api/v1/admin/session",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "admin.scoped",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "adminLogout",
+      "method": "DELETE",
+      "path": "/api/v1/admin/session",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "admin.scoped",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "adminReauth",
+      "method": "POST",
+      "path": "/api/v1/admin/session/reauth",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "admin.scoped",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "publicProducts",
+      "method": "GET",
+      "path": "/api/v1/products",
+      "security": [],
+      "permission": "public",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "publicContent",
+      "method": "GET",
+      "path": "/api/v1/content",
+      "security": [],
+      "permission": "public",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "regions",
+      "method": "GET",
+      "path": "/api/v1/regions",
+      "security": [],
+      "permission": "public",
+      "json_body": false,
+      "query": [
+        "parent_code"
+      ]
+    },
+    {
+      "id": "publicProduct",
+      "method": "GET",
+      "path": "/api/v1/products/{id}",
+      "security": [],
+      "permission": "public",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "publicContentPage",
+      "method": "GET",
+      "path": "/api/v1/content/{slug}",
+      "security": [],
+      "permission": "public",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "verifyVoucher",
+      "method": "POST",
+      "path": "/api/v1/voucher-sessions",
+      "security": [
+        {
+          "preauthCookie": []
+        }
+      ],
+      "permission": "preauth.scoped",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "redemptionOptions",
+      "method": "GET",
+      "path": "/api/v1/redemption/options",
+      "security": [
+        {
+          "voucherCookie": []
+        }
+      ],
+      "permission": "voucher.scoped",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "redemptionCalendar",
+      "method": "GET",
+      "path": "/api/v1/redemption/calendar",
+      "security": [
+        {
+          "voucherCookie": []
+        },
+        {
+          "orderCookie": []
+        }
+      ],
+      "permission": "voucher.scoped 或 order.scoped（仅自身待发订单改期建议）",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "redeem",
+      "method": "POST",
+      "path": "/api/v1/redemptions",
+      "security": [
+        {
+          "voucherCookie": []
+        }
+      ],
+      "permission": "voucher.WRITE scoped; idempotent replay precedes current redeemability checks",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "queryOrder",
+      "method": "POST",
+      "path": "/api/v1/order-sessions",
+      "security": [
+        {
+          "preauthCookie": []
+        }
+      ],
+      "permission": "preauth.scoped",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "orderStepUp",
+      "method": "POST",
+      "path": "/api/v1/order-session/step-up",
+      "security": [
+        {
+          "orderCookie": []
+        }
+      ],
+      "permission": "order.scoped",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "customerOrder",
+      "method": "GET",
+      "path": "/api/v1/order",
+      "security": [
+        {
+          "orderCookie": []
+        }
+      ],
+      "permission": "order.scoped",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "customerOrderEdit",
+      "method": "PATCH",
+      "path": "/api/v1/order",
+      "security": [
+        {
+          "orderCookie": []
+        }
+      ],
+      "permission": "order.WRITE scoped; must own order",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "customerShipments",
+      "method": "GET",
+      "path": "/api/v1/order/shipments",
+      "security": [
+        {
+          "orderCookie": []
+        }
+      ],
+      "permission": "order.scoped",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "customerTracking",
+      "method": "GET",
+      "path": "/api/v1/shipments/{id}/events",
+      "security": [
+        {
+          "orderCookie": []
+        }
+      ],
+      "permission": "order.scoped",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "customerAfterSale",
+      "method": "POST",
+      "path": "/api/v1/order/after-sales",
+      "security": [
+        {
+          "orderCookie": []
+        }
+      ],
+      "permission": "order.WRITE scoped; must own order",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "customerAfterSales",
+      "method": "GET",
+      "path": "/api/v1/order/after-sales",
+      "security": [
+        {
+          "orderCookie": []
+        }
+      ],
+      "permission": "order.scoped",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "createFeedback",
+      "method": "POST",
+      "path": "/api/v1/feedback",
+      "security": [
+        {
+          "preauthCookie": []
+        }
+      ],
+      "permission": "preauth.scoped",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "listProduct",
+      "method": "GET",
+      "path": "/api/v1/admin/products",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "product.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "createProduct",
+      "method": "POST",
+      "path": "/api/v1/admin/products",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "product.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "getProduct",
+      "method": "GET",
+      "path": "/api/v1/admin/products/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "product.read",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "updateProduct",
+      "method": "PATCH",
+      "path": "/api/v1/admin/products/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "product.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "listCarrier",
+      "method": "GET",
+      "path": "/api/v1/admin/carriers",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "carrier.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "createCarrier",
+      "method": "POST",
+      "path": "/api/v1/admin/carriers",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "carrier.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "getCarrier",
+      "method": "GET",
+      "path": "/api/v1/admin/carriers/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "carrier.read",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "updateCarrier",
+      "method": "PATCH",
+      "path": "/api/v1/admin/carriers/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "carrier.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "listAdmin",
+      "method": "GET",
+      "path": "/api/v1/admin/admins",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "admin.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "createAdmin",
+      "method": "POST",
+      "path": "/api/v1/admin/admins",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "admin.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "getAdmin",
+      "method": "GET",
+      "path": "/api/v1/admin/admins/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "admin.read",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "updateAdmin",
+      "method": "PATCH",
+      "path": "/api/v1/admin/admins/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "admin.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "listRole",
+      "method": "GET",
+      "path": "/api/v1/admin/roles",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "role.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "createRole",
+      "method": "POST",
+      "path": "/api/v1/admin/roles",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "role.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "getRole",
+      "method": "GET",
+      "path": "/api/v1/admin/roles/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "role.read",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "updateRole",
+      "method": "PATCH",
+      "path": "/api/v1/admin/roles/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "role.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "listContent",
+      "method": "GET",
+      "path": "/api/v1/admin/content",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "content.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "createContent",
+      "method": "POST",
+      "path": "/api/v1/admin/content",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "content.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "getContent",
+      "method": "GET",
+      "path": "/api/v1/admin/content/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "content.read",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "updateContent",
+      "method": "PATCH",
+      "path": "/api/v1/admin/content/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "content.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "productStatus",
+      "method": "POST",
+      "path": "/api/v1/admin/products/{id}/status",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "product.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "categories",
+      "method": "GET",
+      "path": "/api/v1/admin/categories",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "product.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "createCategory",
+      "method": "POST",
+      "path": "/api/v1/admin/categories",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "product.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "voucherTypes",
+      "method": "GET",
+      "path": "/api/v1/admin/voucher-types",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "voucher.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "createVoucherType",
+      "method": "POST",
+      "path": "/api/v1/admin/voucher-types",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "voucher.generate",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "batches",
+      "method": "GET",
+      "path": "/api/v1/admin/voucher-batches",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "voucher.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "createBatch",
+      "method": "POST",
+      "path": "/api/v1/admin/voucher-batches",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "voucher.generate",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "getBatch",
+      "method": "GET",
+      "path": "/api/v1/admin/voucher-batches/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "voucher.read",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "generateBatch",
+      "method": "POST",
+      "path": "/api/v1/admin/voucher-batches/{id}/generate",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "voucher.generate",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "sealBatch",
+      "method": "POST",
+      "path": "/api/v1/admin/voucher-batches/{id}/seal",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "voucher.seal",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "vouchers",
+      "method": "GET",
+      "path": "/api/v1/admin/vouchers",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "voucher.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort",
+        "batch_id",
+        "active",
+        "redeemed"
+      ]
+    },
+    {
+      "id": "getVoucher",
+      "method": "GET",
+      "path": "/api/v1/admin/vouchers/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "voucher.read",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "editVoucher",
+      "method": "PATCH",
+      "path": "/api/v1/admin/vouchers/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "voucher.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "bulkVouchers",
+      "method": "POST",
+      "path": "/api/v1/admin/vouchers/actions",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "voucher.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "resetSecret",
+      "method": "POST",
+      "path": "/api/v1/admin/vouchers/{id}/reset-secret",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "voucher.secret.reset",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "sealVoucher",
+      "method": "POST",
+      "path": "/api/v1/admin/vouchers/{id}/seal",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "voucher.seal",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "orders",
+      "method": "GET",
+      "path": "/api/v1/admin/orders",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "order.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort",
+        "deleted",
+        "ship_date"
+      ]
+    },
+    {
+      "id": "getOrder",
+      "method": "GET",
+      "path": "/api/v1/admin/orders/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "order.read",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "adminOrderEdit",
+      "method": "PATCH",
+      "path": "/api/v1/admin/orders/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "order.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "privateOrder",
+      "method": "POST",
+      "path": "/api/v1/admin/orders/{id}/private-view",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "order.pii",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "orderCancel",
+      "method": "POST",
+      "path": "/api/v1/admin/orders/{id}/cancel",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "order.cancel",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "orderComplete",
+      "method": "POST",
+      "path": "/api/v1/admin/orders/{id}/complete",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "order.complete",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "orderTrash",
+      "method": "POST",
+      "path": "/api/v1/admin/orders/{id}/trash",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "order.trash",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "orderRestore",
+      "method": "POST",
+      "path": "/api/v1/admin/orders/{id}/restore",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "order.restore",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "pickup",
+      "method": "POST",
+      "path": "/api/v1/admin/pickups",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "order.pickup",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "inventory",
+      "method": "GET",
+      "path": "/api/v1/admin/inventory",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "inventory.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "inventoryLedger",
+      "method": "GET",
+      "path": "/api/v1/admin/inventory/transactions",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "inventory.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort",
+        "product_id"
+      ]
+    },
+    {
+      "id": "stockDocuments",
+      "method": "GET",
+      "path": "/api/v1/admin/inventory/documents",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "inventory.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort",
+        "direction"
+      ]
+    },
+    {
+      "id": "createStockDocument",
+      "method": "POST",
+      "path": "/api/v1/admin/inventory/documents",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "inventory.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "approveStockDocument",
+      "method": "POST",
+      "path": "/api/v1/admin/inventory/documents/{id}/approve",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "inventory.approve",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "rejectStockDocument",
+      "method": "POST",
+      "path": "/api/v1/admin/inventory/documents/{id}/reject",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "inventory.approve",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "inventoryReconcile",
+      "method": "GET",
+      "path": "/api/v1/admin/inventory/reconciliation",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "inventory.read",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "shipOrder",
+      "method": "POST",
+      "path": "/api/v1/admin/orders/{id}/shipments",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "order.ship",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "adminOrderShipments",
+      "method": "GET",
+      "path": "/api/v1/admin/orders/{id}/shipments",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "order.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "autoLabel",
+      "method": "POST",
+      "path": "/api/v1/admin/orders/{id}/label-jobs",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "order.ship",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "trackingWebhook",
+      "method": "POST",
+      "path": "/api/v1/integrations/{provider}/tracking-events",
+      "security": [
+        {
+          "providerSignature": []
+        }
+      ],
+      "permission": "provider.scoped",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "afterSales",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "after_sale.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort",
+        "order_id"
+      ]
+    },
+    {
+      "id": "decideAfterSale",
+      "method": "POST",
+      "path": "/api/v1/admin/after-sales/{id}/decision",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "after_sale.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "replacementShipment",
+      "method": "POST",
+      "path": "/api/v1/admin/after-sales/{id}/shipments",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "order.ship",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "feedbackList",
+      "method": "GET",
+      "path": "/api/v1/admin/feedback",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "feedback.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "resolveFeedback",
+      "method": "POST",
+      "path": "/api/v1/admin/feedback/{id}/resolve",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "feedback.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "permissions",
+      "method": "GET",
+      "path": "/api/v1/admin/permissions",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "role.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "auditLogs",
+      "method": "GET",
+      "path": "/api/v1/admin/audit-logs",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "audit.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort",
+        "entity_type",
+        "entity_id"
+      ]
+    },
+    {
+      "id": "getConfig",
+      "method": "GET",
+      "path": "/api/v1/admin/config",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "config.read",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "updateConfig",
+      "method": "PUT",
+      "path": "/api/v1/admin/config",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "config.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "dashboard",
+      "method": "GET",
+      "path": "/api/v1/admin/dashboard",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "dashboard.read",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "notifications",
+      "method": "GET",
+      "path": "/api/v1/admin/notifications",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "notification.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "retryNotification",
+      "method": "POST",
+      "path": "/api/v1/admin/notifications/{id}/retry",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "notification.retry",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "files",
+      "method": "GET",
+      "path": "/api/v1/admin/files",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "file.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "uploadFile",
+      "method": "POST",
+      "path": "/api/v1/admin/files",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "file.write",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "downloadFile",
+      "method": "POST",
+      "path": "/api/v1/admin/files/{id}/download",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "file.read；CREDENTIAL_EXPORT额外voucher.export + recent reauth",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "importJob",
+      "method": "POST",
+      "path": "/api/v1/admin/import-jobs",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "file.import",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "commitImport",
+      "method": "POST",
+      "path": "/api/v1/admin/import-jobs/{id}/commit",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "file.import",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "exportJob",
+      "method": "POST",
+      "path": "/api/v1/admin/export-jobs",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "file.export",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "getJob",
+      "method": "GET",
+      "path": "/api/v1/admin/jobs/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "file.read plus permission of originating job kind and ownership",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "changePassword",
+      "method": "POST",
+      "path": "/api/v1/admin/session/password",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "self.password",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "voucherSession",
+      "method": "GET",
+      "path": "/api/v1/voucher-session",
+      "security": [
+        {
+          "voucherCookie": []
+        }
+      ],
+      "permission": "voucher.scoped",
+      "json_body": false,
+      "query": []
+    },
+    {
+      "id": "resolveJob",
+      "method": "POST",
+      "path": "/api/v1/admin/jobs/{id}/resolve",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "integration.manage",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "resolveNotification",
+      "method": "POST",
+      "path": "/api/v1/admin/notifications/{id}/resolve",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "notification.manage",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "setInventoryWarning",
+      "method": "PATCH",
+      "path": "/api/v1/admin/inventory/{id}/warning",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "inventory.write",
+      "json_body": true,
+      "query": []
+    },
+    {
+      "id": "adminShipmentEvents",
+      "method": "GET",
+      "path": "/api/v1/admin/shipments/{id}/events",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "order.read",
+      "json_body": false,
+      "query": [
+        "after_id",
+        "limit",
+        "q",
+        "status",
+        "sort"
+      ]
+    },
+    {
+      "id": "getAfterSale",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/{id}",
+      "security": [
+        {
+          "adminCookie": []
+        }
+      ],
+      "permission": "after_sale.read",
+      "json_body": false,
+      "query": []
+    }
+  ]
+}

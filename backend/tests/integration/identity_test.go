@@ -56,6 +56,10 @@ func solve(t *testing.T, data string) string {
 	}
 	return answer
 }
+
+// TestIdentity 用途：验证真实管理员认证、会话轮换及访问边界。
+// 参数：t 测试上下文，需显式隔离 MySQL。
+// 返回值：无，协议或业务不变量不符时测试失败。
 func TestIdentity(t *testing.T) {
 	dsn := os.Getenv("TEST_DB_DSN")
 	if dsn == "" {
@@ -80,7 +84,7 @@ func TestIdentity(t *testing.T) {
 	if svc.CreateInitialAdmin(ctx, "second-admin", "Temporary-Password-123") == nil {
 		t.Fatal("bootstrap allowed twice")
 	}
-	h := transport.Router(func(context.Context) error { return nil }, slog.New(slog.NewTextHandler(io.Discard, nil)), transport.IdentityHandler{Service: svc, Origin: "http://localhost:8080", Development: true})
+	h := contractHTTP(t, transport.Router(func(context.Context) error { return nil }, slog.New(slog.NewTextHandler(io.Discard, nil)), transport.IdentityHandler{Service: svc, Origin: "http://localhost:8080", Development: true}))
 	call := func(method, path string, body any, cookie *http.Cookie, csrf, key, origin string) *httptest.ResponseRecorder {
 		var b bytes.Buffer
 		if body != nil {

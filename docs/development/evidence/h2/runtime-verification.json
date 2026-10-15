@@ -1,0 +1,40 @@
+{
+  "api": {
+    "pid1_uid": 10001,
+    "read_only_rootfs": true,
+    "image_id": "sha256:2291faf44fe2d2ef9f90a5e01cf04c1bcaf2299aa59b70f43cf2f5de0fd518f4",
+    "cap_drop": [
+      "ALL"
+    ],
+    "ports": {}
+  },
+  "worker": {
+    "pid1_uid": 10001,
+    "read_only_rootfs": true,
+    "image_id": "sha256:d154ca3449f8a7b47268fb3a6d4edd4d69cc3d68e42379868585c7861103be6c",
+    "cap_drop": [
+      "ALL"
+    ],
+    "ports": {}
+  },
+  "proxy": {
+    "pid1_uid": 101,
+    "read_only_rootfs": true,
+    "image_id": "sha256:d2dfd4d17ed9685a7d9686a4005d212c083337b14476e5549b70e641967e9167",
+    "cap_drop": [
+      "ALL"
+    ],
+    "ports": {
+      "80/tcp": null,
+      "8443/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "28443"
+        }
+      ]
+    }
+  },
+  "mysql": {
+    "host_port_exposed": false
+  }
+}

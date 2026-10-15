@@ -26,6 +26,7 @@ import (
 	"jstihuo/internal/app/catalog"
 	"jstihuo/internal/app/identity"
 	"jstihuo/internal/app/inventory"
+	"jstihuo/internal/app/operations"
 	"jstihuo/internal/app/order"
 	"jstihuo/internal/app/redemption"
 	"jstihuo/internal/app/shipping"
@@ -38,17 +39,18 @@ import (
 )
 
 type fulfillmentFixture struct {
-	db       *sql.DB
-	auth     *identity.Service
-	orders   *order.Service
-	vouchers *voucher.Service
-	carriers *shipping.Service
-	admin    identity.Actor
-	handler  http.Handler
-	now      time.Time
-	products []string
-	cards    [][]string
-	client   *fulfillmentClient
+	db         *sql.DB
+	auth       *identity.Service
+	orders     *order.Service
+	vouchers   *voucher.Service
+	carriers   *shipping.Service
+	operations *operations.Service
+	admin      identity.Actor
+	handler    http.Handler
+	now        time.Time
+	products   []string
+	cards      [][]string
+	client     *fulfillmentClient
 }
 type fulfillmentClient struct {
 	t       *testing.T
@@ -186,7 +188,13 @@ func newFulfillment(t *testing.T) *fulfillmentFixture {
 	api = transport.WithRedemption(redeem, auth, api)
 	api = transport.WithOrders(f.orders, auth, api)
 	api = transport.WithShipping(f.carriers, f.orders, auth, api)
-	f.handler = transport.Router(func(context.Context) error { return nil }, slog.New(slog.NewTextHandler(io.Discard, nil)), api)
+	operating := operations.New(db, f.auth, redeem.PII, key)
+	operating.Now, operating.Test, operating.FileRoot = f.auth.Now, true, root
+	operating.FileKeys = crypt.Keyring{Active: 1, Keys: f.vouchers.ExportKeys}
+	operating.Orders, operating.Vouchers = f.orders, f.vouchers
+	f.operations = operating
+	api = transport.WithOperations(operating, auth, api)
+	f.handler = contractHTTP(t, transport.Router(func(context.Context) error { return nil }, slog.New(slog.NewTextHandler(io.Discard, nil)), api))
 	f.client = &fulfillmentClient{t: t, handler: f.handler, cookies: map[string]*http.Cookie{}, tokens: map[string]string{}}
 	cid, answer := f.client.challenge("LOGIN")
 	session := response[identity.Session](t, f.client.call("POST", "admin/session", identity.Credentials{Login: "fulfillment-admin", Password: password, ChallengeID: cid, Answer: answer}, "preauth", ""), 200)

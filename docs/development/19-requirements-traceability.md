@@ -1,6 +1,6 @@
 # 19 需求—证据—实现追踪
 
-全表实施映射为 **DESIGN_DECISION**。E01–E12见[调查基线](01-research-baseline.md)；M01–M52见[后台矩阵](11-admin-design.md)；T01–T22见[测试](15-testing-and-acceptance.md)。本轮没有执行业务用例。
+全表实施映射为 **DESIGN_DECISION**。E01–E12见[调查基线](01-research-baseline.md)；M01–M52见[后台矩阵](11-admin-design.md)；T01–T22见[测试](15-testing-and-acceptance.md)。A1–H2 实际业务、真实 MySQL 与浏览器结果见各包 delivery.md，最终验收见 H1/H2。
 
 每个API路径/页面/权限/输入输出的权威字段在[OpenAPI](openapi.yaml)，本表连接Service、领域表与验收。表集合表示该流程可能参与的表，不表示每个GET都会写所有表；具体事务边界见04/13及x-transaction。所有写操作还涉及audit_logs；幂等业务操作涉及idempotency_keys，异步业务涉及outbox_events。
 
@@ -23,7 +23,7 @@
 
 ## API逐操作落点
 
-Handler为internal/transport/http/handlers/{模块}.go，Service位于internal/app/{模块}/service.go；以下模块中的斜线代表跨服务协调，通过同一个UnitOfWork连接，不能分别提交事务。每项还须执行OpenAPI x-tests内该operationId的OK/DENY/BOUNDARY三类契约用例。
+Handler 实际位于 backend/internal/transport/http，Service 位于 backend/internal/app 各领域模块；以下模块中的斜线代表跨服务协调，使用同一个事务，不能分别提交。每项须执行 OpenAPI x-tests 的 OK/DENY/BOUNDARY 契约用例；H1 已记录 106 操作真实成功响应与适用安全边界。
 
 |operationId|前端页面|Service/流程|事务|测试及实施包|
 |---|---|---|---|---|

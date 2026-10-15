@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { flowError } from '../../api/flow-error';
 import { ref, onMounted } from 'vue';
 import { request, RequestError } from '../../api/client';
 import type { components } from '../../api/generated/schema';
@@ -24,7 +25,7 @@ async function load() {
   try {
     order.value = await request('/api/v1/order');
   } catch (e) {
-    error.value = e instanceof RequestError ? e.detail.code : '读取失败，请重试';
+    error.value = e instanceof RequestError ? flowError(e) : '读取失败，请重试';
   } finally {
     busy.value = false;
   }
@@ -32,7 +33,7 @@ async function load() {
 onMounted(load);
 </script>
 <template>
-  <main>
+  <section class="flow-page">
     <RouterLink to="/">首页</RouterLink>
     <h1>提货订单</h1>
     <p role="alert">{{ error }}</p>
@@ -48,9 +49,12 @@ onMounted(load);
       <p>{{ order.recipient.region }}</p>
       <p>备注：{{ order.customer_note || '无' }}</p>
       <RouterLink to="/orders/tracking">查看物流</RouterLink>
+      <RouterLink v-if="['SHIPPED', 'COMPLETED'].includes(order.status)" to="/orders/after-sales"
+        >售后申请与进度</RouterLink
+      >
       <RouterLink v-if="order.status === 'PENDING' && !order.deleted" to="/orders/edit"
         >修改收货信息</RouterLink
       ></template
-    ><RouterLink v-if="error === 'AUTH_REQUIRED'" to="/orders/query">查询订单</RouterLink>
-  </main>
+    ><RouterLink v-if="error" to="/orders/query">查询订单</RouterLink>
+  </section>
 </template>

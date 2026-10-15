@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { flowError } from '../../api/flow-error';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { request, RequestError } from '../../api/client';
@@ -17,6 +18,7 @@ const store = useRedemption(),
  * 约束：网络/服务端异常保留相同正文和幂等键，确定业务失败允许重新修改。
  */
 async function submit() {
+  if (busy.value) return;
   store.pending ??= {
     body: JSON.stringify({
       policy_version: store.options?.policy_version,
@@ -47,29 +49,21 @@ async function submit() {
             REGION_RESTRICTED: '所选商品不配送到该地区',
             DATE_UNAVAILABLE: '日期或商品有效期已变化，请重新选择',
             SELECTION_INVALID: '商品选择不符合权益规则',
-          }[e.detail.code] ?? e.detail.code)
+          }[e.detail.code] ?? flowError(e))
         : '结果尚未确认，请使用原请求重试';
-    if (
-      e instanceof RequestError &&
-      e.status < 500 &&
-      e.detail.code !== 'ALREADY_REDEEMED'
-    )
+    if (e instanceof RequestError && e.status < 500 && e.detail.code !== 'ALREADY_REDEEMED')
       store.pending = undefined;
   } finally {
     busy.value = false;
   }
 }
 onMounted(() => {
-  if (
-    !store.options ||
-    store.selected.length !== store.options.selection_count ||
-    !store.date
-  )
+  if (!store.options || store.selected.length !== store.options.selection_count || !store.date)
     router.replace('/redeem/select');
 });
 </script>
 <template>
-  <main class="auth">
+  <section class="flow-page auth">
     <h1>确认提货</h1>
     <p>提交后卡券将消费一次，并生成配送订单。</p>
     <ul>
@@ -78,12 +72,12 @@ onMounted(() => {
       </li>
     </ul>
     <p>{{ store.address.name }} · {{ store.address.phone }}</p>
-    <p>{{ store.address.detail }}</p>
+    <p>{{ store.regionLabel }} {{ store.address.detail }}</p>
     <p>预约发货日：{{ store.date }}</p>
     <p>备注：{{ store.note || '无' }}</p>
     <p role="alert">{{ error }}</p>
     <button :disabled="busy" @click="submit">
       {{ busy ? '正在确认…' : store.pending ? '重试原请求' : '确认提交' }}</button
     ><RouterLink v-if="!store.pending" to="/redeem/address">返回修改</RouterLink>
-  </main>
+  </section>
 </template>

@@ -25,4 +25,9 @@ func TestWindow(t *testing.T) {
 	if c.Allowed(time.Date(2026, 10, 12, 17, 0, 0, 0, Shanghai), "2026-10-14") {
 		t.Fatal("blackout")
 	}
+	c = Default()
+	c.MinLead = 0
+	if !c.Valid() || !c.Allowed(time.Date(2026, 10, 12, 16, 0, 0, 0, Shanghai), "2026-10-12") || c.Allowed(time.Date(2026, 10, 12, 17, 0, 0, 0, Shanghai), "2026-10-12") || c.Allowed(time.Date(2026, 10, 12, 16, 0, 0, 0, Shanghai), "2026-10-11") {
+		t.Fatal("零天提前量必须遵守截止与非过去日期约束")
+	}
 }
